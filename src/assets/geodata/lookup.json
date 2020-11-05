@@ -1,0 +1,172 @@
+{
+    "lookups":[
+       {
+          "Code":"Score",
+          "indiname":"Walkability Score"
+       },
+       {
+          "Code":"S1_0",
+          "indiname":"Land Use: Non-Commercial/Non-Entertainment Activities"
+       },
+       {
+          "Code":"S1_1",
+          "indiname":"Land Use: Mainly Commercial/Entertainment Activities"
+       },
+       {
+          "Code":"S2_0",
+          "indiname":"Parks/Plazas: No"
+       },
+       {
+          "Code":"S2_1",
+          "indiname":"Parks/Plazas: 1 Access Point"
+       },
+       {
+          "Code":"S2_2",
+          "indiname":"Parks/Plazas: 2+ Access Points"
+       },
+       {
+          "Code":"S3_0",
+          "indiname":"Transit Stops: No"
+       },
+       {
+          "Code":"S3_1",
+          "indiname":"Transit Stops: 1"
+       },
+       {
+          "Code":"S3_2",
+          "indiname":"Transit Stops: 2+"
+       },
+       {
+          "Code":"S4_0",
+          "indiname":"Public Seating: No"
+       },
+       {
+          "Code":"S4_1",
+          "indiname":"Public Seating: Yes"
+       },
+       {
+          "Code":"S5_0",
+          "indiname":"Street Lights: None"
+       },
+       {
+          "Code":"S5_1",
+          "indiname":"Street Lights: Some"
+       },
+       {
+          "Code":"S5_2",
+          "indiname":"Street Lights: Plenty"
+       },
+       {
+          "Code":"S6_0",
+          "indiname":"Buildings Well-maintained: No"
+       },
+       {
+          "Code":"S6_1",
+          "indiname":"Buildings Well-maintained: Yes"
+       },
+       {
+          "Code":"S7_0",
+          "indiname":"Graffitti: Yes"
+       },
+       {
+          "Code":"S7_1",
+          "indiname":"Graffitti: No"
+       },
+       {
+          "Code":"S8_0",
+          "indiname":"Bike Lane: No"
+       },
+       {
+          "Code":"S8_1",
+          "indiname":"Bike Lane: Painted Line"
+       },
+       {
+          "Code":"S8_2",
+          "indiname":"Bike Land: Protected from traffic"
+       },
+       {
+          "Code":"S9_0",
+          "indiname":"Sidewalk: Absent"
+       },
+       {
+          "Code":"S9_1",
+          "indiname":"Sidewalk: Present"
+       },
+       {
+          "Code":"S10_0",
+          "indiname":"Sidewalk Well-maintained: No or No Sidewalk Present"
+       },
+       {
+          "Code":"S10_1",
+          "indiname":"Sidewalk Well-maintained: Yes"
+       },
+       {
+          "Code":"S11_0",
+          "indiname":"Sidewalk Buffers: No or No Sidewalk Present"
+       },
+       {
+          "Code":"S11_1",
+          "indiname":"Sidewalk Buffers: Yes or Pedestrian Street"
+       },
+       {
+          "Code":"S12_0",
+          "indiname":"Sidewalk Shading/Overhead Coverage: 0% - 25% (length) or  No Sidewalk Present"
+       },
+       {
+          "Code":"S12_1",
+          "indiname":"Sidewalk Shading/Overhead Coverage: 26% - 75% (length)"
+       },
+       {
+          "Code":"S12_2",
+          "indiname":"Sidewalk Shading/Overhead Coverage: 76% - 100% (length)"
+       },
+       {
+          "Code":"S13_0",
+          "indiname":"Sidewalk Width: Less than 2 m or No Sidewalk Present"
+       },
+       {
+          "Code":"S13_1",
+          "indiname":"Sidewalk Width: Greater than 2 m"
+       },
+       {
+          "Code":"S14_0",
+          "indiname":"Traffic: More than 4 lanes"
+       },
+       {
+          "Code":"S14_1",
+          "indiname":"Traffic: 2 - 3 lanes"
+       },
+       {
+          "Code":"S14_2",
+          "indiname":"Traffic: Single lane or pedestrian street"
+       },
+       {
+          "Code":"C11_0",
+          "indiname":"Crossing - Pedestrian Walk Signal: No"
+       },
+       {
+          "Code":"C11_1",
+          "indiname":"Crossing - Pedestrian Walk Signal: Yes"
+       },
+       {
+          "Code":"C12_0",
+          "indiname":"Crossing - Curb ramp(s): No"
+       },
+       {
+          "Code":"C12_1",
+          "indiname":"Crossing - Curb ramp(s): Yes, At one curb only"
+       },
+       {
+          "Code":"C12_2",
+          "indiname":"Crossing - Curb ramp(s): Yes, at both pre- and post-crossing curbs"
+       },
+       {
+          "Code":"C13_0",
+          "indiname":"Crossing - Pedestrian Crosswalk: No"
+       },
+       {
+          "Code":"C13_1",
+          "indiname":"Crossing - Pedestrian Crosswalk: Yes"
+       }
+    ]
+ }
