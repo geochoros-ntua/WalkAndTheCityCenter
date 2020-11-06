@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -15,10 +15,22 @@ export class AppComponent {
   }
 
   public reloadMapPage(){ 
-  this.router.navigate(['app-map']).then(()=>{
-    window.location.reload();
-  }
-  );
+    console.log("reload map page")
+    //trick the router that navigation has not been used
+    this.router.navigated = false;
+    this.router.navigate(['app-map'])
+    
+    this.router.events.subscribe((evt) => {
+      
+      if (evt instanceof NavigationEnd) {
+        window.location.reload();
+      }
+    });
+  // this.router.navigate(['app-map']).then(()=>{
+  //   window.location.reload();
+  // }
+  // );
+  
   }
   
 }
