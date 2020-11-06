@@ -18,8 +18,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MapComponent } from './map/map.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { RouteReuseStrategy } from '@angular/router';
-import { CustomReuseStrategy } from './app.reuse.startegy';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+//import { CustomReuseStrategy } from './app.reuse.startegy';
+//import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 @NgModule({
   imports:      [
@@ -29,9 +29,6 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
    ],
   declarations: [ AppComponent, MapComponent, AboutUsComponent ],
   bootstrap:    [ AppComponent ],
-  providers: [{
-    provide: RouteReuseStrategy,
-    useClass: CustomReuseStrategy
-  }],
+  
 })
 export class AppModule { }
