@@ -19,12 +19,13 @@ import { MapComponent } from './map/map.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { RouteReuseStrategy } from '@angular/router';
 import { CustomReuseStrategy } from './app.reuse.startegy';
+import { MatSliderModule } from '@angular/material/slider';
 //import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 @NgModule({
   imports:      [
      BrowserModule, AppRoutingModule, FormsModule, FlexLayoutModule, BrowserAnimationsModule,
-     MatIconModule, MatButtonModule, MatSidenavModule, MatToolbarModule, MatSelectModule,
+     MatIconModule, MatButtonModule, MatSidenavModule, MatToolbarModule, MatSelectModule,MatSliderModule,
      MatMenuModule, MatProgressSpinnerModule
    ],
   declarations: [ AppComponent, MapComponent, AboutUsComponent ],

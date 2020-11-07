@@ -15,21 +15,14 @@ export class AppComponent {
   }
 
   public reloadMapPage(){ 
-    console.log("reload map page")
-    //trick the router that navigation has not been used
+   //trick the router that navigation has not been used
     this.router.navigated = false;
     this.router.navigate(['app-map'])
-    
     this.router.events.subscribe((evt) => {
-      
       if (evt instanceof NavigationEnd) {
         window.location.reload();
       }
     });
-  // this.router.navigate(['app-map']).then(()=>{
-  //   window.location.reload();
-  // }
-  // );
   
   }
   

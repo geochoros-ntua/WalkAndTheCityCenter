@@ -1,8 +1,11 @@
 import Feature from 'ol/Feature';
+import Map from 'ol/Map';
+import Layer from 'ol/layer';
 import Point from 'ol/geom/Point';
 import Polygon from 'ol/geom/Polygon';
 import Style from 'ol/style/Style';
 import Fill from 'ol/style/Fill';
+import Text from 'ol/style/Text';
 import Circle from 'ol/style/Circle';
 import Stroke from 'ol/style/Stroke';
 import OSM from 'ol/source/OSM';
@@ -51,6 +54,7 @@ export const initWalkabilityLayer = (): VectorLayer[] =>{
       visible:true,
       title: 'WALK',
       maxResolution: 50,
+      opacity:0.7,
       // style: styleFnWalkGrids,
       source:new Vector({
           format: new GeoJSON({
@@ -70,6 +74,7 @@ export const initCityBoundsLayer = (datadir:string): VectorLayer[] =>{
         visible:true,
         title: 'CITY_BNDS',
         style: styleFnCities,
+        minResolution: 50,
         source:new Vector({
             format: new GeoJSON({
               defaultDataProjection:'EPSG:3857',
@@ -100,9 +105,9 @@ export const styleFnCities = (feature:Feature, resolution:number): Style => {
       retStyle = new Style({
         image: new Circle({
           radius: 7,
-          fill: new Fill({color: 'black'}),
+          fill: new Fill({color: 'green'}),
           stroke: new Stroke({
-            color: [255,0,0], 
+            color: [0,0,255], 
             width: 2
           })
         }),
@@ -119,6 +124,50 @@ export const styleFnCities = (feature:Feature, resolution:number): Style => {
     }
     return retStyle;
 }
+
+export const highlightStyle = (feature:Feature, resolution:number): Style => {
+  let retStyle:Style;
+  if (resolution<200){
+    retStyle = new Style({
+      fill: new Fill({
+        color: [255, 0, 0, 0.5]
+      }),
+      stroke: new Stroke({
+        color: [0, 255, 0, 1],
+        width: 6
+      })
+    })
+  } else {
+    retStyle = new Style({
+      image: new Circle({
+        radius: 7,
+        fill: new Fill({color: 'black'}),
+        stroke: new Stroke({
+          color: [0,0,255], 
+          width: 4
+        })
+      }),
+      text: new Text({
+        font: '14px Calibri,sans-serif',
+        fill: new Fill({ color: '#000' }),
+        stroke: new Stroke({
+          color: '#fff', width: 2
+        }),
+        text: feature.get('City')
+      }),
+      geometry: function (myfeature) {
+        var retPoint;
+        if (myfeature.getGeometry().getType() === 'MultiPolygon') {
+          retPoint = getMaxPoly(myfeature.getGeometry().getPolygons()).getInteriorPoint();
+        } else if (myfeature.getGeometry().getType() === 'Polygon') {
+          retPoint = myfeature.getGeometry().getInteriorPoint();
+        }
+        return retPoint;
+      },
+    })
+  }
+  return retStyle;
+};
 
 
 export const switchTileLayer = (val:string, osm:TileLayer, gosm:TileLayer) =>{
@@ -146,7 +195,7 @@ export const getAndSetClassesFromData = (data:any) => {
     });
     let serie = new geostats(data);
     serie.getClassQuantile(10);
-    let colors = chroma.scale([[253, 231, 37, 0.7],[30, 158, 137, 0.7], [68, 1, 84, 0.7]]).colors(10);
+    let colors = chroma.scale([[253, 231, 37, 1],[30, 158, 137, 1], [68, 1, 84, 1]]).colors(10);
     serie.setColors(colors);
     classSeries = serie;
     classColors = colors;
@@ -194,12 +243,10 @@ export const verifyClassFromVal = (rangevals, val) => {
 }
 
 /**
- *    get the maximum polygon out of the supllied  array of polygon
- *    used for labeling the bigger one
+ *    get the maximum polygon out of the supllied  array of polygons
  */
 export const getMaxPoly = (polys:Polygon[]) => {
   let polyObj = [];
-  //now need to find which one is the greater and so label only this
   for (let b = 0; b < polys.length; b++) {
     polyObj.push({
       poly: polys[b],
@@ -209,3 +256,6 @@ export const getMaxPoly = (polys:Polygon[]) => {
   polyObj.sort((a, b) => a.area - b.area);
   return polyObj[polyObj.length - 1].poly;
 }
+
+
+

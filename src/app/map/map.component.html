@@ -15,8 +15,8 @@
     <mat-spinner  diameter="70" mode="indeterminate" ></mat-spinner>
   </div>
 
-  <div class="indexSelectorCntrl">
-    <mat-form-field fillColor="accent" appearance="fill">
+  <div *ngIf="showSelector()" class="indexSelectorCntrl">
+    <mat-form-field fillColor="accredent" appearance="fill">
       <mat-label>Pick an Index</mat-label>
       <mat-select [value]="selectedIndex" (selectionChange)="setDisplayIndex($event.value)">
         <mat-option *ngFor="let mapping of mappings" [value]="mapping.Code">{{mapping.indiname}}</mat-option>
@@ -24,17 +24,22 @@
       
     </mat-form-field>
   </div> 
-  
-  <div id="vert-menu" class="vertical-menu">
-    <div id='vert-menu-title'>City</div>
-    <a role="button" (click)="zoomToSelCityExtent()">Zoom to </a>
-    <a role="button" (click)="loadAndZoomToCity(false)">Load and Zoom </a>
-    <a role="button" (click)="downloadDisplayData()">Download</a>
-  </div> 
+
+  <div class='opacitySlider'>
+    <mat-slider  
+    (input)="setLyrOpacity($event)"
+    value = 70
+    thumbLabel
+    tickInterval="10"
+    vertical=true
+    min="1"
+    max="100"></mat-slider>
+    </div>
   
 </div> 
 <div id="popup" class="ol-popup">
   <a href="#" id="popup-closer" class="ol-popup-closer"></a>
   <div class='popup-content' id="popup-content"></div>
 </div>
+
 

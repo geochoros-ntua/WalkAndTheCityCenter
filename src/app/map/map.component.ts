@@ -15,14 +15,16 @@ import OSM from 'ol/source/OSM';
 import * as olExtent from 'ol/extent';
 import * as olProj from 'ol/proj';
 import TileLayer from 'ol/layer/Tile';
-import {Control, defaults as defaultControls} from 'ol/control';
+import {Control, defaults as defaultControls} from 'ol/control'; 
 import Overlay from 'ol/Overlay';
 import {initOSMLayer, initGOSMLayer,initCityBoundsLayer,
   initWalkabilityLayer,switchTileLayer,setSelIndex,
-  getAndSetClassesFromData,styleFnWalkGrids} from './map.helper';
+  getAndSetClassesFromData,styleFnWalkGrids,highlightStyle} from './map.helper';
+import {setSelIndexDownCntlr} from './customControls/downloadControl';
 
 import {legendControl} from './customControls/legendControl';
 import {zoomToWorldControl} from './customControls/zoomToWorldControl';
+import {downloadControl} from './customControls/downloadControl';
 
 // ng build --prod --base-href /walkandthecitycenter/
 
@@ -48,18 +50,17 @@ export class MapComponent implements OnInit {
   CITY_BNDS: VectorLayer;
   WALK: VectorLayer;
 
-
-  overlayMenu:Overlay;
   overlayPopup:Overlay;
   selectedCity:Feature;
+  hoveredCity:Feature;
   selectedIndex:string;
   mappings:any;
 
 
 
   ngOnInit(){
-    this.datadir = '/walkandthecitycenter';
-    //this.datadir = '';
+    // this.datadir = '/walkandthecitycenter';
+    this.datadir = '';
     this.mappings = require('../../assets/geodata/lookup.json').lookups;
     this.OSM = initOSMLayer();
     this.GOSM = initGOSMLayer();
@@ -68,9 +69,10 @@ export class MapComponent implements OnInit {
     this.selectedIndex ="Score";
     this.popupCloser = document.getElementById('popup-closer');
     this.dataLoaded = true;
+    this.hoveredCity = null;
+    this.selectedCity = null;
        
    
-    
     const this_ = this;
     const layers = [this.OSM, this.GOSM, this.WALK, this.CITY_BNDS];
     this.overlayPopup = new Overlay({
@@ -87,34 +89,30 @@ export class MapComponent implements OnInit {
       return false;
     };
 
-    this.overlayMenu = new Overlay({
-      element: document.getElementById('vert-menu'),
-      autoPan: true,
-      autoPanAnimation: {
-        duration: 250,
-      },
-    });
 
     this.map = new Map({
       target: 'walk_map',
       layers: layers,
-      overlays: [this.overlayMenu,this.overlayPopup],
-      controls: defaultControls({attribution : false}).extend([new legendControl(), new zoomToWorldControl()]),
+      overlays: [this.overlayPopup],
+      controls: defaultControls({attribution : false}).extend([
+        new legendControl(), 
+        new zoomToWorldControl(),
+        new downloadControl()
+      ]),
       view: new View({
         center: olProj.fromLonLat([15.0785, 51.4614]),
         zoom: 1
       })
     });
 
-    this.CITY_BNDS.once('change', function (evt) {
+    this.CITY_BNDS.once('change', (evt) => {
       this_.zoomToCities();
     })
     
 
     this.map.on('click', (event) => {
       this_.overlayPopup.setPosition(undefined);
-      this_.overlayMenu.setPosition(undefined);
-      this_.map.forEachFeatureAtPixel(event.pixel, function(feature,layer) {
+      this_.map.forEachFeatureAtPixel(event.pixel, (feature,layer) => {
         if (layer.get("title")==="WALK"){
           const keys = feature.getKeys();
           let attrsTable ='<table>';
@@ -124,38 +122,49 @@ export class MapComponent implements OnInit {
                 attrsTable += '<tr><td>'+this_.getTitleFromMappingCode(keys[i])[0].indiname+':</td><td>'+parseFloat(feature.get(keys[i])).toFixed(2)+'</td></tr>';
               } else {
                 attrsTable += '<tr><td>'+keys[i]+':</td><td>'+feature.get(keys[i])+'</td></tr>';
-            
               }
             }
           }
           attrsTable += '</table>';
           var coordinate = event.coordinate;
-          // var hdms = toStringHDMS(toLonLat(coordinate));
-
           document.getElementById('popup-content').innerHTML = attrsTable;
           this_.overlayPopup.setPosition(coordinate);
-      } else {
-        this_.overlayPopup.setPosition(undefined);
-      }});
+          return;
+        } else if (layer.get("title")==="CITY_BNDS") {
+          if (this_.selectedCity){
+            this_.selectedCity.setStyle(undefined);
+          }
+          this_.selectedCity = feature;
+          this_.selectedCity.setStyle(highlightStyle)
+          this_.loadAndZoomToCity(false);
+          this_.overlayPopup.setPosition(undefined);
+        } else {
+          this_.overlayPopup.setPosition(undefined);
+        }
+      });
   });
 
-  this.map.getViewport().addEventListener('contextmenu', (evt) => {
-    evt.preventDefault();
-    this_.overlayMenu.setPosition(undefined);
-    const pix = this_.map.getPixelFromCoordinate(this_.map.getEventCoordinate(evt));
-        this_.map.forEachFeatureAtPixel(pix, function(feature,layer) {
-          if (layer.get("title")==="CITY_BNDS"){
-            this_.selectedCity = feature;
-            document.getElementById('vert-menu-title').innerHTML = feature.get('City');
-            this_.overlayMenu.setPosition(this_.map.getEventCoordinate(evt));
-        }});
-    
-    })
 
-  this.map.on('pointermove', function(e){
-    var pixel = this_.map.getEventPixel(e.originalEvent);
-    var hit = this_.map.hasFeatureAtPixel(pixel);
+  this.map.on('pointermove', (e) => {
+    const pixel = this_.map.getEventPixel(e.originalEvent);
+    const hit = this_.map.hasFeatureAtPixel(pixel);
     this_.map.getViewport().style.cursor = hit ? 'pointer' : '';
+   
+    if (this.hoveredCity){
+      if (this.selectedCity !== this.hoveredCity){
+        this.hoveredCity.setStyle(undefined);
+        this.hoveredCity = null;
+      }
+    } 
+    this_.map.forEachFeatureAtPixel(e.pixel,(f,layer) => {
+        this.hoveredCity = f;
+        this.hoveredCity.setStyle(highlightStyle);
+        return true;
+    },{
+      layerFilter : (lyr) => {
+        return lyr.get("title") === "CITY_BNDS";
+      }
+    });
   });
 
   }
@@ -165,7 +174,8 @@ export class MapComponent implements OnInit {
     this.overlayPopup.setPosition(undefined); 
     this.selectedIndex = val;
     setSelIndex(val);
-    const vals = new Array();
+    setSelIndexDownCntlr(val)
+;    const vals = new Array();
     this.WALK.getSource().getFeatures().forEach((feat)=>{
         vals.push(feat.get(this.selectedIndex))
         })
@@ -183,18 +193,12 @@ export class MapComponent implements OnInit {
     
   }
 
-  downloadDisplayData = ():void =>{
-    this.loadAndZoomToCity(true);
-  }
-
-
   zoomToSelCityExtent = ():void => {
      this.map.getView().fit(this.selectedCity.getGeometry().getExtent(),{
       padding:[100,100,100,100],
        size:this.map.getSize(),
        duration: 2000
      });
-     this.overlayMenu.setPosition(undefined);
   }
 
   loadAndZoomToCity = (download:boolean):void => {
@@ -207,54 +211,22 @@ export class MapComponent implements OnInit {
       }),
       url: '../..'+this.datadir+'/assets/geodata/'+this.selectedCity.get('City').toLowerCase() +'.json',
       wrapX:false
-     // strategy: ol.loadingstrategy.bbox
-  })
+    })
     this.WALK.getSource().clear();
     this.WALK.setSource(newSource);
     this.WALK.getSource().refresh();
     console.log('newSource.getState()',newSource.getState())
     newSource.once('change', (e) => {
-      
       if (newSource.getState() == 'ready') {
         const vals = new Array();
         newSource.getFeatures().forEach((feat)=>{
           vals.push(feat.get(this.selectedIndex))
         })
-
-
-      const objSerAndCols = getAndSetClassesFromData(vals);
+      getAndSetClassesFromData(vals);
       this.WALK.setStyle(styleFnWalkGrids);
       this.dataLoaded = true;
-      //this.WALK.getSource().refresh();
-       
-      
-      if (download){
-        const feats = newSource.getFeatures();
-        let parsedFeats = [];
-        feats.forEach(feat => {
-          const inFeat = new Feature();
-          inFeat.setGeometry(feat.getGeometry());
-          inFeat.set(this.selectedIndex,feat.get(this.selectedIndex));
-          parsedFeats.push(inFeat);
-        });
-        const format = new GeoJSON({
-          defaultDataProjection:'EPSG:3857',
-          featureProjection:'EPSG:3857',
-          geometryName:'geometry'
-        });
-        const data =  format.writeFeatures(parsedFeats);
-        var sJson = JSON.stringify(data);
-        var element = document.createElement('a');
-        element.setAttribute('href', "data:text/json;charset=UTF-8," + encodeURIComponent(JSON.parse(sJson)));
-        element.setAttribute('download', "walkhub-data.geojson");
-        element.style.display = 'none';
-        document.body.appendChild(element);
-        element.click(); // simulate click
-        document.body.removeChild(element);
-      }
       }
     })
-    
     this.zoomToSelCityExtent();
   }
 
@@ -276,5 +248,19 @@ export class MapComponent implements OnInit {
        size:this.map.getSize(),
        duration: 2000
      });
+  }
+
+  showSelector = () =>{
+    if (this.dataLoaded && this.map.getView().getResolution()<=50){
+      return true;
+    } else {
+      return false;
+    }
+
+  }
+
+  setLyrOpacity = (event) => {
+    this.WALK.setOpacity(event.value/100)
+
   }
 }

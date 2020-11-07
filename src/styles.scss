@@ -1,3 +1,70 @@
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+
+.zoomToWorldCntrl {
+    top: 4.5em;
+    left: .5em;
+}
+
+
+.ol-downloadCntrl {
+    top: .5em;
+    left: 2.5em;
+}
+
+.ol-legendCntrl {
+    bottom: .5em;
+    left: .5em;
+}
+
+.legendDivHide {
+    margin: 0;
+    display:none;
+}
+
+.legendDivShow {
+    border: 1px solid #cccccc;
+    margin: 0;
+    padding-right: 20px;
+}
+
+
+.geostats-legend div {
+    padding: 2px 3px 2px 3px;
+    font-size: 12px;
+}
+
+.geostats-legend-title {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.geostats-legend-block {
+    border: 1px solid #555555;
+    display: block;
+    float: left;
+    height: 12px;
+    margin: 0 5px 0 20px;
+    width: 20px;
+
+}
+
+.geostats-legend-counter {
+    font-size: 0.8em;
+    color: #666;
+    font-style: italic;
+}
+
+
+.mat-form-field .mat-form-field-flex{
+    background-color: rgba(111, 111, 111, 0.4); 
+}
+
+  
+  
+  
+  

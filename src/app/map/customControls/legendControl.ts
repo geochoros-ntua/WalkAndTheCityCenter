@@ -1,8 +1,10 @@
 import {Control} from 'ol/control';
+import Map from 'ol/Map';
 
 export class legendControl extends Control {
     legendDiv;
     button;
+    getMap: Map;
     constructor() {
         super({});
         this.button = document.createElement('button');
@@ -25,15 +27,15 @@ export class legendControl extends Control {
     }
 
     click() {
-        console.log('click');
-        if (this.legendDiv.className === 'legendDivHide'){
-        this.button.innerHTML = '<span>«</span>';
-        this.legendDiv.className = 'legendDivShow';
+        const res = this.getMap().getView().getResolution();
+        if (res <= 50 && this.legendDiv.className === 'legendDivHide') {
+            this.button.innerHTML = '<span>«</span>';
+            this.legendDiv.className = 'legendDivShow';
+        } else {
+            this.button.innerHTML = 'L';
+            this.legendDiv.className = 'legendDivHide';
         }
-        else {
-        this.button.innerHTML = 'L';
-        this.legendDiv.className = 'legendDivHide';
-        }
+
     }
 
 }

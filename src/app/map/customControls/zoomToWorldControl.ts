@@ -1,8 +1,9 @@
 import {Control} from 'ol/control';
+import Map from 'ol/Map';
 
 export class zoomToWorldControl extends Control {
     button;
-    getMap: any;
+    getMap: Map;
 
     constructor() {
         super({});
