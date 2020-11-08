@@ -25,7 +25,7 @@ import { MatSliderModule } from '@angular/material/slider';
 @NgModule({
   imports:      [
      BrowserModule, AppRoutingModule, FormsModule, FlexLayoutModule, BrowserAnimationsModule,
-     MatIconModule, MatButtonModule, MatSidenavModule, MatToolbarModule, MatSelectModule,MatSliderModule,
+     MatIconModule, MatButtonModule, MatSidenavModule, MatToolbarModule, MatSelectModule, MatSliderModule,
      MatMenuModule, MatProgressSpinnerModule
    ],
   declarations: [ AppComponent, MapComponent, AboutUsComponent ],

@@ -25,10 +25,10 @@
     </mat-form-field>
   </div> 
 
-  <div class='opacitySlider'>
+  <div *ngIf="showSelector()" class='opacitySlider'>
     <mat-slider  
     (input)="setLyrOpacity($event)"
-    value = 70
+    [(value)] = "walkOpacity"
     thumbLabel
     tickInterval="10"
     vertical=true

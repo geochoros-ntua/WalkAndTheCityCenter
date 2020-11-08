@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, Output, ViewChild } from '@angular/core';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import VectorLayer from 'ol/layer/Vector';
@@ -55,12 +55,13 @@ export class MapComponent implements OnInit {
   hoveredCity:Feature;
   selectedIndex:string;
   mappings:any;
+  walkOpacity:number;
 
 
 
   ngOnInit(){
-    // this.datadir = '/walkandthecitycenter';
-    this.datadir = '';
+    this.datadir = '/walkandthecitycenter';
+    //this.datadir = '';
     this.mappings = require('../../assets/geodata/lookup.json').lookups;
     this.OSM = initOSMLayer();
     this.GOSM = initGOSMLayer();
@@ -71,6 +72,7 @@ export class MapComponent implements OnInit {
     this.dataLoaded = true;
     this.hoveredCity = null;
     this.selectedCity = null;
+    this.walkOpacity = 70;
        
    
     const this_ = this;
@@ -83,7 +85,7 @@ export class MapComponent implements OnInit {
       },
     });
 
-    this.popupCloser.onclick = function () {
+    this.popupCloser.onclick = ():boolean => {
       this_.overlayPopup.setPosition(undefined);
       this_.popupCloser.blur();
       return false;
@@ -162,7 +164,7 @@ export class MapComponent implements OnInit {
         return true;
     },{
       layerFilter : (lyr) => {
-        return lyr.get("title") === "CITY_BNDS";
+        return lyr.get('title') === 'CITY_BNDS';
       }
     });
   });
@@ -174,8 +176,8 @@ export class MapComponent implements OnInit {
     this.overlayPopup.setPosition(undefined); 
     this.selectedIndex = val;
     setSelIndex(val);
-    setSelIndexDownCntlr(val)
-;    const vals = new Array();
+    setSelIndexDownCntlr(val);
+    const vals = new Array();
     this.WALK.getSource().getFeatures().forEach((feat)=>{
         vals.push(feat.get(this.selectedIndex))
         })
@@ -235,13 +237,13 @@ export class MapComponent implements OnInit {
   }
  
 
-  getTitleFromMappingCode = (code:string) => {
+  getTitleFromMappingCode = (code:string):any[] => {
     return this.mappings.filter( (elem) => {
       return elem.Code === code;
     });
   }
 
-  zoomToCities = () => {
+  zoomToCities = ():void => {
     this.map.getView().fit(
       this.CITY_BNDS.getSource().getExtent(),{
       padding:[100,100,100,100],
@@ -250,7 +252,7 @@ export class MapComponent implements OnInit {
      });
   }
 
-  showSelector = () =>{
+  showSelector = ():boolean =>{
     if (this.dataLoaded && this.map.getView().getResolution()<=50){
       return true;
     } else {
@@ -259,8 +261,9 @@ export class MapComponent implements OnInit {
 
   }
 
-  setLyrOpacity = (event) => {
-    this.WALK.setOpacity(event.value/100)
-
+  setLyrOpacity = (event):void => {
+    this.walkOpacity = event.value;
+    this.WALK.setOpacity(this.walkOpacity/100);
+    
   }
 }

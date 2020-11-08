@@ -19,7 +19,7 @@ export class downloadControl extends Control {
         this.button.type = 'button';
         this.button.innerHTML = 'D';
         let element = document.createElement('div');
-        element.className = 'ol-unselectable ol-control ol-downloadCntrl';
+        element.className = 'ol-unselectable ol-downloadCntrl ol-control';
         element.appendChild(this.button);
         Control.call(this, {
             element: element
