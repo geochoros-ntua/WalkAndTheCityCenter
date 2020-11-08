@@ -7,12 +7,11 @@ export class legendControl extends Control {
     getMap: Map;
     constructor() {
         super({});
-        this.button = document.createElement('button');
-        this.button.type = 'button';
-        this.button.innerHTML = 'L';
+        this.button = document.createElement('div');
+        this.button.innerHTML = '<a class="mat-mini-fab mat-primary">'+
+        '<i class="material-icons">art_track</i></a>';
         let element = document.createElement('div');
-        element.className = 'ol-unselectable ol-control ol-legendCntrl';
-        //element.appendChild(this.button);
+        element.className = 'ol-unselectable ol-legendCntrl';
         this.legendDiv = document.createElement('div');
         this.legendDiv.id = 'legend';
         this.legendDiv.className = 'legendDivHide';
@@ -29,10 +28,12 @@ export class legendControl extends Control {
     click() {
         const res = this.getMap().getView().getResolution();
         if (res <= 50 && this.legendDiv.className === 'legendDivHide') {
-            this.button.innerHTML = '<span>«</span>';
+            this.button.innerHTML = '<a class="mat-mini-fab mat-primary">'+
+            '<i class="material-icons">close</i></a>';
             this.legendDiv.className = 'legendDivShow';
         } else {
-            this.button.innerHTML = 'L';
+            this.button.innerHTML = '<a class="mat-mini-fab mat-button-base mat-primary">'+
+            '<i class="material-icons">art_track</i></a>';
             this.legendDiv.className = 'legendDivHide';
         }
 

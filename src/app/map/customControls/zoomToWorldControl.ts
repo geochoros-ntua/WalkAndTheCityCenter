@@ -7,14 +7,13 @@ export class zoomToWorldControl extends Control {
 
     constructor() {
         super({});
-        this.button = document.createElement('button');
-        this.button.type = 'button';
-        this.button.innerHTML = 'W';
-        let element = document.createElement('div');
-        element.className = 'ol-unselectable ol-control zoomToWorldCntrl';
-        element.appendChild(this.button);
+        this.button = document.createElement('div');
+        this.button.innerHTML = '<a class="mat-mini-fab mat-primary">'+
+        '<i class="material-icons">public</i></a>';
+        this.button.className = 'ol-unselectable zoomToWorldCntrl';
+        
         Control.call(this, {
-            element: element
+            element: this.button
         });
 
         this.button.addEventListener('click', () => {

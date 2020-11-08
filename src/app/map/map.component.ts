@@ -25,6 +25,7 @@ import {setSelIndexDownCntlr} from './customControls/downloadControl';
 import {legendControl} from './customControls/legendControl';
 import {zoomToWorldControl} from './customControls/zoomToWorldControl';
 import {downloadControl} from './customControls/downloadControl';
+import {zoomInOutControl} from './customControls/zooomInOutControl';
 
 // ng build --prod --base-href /walkandthecitycenter/
 
@@ -60,8 +61,8 @@ export class MapComponent implements OnInit {
 
 
   ngOnInit(){
-    this.datadir = '/walkandthecitycenter';
-    //this.datadir = '';
+    //this.datadir = '/walkandthecitycenter';
+    this.datadir = '';
     this.mappings = require('../../assets/geodata/lookup.json').lookups;
     this.OSM = initOSMLayer();
     this.GOSM = initGOSMLayer();
@@ -96,10 +97,11 @@ export class MapComponent implements OnInit {
       target: 'walk_map',
       layers: layers,
       overlays: [this.overlayPopup],
-      controls: defaultControls({attribution : false}).extend([
+      controls: defaultControls({zoom:false,attribution : false}).extend([
         new legendControl(), 
         new zoomToWorldControl(),
-        new downloadControl()
+        new downloadControl(),
+        new zoomInOutControl()
       ]),
       view: new View({
         center: olProj.fromLonLat([15.0785, 51.4614]),
@@ -148,19 +150,17 @@ export class MapComponent implements OnInit {
 
 
   this.map.on('pointermove', (e) => {
-    const pixel = this_.map.getEventPixel(e.originalEvent);
-    const hit = this_.map.hasFeatureAtPixel(pixel);
-    this_.map.getViewport().style.cursor = hit ? 'pointer' : '';
-   
     if (this.hoveredCity){
       if (this.selectedCity !== this.hoveredCity){
         this.hoveredCity.setStyle(undefined);
         this.hoveredCity = null;
       }
+      this_.map.getViewport().style.cursor = '';
     } 
     this_.map.forEachFeatureAtPixel(e.pixel,(f,layer) => {
         this.hoveredCity = f;
         this.hoveredCity.setStyle(highlightStyle);
+        this.setPointerStyle(e);
         return true;
     },{
       layerFilter : (lyr) => {
@@ -169,6 +169,12 @@ export class MapComponent implements OnInit {
     });
   });
 
+  }
+
+  setPointerStyle = (e) => {
+    const pixel = this.map.getEventPixel(e.originalEvent);
+    const hit = this.map.hasFeatureAtPixel(pixel);
+    this.map.getViewport().style.cursor = hit ? 'pointer' : '';
   }
 
   setDisplayIndex = (val:string): void =>{   

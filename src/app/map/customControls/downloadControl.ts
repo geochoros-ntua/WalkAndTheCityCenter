@@ -15,14 +15,15 @@ export class downloadControl extends Control {
     getMap: Map;
     constructor() {
         super({});
-        this.button = document.createElement('button');
-        this.button.type = 'button';
-        this.button.innerHTML = 'D';
-        let element = document.createElement('div');
-        element.className = 'ol-unselectable ol-downloadCntrl ol-control';
-        element.appendChild(this.button);
+        this.button = document.createElement('div');
+        //this.button.type = 'div';
+        this.button.innerHTML = '<a class="mat-mini-fab mat-primary">'+
+        '<i class="material-icons">download</i></a>';
+        
+        this.button.className = 'ol-unselectable ol-downloadCntrl';
+        //element.appendChild(this.button);
         Control.call(this, {
-            element: element
+            element: this.button
         });
         this.button.addEventListener('click', () => this.click());
     }
