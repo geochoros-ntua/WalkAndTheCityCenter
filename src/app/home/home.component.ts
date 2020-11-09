@@ -66,10 +66,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // console.log(this.cities)
-    // let mappings = require('../../assets/geodata/cities.json');
-
-    // console.log(mappings)
   }
 
 }

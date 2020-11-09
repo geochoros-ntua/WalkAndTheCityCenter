@@ -81,7 +81,7 @@ export const initCityBoundsLayer = (datadir:string): VectorLayer[] =>{
               featureProjection:'EPSG:3857',
               geometryName:'geometry'
             }),
-            url: '../..'+datadir+'/assets/geodata/city_boundaries1.json',
+            url: 'assets/geodata/city_boundaries1.json',
             wrapX:false
         })
     })
