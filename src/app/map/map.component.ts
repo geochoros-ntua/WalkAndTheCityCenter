@@ -62,10 +62,6 @@ export class MapComponent implements OnInit {
 
 
   ngOnInit(){
-    // this.datadir = '/walkandthecitycenter';
-    // this.datadir = '';
-    // this.mappings = require('../assets/geodata/lookup.json').lookups;
-    
     this.OSM = initOSMLayer();
     this.GOSM = initGOSMLayer();
     this.CITY_BNDS = initCityBoundsLayer(this.datadir);
@@ -121,17 +117,17 @@ export class MapComponent implements OnInit {
       this_.map.forEachFeatureAtPixel(event.pixel, (feature,layer) => {
         if (layer.get("title")==="WALK"){
           const keys = feature.getKeys();
-          let attrsTable ='<table>';
+          let attrsTable ='<table class="mat-table  cdk-table"><tbody>';
           keys.filter( el => ['OBJECTID','geometry','Shape_Area','Shape_Leng'].indexOf( el ) < 0).forEach(key => {
             
               if (this_.getTitleFromMappingCode(key).length ===1){
-                attrsTable += '<tr><td>'+this_.getTitleFromMappingCode(key)[0].indiname+':</td><td>'+parseFloat(feature.get(key)).toFixed(2)+'</td></tr>';
+                attrsTable += '<tr class="mat-row"><td class="mat-cell">'+this_.getTitleFromMappingCode(key)[0].indiname+':</td><td>'+parseFloat(feature.get(key)).toFixed(2)+'</td></tr>';
               } else {
-                attrsTable += '<tr><td>'+key+':</td><td>'+feature.get(key)+'</td></tr>';
+                attrsTable += '<tr class="mat-row"><td class="mat-cell">'+key+':</td><td>'+feature.get(key)+'</td></tr>';
               }
             
           });
-          attrsTable += '</table>';
+          attrsTable += '</tbody></table>';
           var coordinate = event.coordinate;
           document.getElementById('popup-content').innerHTML = attrsTable;
           this_.overlayPopup.setPosition(coordinate);
