@@ -10,12 +10,12 @@ import { NavigationEnd, Router } from '@angular/router';
 export class AppComponent {
   name = 'Walk & the City Center';
 
-  constructor(private router:Router){
-     
+  constructor(private router: Router) {
+
   }
 
-  public reloadMapPage(){ 
-   //trick the router that navigation has not been used
+  public reloadMapPage() {
+    //trick the router that navigation has not been used
     this.router.navigated = false;
     this.router.navigate(['app-map'])
     this.router.events.subscribe((evt) => {
@@ -23,7 +23,17 @@ export class AppComponent {
         window.location.reload();
       }
     });
-  
+
   }
-  
+
+  reloadHomePage() {
+    this.router.navigated = false;
+    this.router.navigate(['home'])
+    this.router.events.subscribe((evt) => {
+      if (evt instanceof NavigationEnd) {
+        window.location.reload();
+      }
+    });
+  }
+
 }

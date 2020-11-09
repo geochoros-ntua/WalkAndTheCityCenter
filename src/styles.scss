@@ -1,81 +1,82 @@
-html, body { height: 100%; }
-body { 
-    margin: 0; 
-    font-family: Roboto, "Helvetica Neue", sans-serif; 
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .zoomToWorldCntrl {
-    position:absolute;
-    top: 6.0em;
-    left: .5em;
+  position: absolute;
+  top: 6em;
+  left: 0.5em;
 }
 
-.ol-zoomInOutCntrl{
-    position:absolute;
-    top: .5em;
-    left: .5em;
+.ol-zoomInOutCntrl {
+  position: absolute;
+  top: 0.5em;
+  left: 0.5em;
 }
 .ol-downloadCntrl {
-    position:absolute;
-    top: .5em;
-    left: 3.5em;
+  position: absolute;
+  top: 0.5em;
+  left: 3.5em;
 }
 
 .ol-legendCntrl {
-    position:absolute;
-    bottom: .5em;
-    left: .5em;
+  position: absolute;
+  bottom: 0.5em;
+  left: 0.5em;
 }
 
 .legendDivHide {
-    margin: 0;
-    display:none;
+  margin: 0;
+  display: none;
 }
 
 .legendDivShow {
-    border: 1px solid #cccccc;
-    margin: 0;
-    padding-right: 20px;
-    background-color: rgba(111, 111, 111, 0.6); 
+  border: 1px solid #cccccc;
+  margin: 0;
+  padding-right: 20px;
+  background-color: rgba(111, 111, 111, 0.6);
 }
 
-
 .geostats-legend div {
-    padding: 2px 3px 2px 3px;
-    font-size: 12px;
+  padding: 2px 3px 2px 3px;
+  font-size: 12px;
 }
 
 .geostats-legend-title {
-    font-weight: bold;
-    margin-bottom: 4px;
+  font-weight: bold;
+  margin-bottom: 4px;
 }
 
 .geostats-legend-block {
-    border: 1px solid #555555;
-    display: block;
-    float: left;
-    height: 12px;
-    margin: 0 5px 0 20px;
-    width: 20px;
-
+  border: 1px solid #555555;
+  display: block;
+  float: left;
+  height: 12px;
+  margin: 0 5px 0 20px;
+  width: 20px;
 }
 
 .geostats-legend-counter {
-    font-size: 0.8em;
-    color: #666;
-    font-style: italic;
+  font-size: 0.8em;
+  color: #666;
+  font-style: italic;
 }
 
-
-.mat-form-field .mat-form-field-flex{
-    background-color: rgba(111, 111, 111, 0.6); 
+.mat-form-field .mat-form-field-flex {
+  background-color: rgba(111, 111, 111, 0.6);
 }
 
 .material-icons {
-    vertical-align: middle;
-  }
+  vertical-align: middle;
+}
 
-  
-  
-  
-  
+.mat-toolbar {
+  z-index: 2;
+  box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.5);
+  position: relative;
+}

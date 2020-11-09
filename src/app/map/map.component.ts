@@ -61,8 +61,8 @@ export class MapComponent implements OnInit {
 
 
   ngOnInit(){
-    this.datadir = '/walkandthecitycenter';
-    //this.datadir = '';
+    // this.datadir = '/walkandthecitycenter';
+    this.datadir = '';
     this.mappings = require('../../assets/geodata/lookup.json').lookups;
     this.OSM = initOSMLayer();
     this.GOSM = initGOSMLayer();
