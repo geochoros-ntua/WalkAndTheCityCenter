@@ -111,7 +111,7 @@ export const styleFnCities = (feature:Feature, resolution:number): Style => {
             width: 2
           })
         }),
-        geometry: function (myfeature) {
+        geometry: (myfeature) => {
           var retPoint;
           if (myfeature.getGeometry().getType() === 'MultiPolygon') {
             retPoint = getMaxPoly(myfeature.getGeometry().getPolygons()).getInteriorPoint();
@@ -155,7 +155,7 @@ export const highlightStyle = (feature:Feature, resolution:number): Style => {
         }),
         text: feature.get('City')
       }),
-      geometry: function (myfeature) {
+      geometry: (myfeature) => {
         var retPoint;
         if (myfeature.getGeometry().getType() === 'MultiPolygon') {
           retPoint = getMaxPoly(myfeature.getGeometry().getPolygons()).getInteriorPoint();
