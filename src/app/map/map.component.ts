@@ -120,15 +120,15 @@ export class MapComponent implements OnInit {
         if (layer.get("title")==="WALK"){
           const keys = feature.getKeys();
           let attrsTable ='<table>';
-          for (let i = 0; i < keys.length; i++){
-            if (keys[i]!=='geometry'){
-              if (this_.getTitleFromMappingCode(keys[i]).length ===1){
-                attrsTable += '<tr><td>'+this_.getTitleFromMappingCode(keys[i])[0].indiname+':</td><td>'+parseFloat(feature.get(keys[i])).toFixed(2)+'</td></tr>';
+          keys.filter( el => ['OBJECTID','geometry','Shape_Area','Shape_Leng'].indexOf( el ) < 0).forEach(key => {
+            
+              if (this_.getTitleFromMappingCode(key).length ===1){
+                attrsTable += '<tr><td>'+this_.getTitleFromMappingCode(key)[0].indiname+':</td><td>'+parseFloat(feature.get(key)).toFixed(2)+'</td></tr>';
               } else {
-                attrsTable += '<tr><td>'+keys[i]+':</td><td>'+feature.get(keys[i])+'</td></tr>';
+                attrsTable += '<tr><td>'+key+':</td><td>'+feature.get(key)+'</td></tr>';
               }
-            }
-          }
+            
+          });
           attrsTable += '</table>';
           var coordinate = event.coordinate;
           document.getElementById('popup-content').innerHTML = attrsTable;
@@ -140,7 +140,7 @@ export class MapComponent implements OnInit {
           }
           this_.selectedCity = feature;
           this_.selectedCity.setStyle(highlightStyle)
-          this_.loadAndZoomToCity(false);
+          this_.loadAndZoomToCity();
           this_.overlayPopup.setPosition(undefined);
         } else {
           this_.overlayPopup.setPosition(undefined);
@@ -209,7 +209,7 @@ export class MapComponent implements OnInit {
      });
   }
 
-  loadAndZoomToCity = (download:boolean):void => {
+  loadAndZoomToCity = ():void => {
     this.dataLoaded = false; 
     const newSource = new Vector({
       format: new GeoJSON({
