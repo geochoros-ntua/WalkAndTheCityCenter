@@ -20,15 +20,17 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { RouteReuseStrategy } from '@angular/router';
 import { CustomReuseStrategy } from './app.reuse.startegy';
 import { MatSliderModule } from '@angular/material/slider';
+import { HomeComponent } from './home/home.component';
 //import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   imports:      [
      BrowserModule, AppRoutingModule, FormsModule, FlexLayoutModule, BrowserAnimationsModule,
      MatIconModule, MatButtonModule, MatSidenavModule, MatToolbarModule, MatSelectModule, MatSliderModule,
-     MatMenuModule, MatProgressSpinnerModule
+     MatMenuModule, MatProgressSpinnerModule, MatCardModule
    ],
-  declarations: [ AppComponent, MapComponent, AboutUsComponent ],
+  declarations: [ AppComponent, MapComponent, AboutUsComponent, HomeComponent ],
   bootstrap:    [ AppComponent ],
   providers: [{
     provide: RouteReuseStrategy,

@@ -1,0 +1,127 @@
+.front-image {
+  position: relative;
+  background-image: url("../../assets/images/watc_home_1.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+  width: 100%;
+  min-height: calc(100vh - 8vh);
+}
+
+.front-image-blend {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: green;
+    opacity: 0.5;
+    mix-blend-mode: color;
+}
+
+.front-image-info {
+  position: absolute;
+  top: 50%;
+  text-align: center;
+  left: 0;
+  width: 100%;
+}
+
+.front-image-text {
+  color: white;
+  font-size: 42px !important;
+  line-height: 42px;
+  text-shadow: 3px 2px 3px rgba(0, 0, 0, 1);
+}
+
+.front-content {
+  padding: 16px;
+  margin-bottom: 32px;
+}
+
+.front-text {
+  max-width: 1170px;
+  margin: auto;
+}
+
+.front-teaser-parent {
+  max-width: 1170px;
+  margin: auto;
+}
+
+.front-teaser {
+  display: flex;
+  flex-flow: row wrap;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.city-card {
+  width: 200px;
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-bottom: 16px;
+}
+
+.city-image {
+  background-image: url("../../assets/images/citymobility.jpg");
+  background-size: cover;
+}
+
+.footer {
+  background: #3f51b5;
+  color: #fff;
+}
+
+.inner-footer {
+  max-width: 1170px;
+  margin: auto;
+}
+
+.copyright {
+  margin: 0;
+  padding: 32px;
+}
+
+footer a {
+  display: flex;
+  align-items: center;
+}
+
+.social-container {
+  display: flex;
+  padding: 32px;
+}
+
+.social-button {
+  width: 70%;
+  opacity: 0.5;
+  filter: invert(25%) sepia(91%) saturate(927%) hue-rotate(207deg)
+    brightness(98%) contrast(94%);
+  transition: 1s ease-out;
+}
+
+.social-button:hover {
+  width: 70%;
+  opacity: 0.75;
+}
+
+.circle-link {
+  height: 40px;
+  width: 40px;
+  border-radius: 40px;
+  margin: 8px;
+  background-color: white;
+  border: 1px solid #eeeeee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: 1s ease-out;
+}
+
+.circle-link:hover {
+  transform: translateY(-0.25rem);
+  box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+}

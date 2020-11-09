@@ -26,6 +26,7 @@ import {legendControl} from './customControls/legendControl';
 import {zoomToWorldControl} from './customControls/zoomToWorldControl';
 import {downloadControl} from './customControls/downloadControl';
 import {zoomInOutControl} from './customControls/zooomInOutControl';
+import mappingsData from '../../assets/geodata/lookup.json';
 
 // ng build --prod --base-href /walkandthecitycenter/
 
@@ -55,15 +56,12 @@ export class MapComponent implements OnInit {
   selectedCity:Feature;
   hoveredCity:Feature;
   selectedIndex:string;
-  mappings:any;
+  mappings:any = mappingsData.lookups;
   walkOpacity:number;
 
 
 
   ngOnInit(){
-    //this.datadir = '/walkandthecitycenter';
-    this.datadir = '';
-    this.mappings = require('../../assets/geodata/lookup.json').lookups;
     this.OSM = initOSMLayer();
     this.GOSM = initGOSMLayer();
     this.CITY_BNDS = initCityBoundsLayer(this.datadir);
@@ -217,7 +215,7 @@ export class MapComponent implements OnInit {
         featureProjection:'EPSG:3857',
         geometryName:'geometry'
       }),
-      url: '../..'+this.datadir+'/assets/geodata/'+this.selectedCity.get('City').toLowerCase() +'.json',
+      url: 'assets/geodata/'+ this.selectedCity.get('City').toLowerCase() +'.json',
       wrapX:false
     })
     this.WALK.getSource().clear();

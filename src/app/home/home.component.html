@@ -1,0 +1,60 @@
+<section>
+    <div class="front-image">
+        <div class="front-image-blend"></div>
+        <div class="front-image-info">
+            <h1 class="front-image-text">Some slogan...</h1>
+        </div>
+    </div>
+    <div class="front-content">
+        <div class="front-text">
+            <h2>More text</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non lacus accumsan, pellentesque nibh ut,
+                mollis urna. Integer fringilla id turpis eget ornare. Vivamus varius malesuada dui. Curabitur quis metus
+                vel erat euismod molestie vel vitae orci. Vestibulum eu faucibus odio. Curabitur mattis enim at ipsum
+                eleifend egestas. Praesent quis lacus lacinia, ultrices lectus sed, elementum ligula. Donec id imperdiet
+                augue, et ornare arcu. Aenean diam orci, sollicitudin molestie lacus id, convallis blandit purus. In
+                accumsan urna id nisl ornare, ut dictum tellus aliquam. Donec eu dignissim est, et varius augue. Morbi
+                eu erat erat. Phasellus vel varius lectus. Sed porta, nibh sit amet fermentum fringilla, augue elit
+                auctor diam, in lacinia nulla dolor sit amet velit.
+            </p>
+        </div>
+        <div class="front-teaser-parent">
+            <h1>Cities</h1>
+            <div class="front-teaser">
+                <mat-card class="city-card" *ngFor="let city of dummyCities">
+                    <mat-card-header>
+                        <mat-card-title>{{city.name}}</mat-card-title>
+                        <mat-card-subtitle>{{city.country}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <img mat-card-image src="assets/images/citymobility.jpg">
+                    <mat-card-content>
+                        <p>
+                            {{city.description}}
+                        </p>
+                        <p>
+                            walkability: {{city.walkability}}
+                        </p>
+                        <p>
+                            {{city.morevars}}
+                        </p>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="inner-footer">
+            <div class="social-container"><a title="facebook" href="https://facebook" target="_blank"
+                    class="circle-link"><img src="assets/icons/facebook.svg" type="image/svg+xml"
+                        class="social-button"></a><a title="instagram" href="https://instagram" target="_blank"
+                    class="circle-link"><img src="assets/icons/instagram.svg" type="image/svg+xml"
+                        class="social-button"></a><a title="twitter" href="https://twitter" target="_blank"
+                    class="circle-link"><img src="assets/icons/twitter.svg" type="image/svg+xml"
+                        class="social-button"></a><a title="youtube" href="https://youtube" target="_blank"
+                    class="circle-link"><img src="assets/icons/youtube.svg" type="image/svg+xml"
+                        class="social-button"></a></div>
+            <p class="copyright">&#169; GeoCHOROS, 2020. All rights reserved.</p>
+        </div>
+    </div>
+</section>
