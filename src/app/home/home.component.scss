@@ -1,6 +1,6 @@
 .front-image {
   position: relative;
-  background-image: url("../../assets/images/watc_home_1.jpg");
+  background-image: url("../../assets/images/Walking_Barcelona’s_Passeig_de_Gràcia_and_Rambla_de_Catalunya.gif");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -15,7 +15,7 @@
     position: absolute;
     background-color: green;
     opacity: 0.5;
-    mix-blend-mode: color;
+    mix-blend-mode: multiply;
 }
 
 .front-image-info {
