@@ -14,6 +14,11 @@ export class AppComponent {
 
   }
 
+  
+/**
+ * We probably dont need these two reload methods any more
+ * Keep it for a while as a reference just in case photis wants again crazy things .... 
+ */
   public reloadMapPage() {
     //trick the router that navigation has not been used
     this.router.navigated = false;

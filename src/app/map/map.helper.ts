@@ -69,7 +69,7 @@ export const initWalkabilityLayer = (): VectorLayer[] =>{
 }
 
 
-export const initCityBoundsLayer = (datadir:string): VectorLayer[] =>{
+export const initCityBoundsLayer = (): VectorLayer[] =>{
     const CITY_BNDS = new VectorLayer({
         visible:true,
         title: 'CITY_BNDS',

@@ -1,21 +1,13 @@
-import { Component, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import VectorLayer from 'ol/layer/Vector';
 import { Vector } from 'ol/source';
 import Feature from 'ol/Feature';
-import Point from 'ol/geom/Point';
-import Style from 'ol/style/Style';
-import Fill from 'ol/style/Fill';
-import Circle from 'ol/style/Circle';
-import Stroke from 'ol/style/Stroke';
 import GeoJSON from 'ol/format/GeoJSON';
-import Icon from 'ol/style/Icon';
-import OSM from 'ol/source/OSM';
-import * as olExtent from 'ol/extent';
 import * as olProj from 'ol/proj';
 import TileLayer from 'ol/layer/Tile';
-import {Control, defaults as defaultControls} from 'ol/control'; 
+import {defaults as defaultControls} from 'ol/control'; 
 import Overlay from 'ol/Overlay';
 import {initOSMLayer, initGOSMLayer,initCityBoundsLayer,
   initWalkabilityLayer,switchTileLayer,setSelIndex,
@@ -41,7 +33,6 @@ export class MapComponent implements OnInit {
   constructor() { }
 
   title = 'ol3-ng';
-  datadir: string;
   dataLoaded:boolean;
   map: Map;
   popupCloser: any;
@@ -64,7 +55,7 @@ export class MapComponent implements OnInit {
   ngOnInit(){
     this.OSM = initOSMLayer();
     this.GOSM = initGOSMLayer();
-    this.CITY_BNDS = initCityBoundsLayer(this.datadir);
+    this.CITY_BNDS = initCityBoundsLayer();
     this.WALK = initWalkabilityLayer();
     this.selectedIndex ="Score";
     this.popupCloser = document.getElementById('popup-closer');
@@ -107,11 +98,12 @@ export class MapComponent implements OnInit {
       })
     });
 
-    this.CITY_BNDS.once('change', (evt) => {
+    this.CITY_BNDS.once('change', () => {
       this_.zoomToCities();
+      this_.map.updateSize();
     })
     
-
+    
     this.map.on('click', (event) => {
       this_.overlayPopup.setPosition(undefined);
       this_.map.forEachFeatureAtPixel(event.pixel, (feature,layer) => {
@@ -119,18 +111,15 @@ export class MapComponent implements OnInit {
           const keys = feature.getKeys();
           let attrsTable ='<table class="mat-table  cdk-table"><tbody>';
           keys.filter( el => ['OBJECTID','geometry','Shape_Area','Shape_Leng'].indexOf( el ) < 0).forEach(key => {
-            
               if (this_.getTitleFromMappingCode(key).length ===1){
                 attrsTable += '<tr class="mat-row"><td class="mat-cell">'+this_.getTitleFromMappingCode(key)[0].indiname+':</td><td>'+parseFloat(feature.get(key)).toFixed(2)+'</td></tr>';
               } else {
                 attrsTable += '<tr class="mat-row"><td class="mat-cell">'+key+':</td><td>'+feature.get(key)+'</td></tr>';
               }
-            
           });
           attrsTable += '</tbody></table>';
-          var coordinate = event.coordinate;
           document.getElementById('popup-content').innerHTML = attrsTable;
-          this_.overlayPopup.setPosition(coordinate);
+          this_.overlayPopup.setPosition(event.coordinate);
           return;
         } else if (layer.get("title")==="CITY_BNDS") {
           if (this_.selectedCity){
@@ -155,7 +144,7 @@ export class MapComponent implements OnInit {
       }
       this_.map.getViewport().style.cursor = '';
     } 
-    this_.map.forEachFeatureAtPixel(e.pixel,(f,layer) => {
+    this_.map.forEachFeatureAtPixel(e.pixel,(f) => {
         this.hoveredCity = f;
         this.hoveredCity.setStyle(highlightStyle);
         this.setPointerStyle(e);
@@ -191,7 +180,7 @@ export class MapComponent implements OnInit {
     }
     let this_ = this;
     this.WALK.getSource().refresh();
-    this.WALK.getSource().once('change', (e) => {
+    this.WALK.getSource().once('change', () => {
       if (this_.WALK.getSource().getState() == 'ready') {
         this.dataLoaded = true; 
       }
@@ -222,7 +211,7 @@ export class MapComponent implements OnInit {
     this.WALK.setSource(newSource);
     this.WALK.getSource().refresh();
     console.log('newSource.getState()',newSource.getState())
-    newSource.once('change', (e) => {
+    newSource.once('change', () => {
       if (newSource.getState() == 'ready') {
         const vals = new Array();
         newSource.getFeatures().forEach((feat)=>{
