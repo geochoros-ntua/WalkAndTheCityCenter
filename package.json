@@ -27,6 +27,7 @@
     "geostats": "^2.0.0",
     "materialize-css": "^1.0.0-rc.2",
     "ol": "^6.4.3",
+    "proj4": "^2.6.2",
     "querystringify": "^2.1.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",

@@ -6,6 +6,7 @@ import { Vector } from 'ol/source';
 import Feature from 'ol/Feature';
 import GeoJSON from 'ol/format/GeoJSON';
 import * as olProj from 'ol/proj';
+import proj4 from 'proj4';
 import TileLayer from 'ol/layer/Tile';
 import {defaults as defaultControls} from 'ol/control'; 
 import Overlay from 'ol/Overlay';
@@ -64,6 +65,7 @@ export class MapComponent implements OnInit {
     this.selectedCity = null;
     this.walkOpacity = 70;
        
+    proj4.defs('urn:ogc:def:crs:EPSG::3857', proj4.defs('EPSG:3857'));
    
     const this_ = this;
     const layers = [this.OSM, this.GOSM, this.WALK, this.CITY_BNDS];
@@ -197,20 +199,19 @@ export class MapComponent implements OnInit {
   }
 
   loadAndZoomToCity = ():void => {
-    this.dataLoaded = false; 
+    this.dataLoaded = false;
     const newSource = new Vector({
       format: new GeoJSON({
         defaultDataProjection:'EPSG:3857',
         featureProjection:'EPSG:3857',
         geometryName:'geometry'
       }),
-      url: 'assets/geodata/'+ this.selectedCity.get('City').toLowerCase() +'.json',
+      url: 'assets/geodata/'+ this.selectedCity.get('City').toLowerCase() +'.geojson',
       wrapX:false
     })
     this.WALK.getSource().clear();
     this.WALK.setSource(newSource);
     this.WALK.getSource().refresh();
-    console.log('newSource.getState()',newSource.getState())
     newSource.once('change', () => {
       if (newSource.getState() == 'ready') {
         const vals = new Array();
