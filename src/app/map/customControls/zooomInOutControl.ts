@@ -27,7 +27,7 @@ export class zoomInOutControl extends Control {
         Control.call(this, {
             element: this.container
         });
-        this.button1.addEventListener('click', () => this.zoomIn(1));
+        this.button1.addEventListener('click', () => this.zoomIn());
         this.button2.addEventListener('click', () => this.zoomOut());
     }
 
