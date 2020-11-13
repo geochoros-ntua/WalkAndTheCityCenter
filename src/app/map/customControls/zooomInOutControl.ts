@@ -1,4 +1,5 @@
 import {Control} from 'ol/control';
+
 import Map from 'ol/Map';
 
 export class zoomInOutControl extends Control {
@@ -31,13 +32,21 @@ export class zoomInOutControl extends Control {
     }
 
     zoomIn() {
-        this.getMap().getView().setZoom(this.getMap().getView().getZoom() + 1);
+        this.getMap().getView().animate({
+            center: this.getMap().getView().getCenter(),
+            zoom:   this.getMap().getView().getZoom() + 1
+        });
     }
 
     zoomOut() {
-        console.log("zoom out")
-        this.getMap().getView().setZoom(this.getMap().getView().getZoom() - 1);
+        this.getMap().getView().animate({
+            center: this.getMap().getView().getCenter(),
+            zoom:   this.getMap().getView().getZoom() - 1
+        });
     }
+
+    
+      
 
 }
 
