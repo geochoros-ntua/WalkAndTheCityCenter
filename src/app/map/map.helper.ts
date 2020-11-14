@@ -81,7 +81,7 @@ export const initCityBoundsLayer = (): VectorLayer[] =>{
               featureProjection:'EPSG:3857',
               geometryName:'geometry'
             }),
-            url: 'assets/geodata/city_boundaries_42.geojson',
+            url: 'assets/geodata/city_boundaries.geojson',
             wrapX:false
         })
     })
@@ -191,7 +191,7 @@ export const getAndSetClassesFromData = (data:any) => {
   if (data.length>0){
     
     data = data.map(vals => {
-      return Number(vals.toFixed(2));
+      return Number(vals.toFixed(4));
     });
     let serie = new geostats(data);
     serie.getClassQuantile(10);
@@ -233,7 +233,7 @@ return new Style(polyStyleConfig);
 
 export const verifyClassFromVal = (rangevals, val) => {
   let retIndex = -1;
-  let valRound = Number(val.toFixed(2))
+  let valRound = Number(val.toFixed(4))
   for (let i = 0; i < rangevals.length; i++) {
     if (valRound >= rangevals[i].min && valRound <= rangevals[i].max) {
       retIndex = i;

@@ -14,6 +14,7 @@ import {initOSMLayer, initGOSMLayer,initCityBoundsLayer,
   initWalkabilityLayer,switchTileLayer,setSelIndex,
   getAndSetClassesFromData,styleFnWalkGrids,highlightStyle} from './map.helper';
 import {setSelIndexDownCntlr} from './customControls/downloadControl';
+import { MapService } from './map.service';
 
 import {legendControl} from './customControls/legendControl';
 import {zoomToWorldControl} from './customControls/zoomToWorldControl';
@@ -31,7 +32,7 @@ import mappingsData from '../../assets/geodata/lookup.json';
 export class MapComponent implements OnInit {
   
 
-  constructor() { }
+  constructor(private mapService: MapService) { }
 
   title = 'ol3-ng';
   dataLoaded:boolean;
@@ -83,22 +84,33 @@ export class MapComponent implements OnInit {
       return false;
     };
 
-
-    this.map = new Map({
-      target: 'walk_map',
-      layers: layers,
-      overlays: [this.overlayPopup],
-      controls: defaultControls({zoom:false,attribution : false}).extend([
-        new legendControl(), 
-        new zoomToWorldControl(),
-        new downloadControl(),
-        new zoomInOutControl()
-      ]),
-      view: new View({
-        center: olProj.fromLonLat([15.0785, 51.4614]),
-        zoom: 1
-      })
+    this.map = this.mapService.createMap('walk_map');
+    console.log('this.map',this.map)
+    
+    layers.forEach((lyr) => {
+      this.map.addLayer(lyr);
     });
+    this.map.addOverlay(this.overlayPopup);
+    this.map.addControl(new legendControl());
+    this.map.addControl(new zoomToWorldControl());
+    this.map.addControl(new downloadControl());
+    this.map.addControl(new zoomInOutControl());
+
+    // this.map = new Map({
+    //   target: 'walk_map',
+    //   layers: layers,
+    //   overlays: [this.overlayPopup],
+    //   controls: defaultControls({zoom:false,attribution : false}).extend([
+    //     new legendControl(), 
+    //     new zoomToWorldControl(),
+    //     new downloadControl(),
+    //     new zoomInOutControl()
+    //   ]),
+    //   view: new View({
+    //     center: olProj.fromLonLat([15.0785, 51.4614]),
+    //     zoom: 1
+    //   })
+    // });
 
     this.CITY_BNDS.once('change', () => {
       this_.zoomToCities();
