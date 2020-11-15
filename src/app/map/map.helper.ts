@@ -108,22 +108,6 @@ export const highlightStyle = (feature:Feature, resolution:number): Style => {
 };
 
 
-export const switchTileLayer = (val:string, osm:TileLayer, gosm:TileLayer) =>{
-  if (val === "OSM"){
-      osm.setVisible(true); 
-      gosm.setVisible(false);
-    } 
-    else if (val === "GOSM"){
-      osm.setVisible(false); 
-      gosm.setVisible(true);
-    } 
-    else if (val === "NONE"){
-      osm.setVisible(false); 
-      gosm.setVisible(false);
-    } 
-}
-
-
 export const getAndSetClassesFromData = (data:any) => {
   let retObj = {};
   if (data.length>0){
@@ -147,7 +131,7 @@ export const getAndSetClassesFromData = (data:any) => {
 }
 
 export const styleFnWalkGrids = (feature:Feature, resolution:number): Style => {
-  console.log('selIndex')
+  console.log('selIndex',selIndex)
   const currVal = parseFloat(feature.get(selIndex));
   // TODO here it is
   const bounds = classSeries.bounds;

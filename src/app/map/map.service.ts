@@ -4,6 +4,7 @@ import Map from 'ol/Map';
 import View from 'ol/View';
 import * as olProj from 'ol/proj';
 import {defaults as defaultControls} from 'ol/control';
+import Overlay from 'ol/Overlay';
 
 
 @Injectable({
@@ -33,6 +34,8 @@ export class MapService {
     return this.map;
   }
 
-  
+  public getPopUpOverlay(): Overlay{
+    return this.map.getOverlayById('popupoverlay')
+  }
 
 }

@@ -1,18 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import Map from 'ol/Map';
-import View from 'ol/View';
-import VectorLayer from 'ol/layer/Vector';
 import { Vector } from 'ol/source';
 import Feature from 'ol/Feature';
 import GeoJSON from 'ol/format/GeoJSON';
-import * as olProj from 'ol/proj';
 import proj4 from 'proj4';
-import TileLayer from 'ol/layer/Tile';
-import {defaults as defaultControls} from 'ol/control'; 
 import Overlay from 'ol/Overlay';
-import {setSelIndex,
-  getAndSetClassesFromData,styleFnWalkGrids,highlightStyle} from './map.helper';
-import {setSelIndexDownCntlr} from './customControls/downloadControl';
+import {getAndSetClassesFromData,styleFnWalkGrids,highlightStyle} from './map.helper';
 import { MapService } from './map.service';
 
 import {legendControl} from './customControls/legendControl';
@@ -21,7 +14,6 @@ import {downloadControl} from './customControls/downloadControl';
 import {zoomInOutControl} from './customControls/zooomInOutControl';
 import mappingsData from '../../assets/geodata/lookup.json';
 import { MapLayersService } from './maplayers.service';
-import {PopupComponent} from './customControls/popup/popup.component'
 
 // ng build --prod --base-href /walkandthecitycenter/
 
@@ -31,7 +23,7 @@ import {PopupComponent} from './customControls/popup/popup.component'
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
-  @ViewChild(PopupComponent) popupComp:PopupComponent;
+  
 
   constructor(
     private mapService: MapService, 
@@ -51,8 +43,7 @@ export class MapComponent implements OnInit {
   walkOpacity:number;
 
   ngOnInit(){
-    
-    // this.popupCloser = document.getElementById('popup-closer');
+  
     this.dataLoaded = true;
     this.hoveredCity = null;
     this.selectedCity = null;
@@ -67,19 +58,7 @@ export class MapComponent implements OnInit {
       this.mapLayersService.initWalkabilityLayer(),
       this.mapLayersService.initCityBoundsLayer()
     ];
-    // this.overlayPopup = new Overlay({
-    //   element: document.getElementById('popup'),
-    //   autoPan: true,
-    //   autoPanAnimation: {
-    //     duration: 250,
-    //   },
-    // });
-
-    // this.popupCloser.onclick = ():boolean => {
-    //   this_.overlayPopup.setPosition(undefined);
-    //   this_.popupCloser.blur();
-    //   return false;
-    // };
+   
 
     this.map = this.mapService.createMap('walk_map');
     layers.forEach((lyr) => {
@@ -98,7 +77,7 @@ export class MapComponent implements OnInit {
     
     
     this.map.on('click', (event) => {
-      this_.popupComp.overlayPopup.setPosition(undefined);
+      this_.mapService.getPopUpOverlay().setPosition(undefined);
       this_.map.forEachFeatureAtPixel(event.pixel, (feature,layer) => {
         if (layer.get("title")==="WALK"){
           const keys = feature.getKeys();
@@ -112,7 +91,7 @@ export class MapComponent implements OnInit {
           });
           attrsTable += '</tbody></table>';
           document.getElementById('popup-content').innerHTML = attrsTable;
-          this_.popupComp.overlayPopup.setPosition(event.coordinate);
+          this_.mapService.getPopUpOverlay().setPosition(event.coordinate);
           return;
         } else if (layer.get("title")==="CITY_BNDS") {
           if (this_.selectedCity){
@@ -121,9 +100,9 @@ export class MapComponent implements OnInit {
           this_.selectedCity = feature;
           this_.selectedCity.setStyle(highlightStyle)
           this_.loadAndZoomToCity();
-          this_.popupComp.overlayPopup.setPosition(undefined);
+          this_.mapService.getPopUpOverlay().setPosition(undefined);
         } else {
-          this_.popupComp.overlayPopup.setPosition(undefined);
+          this_.mapService.getPopUpOverlay().setPosition(undefined);
         }
       });
   });
@@ -167,6 +146,7 @@ export class MapComponent implements OnInit {
   }
 
   loadAndZoomToCity = ():void => {
+    console.log('loadAndZoomToCity')
     this.dataLoaded = false;
     const newSource = new Vector({
       format: new GeoJSON({
@@ -180,18 +160,16 @@ export class MapComponent implements OnInit {
     const WALK = this.mapLayersService.getWalkabilityLayer()
     WALK.getSource().clear();
     WALK.setSource(newSource);
-    WALK.getSource().refresh();
-    newSource.once('change', () => {
-      if (newSource.getState() == 'ready') {
+    newSource.on('change', () => {
+      if (newSource.getState() == 'ready' && newSource.getFeatures().length > 0 ) {
         const vals = new Array();
         newSource.getFeatures().forEach((feat)=>{
-          console.log('selectedIndex',this.selectedIndex)
           vals.push(feat.get(this.selectedIndex))
         })
-      getAndSetClassesFromData(vals);
+      const obj = getAndSetClassesFromData(vals);
       WALK.setStyle(styleFnWalkGrids);
       this.dataLoaded = true;
-      }
+      } 
     })
     this.zoomToSelCityExtent();
   }

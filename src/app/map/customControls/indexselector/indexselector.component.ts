@@ -4,6 +4,7 @@ import mappingsData from '../../../../assets/geodata/lookup.json';
 import { MapLayersService } from '../../maplayers.service';
 import { setSelIndex, getAndSetClassesFromData } from '../../map.helper';
 import {setSelIndexDownCntlr} from '../../customControls/downloadControl';
+import {PopupComponent} from '../../customControls/popup/popup.component'
 
 @Component({
   selector: 'app-indexselector',
@@ -39,8 +40,8 @@ export class IndexselectorComponent implements OnInit {
 
 
   setDisplayIndex = (val:string): void =>{   
-    this.dataLoaded = false; 
-    // this.overlayPopup.setPosition(undefined); 
+    this.dataLoaded = false;  
+    this.mapService.getPopUpOverlay().setPosition(undefined);
     this.selectedIndex$.emit(val);
     setSelIndex(val);
     setSelIndexDownCntlr(val);

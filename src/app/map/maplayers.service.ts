@@ -5,7 +5,7 @@ import VectorLayer from 'ol/layer/Vector';
 import { Vector } from 'ol/source';
 import GeoJSON from 'ol/format/GeoJSON';
 import OSM from 'ol/source/OSM';
-import {styleFnCities} from './map.helper';
+import {styleFnCities, styleFnWalkGrids} from './map.helper';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import * as olProj from 'ol/proj';
@@ -53,6 +53,7 @@ export class MapLayersService {
         title: 'WALK',
         maxResolution: 50,
         opacity:0.7,
+        style:styleFnWalkGrids,
         source:new Vector({
             format: new GeoJSON({
               defaultDataProjection:'EPSG:3857',

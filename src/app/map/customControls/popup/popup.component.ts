@@ -18,6 +18,7 @@ export class PopupComponent implements OnInit {
     const this_ = this;
 
     this.overlayPopup = new Overlay({
+      id: 'popupoverlay',
       element: document.getElementById('popup'),
       autoPan: true,
       autoPanAnimation: {
@@ -29,14 +30,8 @@ export class PopupComponent implements OnInit {
       this_.popupCloser.blur();
       return false;
     };
-    const map = this.mapService.getCurrentMap();
-    map.addOverlay(this.overlayPopup);
-    //map.add
+    this.mapService.getCurrentMap().addOverlay(this.overlayPopup);
   }
-
-getOverLay(){
-  return this.overlayPopup;
-}
 
 
 }
