@@ -1,9 +1,9 @@
 <div id="walk_map">
   
   <app-tileselector></app-tileselector>
-  <app-indexselector (selectedIndex$)="setSelectedIndex($event)" [dataLoaded]="dataLoaded"></app-indexselector>
+  <app-indexselector (selectedIndex$)="setSelectedIndex($event)" [dataLoaded]="mapService.dataLoaded"></app-indexselector>
 
-  <div *ngIf="dataLoaded === false" class="loader" >
+  <div *ngIf="mapService.dataLoaded === false" class="loader" >
     <mat-spinner  diameter="70" mode="indeterminate" ></mat-spinner>
   </div>
 

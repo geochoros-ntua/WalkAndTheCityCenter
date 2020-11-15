@@ -1,19 +1,10 @@
 import Feature from 'ol/Feature';
-import Map from 'ol/Map';
-import Layer from 'ol/layer';
-import Point from 'ol/geom/Point';
 import Polygon from 'ol/geom/Polygon';
 import Style from 'ol/style/Style';
 import Fill from 'ol/style/Fill';
 import Text from 'ol/style/Text';
 import Circle from 'ol/style/Circle';
 import Stroke from 'ol/style/Stroke';
-import OSM from 'ol/source/OSM';
-import GeoJSON from 'ol/format/GeoJSON';
-import * as olProj from 'ol/proj';
-import TileLayer from 'ol/layer/Tile';
-import VectorLayer from 'ol/layer/Vector';
-import { Vector } from 'ol/source';
 import geostats from 'geostats/lib/geostats'
 import chroma from 'chroma-js'
 

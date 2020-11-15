@@ -4,7 +4,6 @@ import mappingsData from '../../../../assets/geodata/lookup.json';
 import { MapLayersService } from '../../maplayers.service';
 import { setSelIndex, getAndSetClassesFromData } from '../../map.helper';
 import {setSelIndexDownCntlr} from '../../customControls/downloadControl';
-import {PopupComponent} from '../../customControls/popup/popup.component'
 
 @Component({
   selector: 'app-indexselector',

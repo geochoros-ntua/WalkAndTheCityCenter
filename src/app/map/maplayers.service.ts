@@ -6,10 +6,6 @@ import { Vector } from 'ol/source';
 import GeoJSON from 'ol/format/GeoJSON';
 import OSM from 'ol/source/OSM';
 import {styleFnCities, styleFnWalkGrids} from './map.helper';
-import Map from 'ol/Map';
-import View from 'ol/View';
-import * as olProj from 'ol/proj';
-import {defaults as defaultControls} from 'ol/control';
 
 
 @Injectable({
@@ -21,7 +17,7 @@ export class MapLayersService {
     private GOSMLayer:TileLayer;
     private WALK:Vector;
     private CITY_BNDS:ViewContainerRef;
-    constructor(private mapService: MapService) {
+    constructor() {
 
     }
 
