@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import VectorLayer from 'ol/layer/Vector';
@@ -21,6 +21,7 @@ import {downloadControl} from './customControls/downloadControl';
 import {zoomInOutControl} from './customControls/zooomInOutControl';
 import mappingsData from '../../assets/geodata/lookup.json';
 import { MapLayersService } from './maplayers.service';
+import {PopupComponent} from './customControls/popup/popup.component'
 
 // ng build --prod --base-href /walkandthecitycenter/
 
@@ -30,7 +31,7 @@ import { MapLayersService } from './maplayers.service';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
-  
+  @ViewChild(PopupComponent) popupComp:PopupComponent;
 
   constructor(
     private mapService: MapService, 
@@ -41,20 +42,17 @@ export class MapComponent implements OnInit {
   map: Map;
   popupCloser: any;
   this_:MapComponent;
+  selectedIndex:string;
 
   overlayPopup:Overlay;
   selectedCity:Feature;
   hoveredCity:Feature;
-  selectedIndex:string;
   mappings:any = mappingsData.lookups;
   walkOpacity:number;
 
-
-
   ngOnInit(){
     
-    this.selectedIndex ="Score";
-    this.popupCloser = document.getElementById('popup-closer');
+    // this.popupCloser = document.getElementById('popup-closer');
     this.dataLoaded = true;
     this.hoveredCity = null;
     this.selectedCity = null;
@@ -67,42 +65,40 @@ export class MapComponent implements OnInit {
       this.mapLayersService.initOSMLayer(), 
       this.mapLayersService.initGOSMLayer(), 
       this.mapLayersService.initWalkabilityLayer(),
-       this.mapLayersService.initCityBoundsLayer()
-      ];
-    this.overlayPopup = new Overlay({
-      element: document.getElementById('popup'),
-      autoPan: true,
-      autoPanAnimation: {
-        duration: 250,
-      },
-    });
+      this.mapLayersService.initCityBoundsLayer()
+    ];
+    // this.overlayPopup = new Overlay({
+    //   element: document.getElementById('popup'),
+    //   autoPan: true,
+    //   autoPanAnimation: {
+    //     duration: 250,
+    //   },
+    // });
 
-    this.popupCloser.onclick = ():boolean => {
-      this_.overlayPopup.setPosition(undefined);
-      this_.popupCloser.blur();
-      return false;
-    };
+    // this.popupCloser.onclick = ():boolean => {
+    //   this_.overlayPopup.setPosition(undefined);
+    //   this_.popupCloser.blur();
+    //   return false;
+    // };
 
     this.map = this.mapService.createMap('walk_map');
     layers.forEach((lyr) => {
       this.map.addLayer(lyr);
     });
-    this.map.addOverlay(this.overlayPopup);
+    
     this.map.addControl(new legendControl());
     this.map.addControl(new zoomToWorldControl());
     this.map.addControl(new downloadControl());
     this.map.addControl(new zoomInOutControl());
 
-    
-
-    this.mapLayersService.getWalkabilityLayer().once('change', () => {
+    this.mapLayersService.getCityBoundLayer().once('change', () => {
       this_.zoomToCities();
       this_.map.updateSize();
     })
     
     
     this.map.on('click', (event) => {
-      this_.overlayPopup.setPosition(undefined);
+      this_.popupComp.overlayPopup.setPosition(undefined);
       this_.map.forEachFeatureAtPixel(event.pixel, (feature,layer) => {
         if (layer.get("title")==="WALK"){
           const keys = feature.getKeys();
@@ -116,7 +112,7 @@ export class MapComponent implements OnInit {
           });
           attrsTable += '</tbody></table>';
           document.getElementById('popup-content').innerHTML = attrsTable;
-          this_.overlayPopup.setPosition(event.coordinate);
+          this_.popupComp.overlayPopup.setPosition(event.coordinate);
           return;
         } else if (layer.get("title")==="CITY_BNDS") {
           if (this_.selectedCity){
@@ -125,9 +121,9 @@ export class MapComponent implements OnInit {
           this_.selectedCity = feature;
           this_.selectedCity.setStyle(highlightStyle)
           this_.loadAndZoomToCity();
-          this_.overlayPopup.setPosition(undefined);
+          this_.popupComp.overlayPopup.setPosition(undefined);
         } else {
-          this_.overlayPopup.setPosition(undefined);
+          this_.popupComp.overlayPopup.setPosition(undefined);
         }
       });
   });
@@ -161,30 +157,7 @@ export class MapComponent implements OnInit {
     this.map.getViewport().style.cursor = hit ? 'pointer' : '';
   }
 
-  setDisplayIndex = (val:string): void =>{   
-    this.dataLoaded = false; 
-    this.overlayPopup.setPosition(undefined); 
-    this.selectedIndex = val;
-    setSelIndex(val);
-    setSelIndexDownCntlr(val);
-    const vals = new Array();
-    this.mapLayersService.getWalkabilityLayer().getSource().getFeatures().forEach((feat)=>{
-        vals.push(feat.get(this.selectedIndex))
-        })
-    getAndSetClassesFromData(vals);
-    if (vals.length === 0){
-      this.dataLoaded = true; 
-    }
-    let this_ = this;
-    this.mapLayersService.getWalkabilityLayer().getSource().refresh();
-    this.mapLayersService.getWalkabilityLayer().getSource().once('change', () => {
-      if (this_.mapLayersService.getWalkabilityLayer().getSource().getState() == 'ready') {
-        this.dataLoaded = true; 
-      }
-    });
-    
-  }
-
+ 
   zoomToSelCityExtent = ():void => {
      this.map.getView().fit(this.selectedCity.getGeometry().getExtent(),{
       padding:[100,100,100,100],
@@ -212,6 +185,7 @@ export class MapComponent implements OnInit {
       if (newSource.getState() == 'ready') {
         const vals = new Array();
         newSource.getFeatures().forEach((feat)=>{
+          console.log('selectedIndex',this.selectedIndex)
           vals.push(feat.get(this.selectedIndex))
         })
       getAndSetClassesFromData(vals);
@@ -220,6 +194,11 @@ export class MapComponent implements OnInit {
       }
     })
     this.zoomToSelCityExtent();
+  }
+
+  setSelectedIndex(index:string){
+    console.log('setSelectedIndex index',index)
+    this.selectedIndex = index;
   }
 
 

@@ -12,7 +12,7 @@ import {defaults as defaultControls} from 'ol/control';
 export class MapService {
 
 
-  private map = {};
+  private map:Map;
 
   constructor() { }
 

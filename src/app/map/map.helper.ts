@@ -127,7 +127,7 @@ export const switchTileLayer = (val:string, osm:TileLayer, gosm:TileLayer) =>{
 export const getAndSetClassesFromData = (data:any) => {
   let retObj = {};
   if (data.length>0){
-    
+    console.log('data',data)
     data = data.map(vals => {
       return Number(vals.toFixed(4));
     });
@@ -147,7 +147,9 @@ export const getAndSetClassesFromData = (data:any) => {
 }
 
 export const styleFnWalkGrids = (feature:Feature, resolution:number): Style => {
+  console.log('selIndex')
   const currVal = parseFloat(feature.get(selIndex));
+  // TODO here it is
   const bounds = classSeries.bounds;
   let numRanges = new Array();
   for (let i = 0; i < bounds.length-1; i++) { 

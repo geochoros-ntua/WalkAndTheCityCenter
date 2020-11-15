@@ -24,6 +24,8 @@ import { HomeComponent } from './home/home.component';
 //import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { TileselectorComponent } from './map/customControls/tileselector/tileselector.component';
+import { IndexselectorComponent } from './map/customControls/indexselector/indexselector.component';
+import { PopupComponent } from './map/customControls/popup/popup.component';
 
 @NgModule({
   imports:      [
@@ -31,7 +33,7 @@ import { TileselectorComponent } from './map/customControls/tileselector/tilesel
      MatIconModule, MatButtonModule, MatSidenavModule, MatToolbarModule, MatSelectModule, MatSliderModule,
      MatMenuModule, MatProgressSpinnerModule, MatCardModule
    ],
-  declarations: [ AppComponent, MapComponent, AboutUsComponent, HomeComponent, TileselectorComponent ],
+  declarations: [ AppComponent, MapComponent, AboutUsComponent, HomeComponent, TileselectorComponent, IndexselectorComponent, PopupComponent ],
   bootstrap:    [ AppComponent ],
   providers: [{
     provide: RouteReuseStrategy,

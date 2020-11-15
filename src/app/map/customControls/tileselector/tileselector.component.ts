@@ -10,20 +10,13 @@ import { MapLayersService } from '../../maplayers.service';
 })
 export class TileselectorComponent implements OnInit {
 
-  constructor(
-    private mapService: MapService, 
-    private mapLayersService:MapLayersService
-    ) {
-      this.mapLayersService = mapLayersService;
-     }
+  constructor(private mapLayersService:MapLayersService) {}
 
   ngOnInit(): void {
   
   }
-
   
   setTileLayer = (val:string) =>{
-    console.log('val===',val)
     if (val === "OSM"){
       this.mapLayersService.getOSMLayer().setVisible(true); 
       this.mapLayersService.getGOSMLayer().setVisible(false);
