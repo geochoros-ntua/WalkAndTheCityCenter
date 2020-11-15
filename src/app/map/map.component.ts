@@ -10,8 +10,7 @@ import proj4 from 'proj4';
 import TileLayer from 'ol/layer/Tile';
 import {defaults as defaultControls} from 'ol/control'; 
 import Overlay from 'ol/Overlay';
-import {initOSMLayer, initGOSMLayer,initCityBoundsLayer,
-  initWalkabilityLayer,switchTileLayer,setSelIndex,
+import {setSelIndex,
   getAndSetClassesFromData,styleFnWalkGrids,highlightStyle} from './map.helper';
 import {setSelIndexDownCntlr} from './customControls/downloadControl';
 import { MapService } from './map.service';
@@ -21,6 +20,7 @@ import {zoomToWorldControl} from './customControls/zoomToWorldControl';
 import {downloadControl} from './customControls/downloadControl';
 import {zoomInOutControl} from './customControls/zooomInOutControl';
 import mappingsData from '../../assets/geodata/lookup.json';
+import { MapLayersService } from './maplayers.service';
 
 // ng build --prod --base-href /walkandthecitycenter/
 
@@ -32,18 +32,15 @@ import mappingsData from '../../assets/geodata/lookup.json';
 export class MapComponent implements OnInit {
   
 
-  constructor(private mapService: MapService) { }
+  constructor(
+    private mapService: MapService, 
+    private mapLayersService:MapLayersService) { }
 
   title = 'ol3-ng';
   dataLoaded:boolean;
   map: Map;
   popupCloser: any;
   this_:MapComponent;
-
-  OSM: TileLayer;
-  GOSM: TileLayer;
-  CITY_BNDS: VectorLayer;
-  WALK: VectorLayer;
 
   overlayPopup:Overlay;
   selectedCity:Feature;
@@ -55,10 +52,7 @@ export class MapComponent implements OnInit {
 
 
   ngOnInit(){
-    this.OSM = initOSMLayer();
-    this.GOSM = initGOSMLayer();
-    this.CITY_BNDS = initCityBoundsLayer();
-    this.WALK = initWalkabilityLayer();
+    
     this.selectedIndex ="Score";
     this.popupCloser = document.getElementById('popup-closer');
     this.dataLoaded = true;
@@ -69,7 +63,12 @@ export class MapComponent implements OnInit {
     proj4.defs('urn:ogc:def:crs:EPSG::3857', proj4.defs('EPSG:3857'));
    
     const this_ = this;
-    const layers = [this.OSM, this.GOSM, this.WALK, this.CITY_BNDS];
+    const layers = [
+      this.mapLayersService.initOSMLayer(), 
+      this.mapLayersService.initGOSMLayer(), 
+      this.mapLayersService.initWalkabilityLayer(),
+       this.mapLayersService.initCityBoundsLayer()
+      ];
     this.overlayPopup = new Overlay({
       element: document.getElementById('popup'),
       autoPan: true,
@@ -85,8 +84,6 @@ export class MapComponent implements OnInit {
     };
 
     this.map = this.mapService.createMap('walk_map');
-    console.log('this.map',this.map)
-    
     layers.forEach((lyr) => {
       this.map.addLayer(lyr);
     });
@@ -96,23 +93,9 @@ export class MapComponent implements OnInit {
     this.map.addControl(new downloadControl());
     this.map.addControl(new zoomInOutControl());
 
-    // this.map = new Map({
-    //   target: 'walk_map',
-    //   layers: layers,
-    //   overlays: [this.overlayPopup],
-    //   controls: defaultControls({zoom:false,attribution : false}).extend([
-    //     new legendControl(), 
-    //     new zoomToWorldControl(),
-    //     new downloadControl(),
-    //     new zoomInOutControl()
-    //   ]),
-    //   view: new View({
-    //     center: olProj.fromLonLat([15.0785, 51.4614]),
-    //     zoom: 1
-    //   })
-    // });
+    
 
-    this.CITY_BNDS.once('change', () => {
+    this.mapLayersService.getWalkabilityLayer().once('change', () => {
       this_.zoomToCities();
       this_.map.updateSize();
     })
@@ -185,7 +168,7 @@ export class MapComponent implements OnInit {
     setSelIndex(val);
     setSelIndexDownCntlr(val);
     const vals = new Array();
-    this.WALK.getSource().getFeatures().forEach((feat)=>{
+    this.mapLayersService.getWalkabilityLayer().getSource().getFeatures().forEach((feat)=>{
         vals.push(feat.get(this.selectedIndex))
         })
     getAndSetClassesFromData(vals);
@@ -193,9 +176,9 @@ export class MapComponent implements OnInit {
       this.dataLoaded = true; 
     }
     let this_ = this;
-    this.WALK.getSource().refresh();
-    this.WALK.getSource().once('change', () => {
-      if (this_.WALK.getSource().getState() == 'ready') {
+    this.mapLayersService.getWalkabilityLayer().getSource().refresh();
+    this.mapLayersService.getWalkabilityLayer().getSource().once('change', () => {
+      if (this_.mapLayersService.getWalkabilityLayer().getSource().getState() == 'ready') {
         this.dataLoaded = true; 
       }
     });
@@ -221,9 +204,10 @@ export class MapComponent implements OnInit {
       url: 'assets/geodata/'+ this.selectedCity.get('City').toLowerCase() +'.geojson',
       wrapX:false
     })
-    this.WALK.getSource().clear();
-    this.WALK.setSource(newSource);
-    this.WALK.getSource().refresh();
+    const WALK = this.mapLayersService.getWalkabilityLayer()
+    WALK.getSource().clear();
+    WALK.setSource(newSource);
+    WALK.getSource().refresh();
     newSource.once('change', () => {
       if (newSource.getState() == 'ready') {
         const vals = new Array();
@@ -231,17 +215,13 @@ export class MapComponent implements OnInit {
           vals.push(feat.get(this.selectedIndex))
         })
       getAndSetClassesFromData(vals);
-      this.WALK.setStyle(styleFnWalkGrids);
+      WALK.setStyle(styleFnWalkGrids);
       this.dataLoaded = true;
       }
     })
     this.zoomToSelCityExtent();
   }
 
-  setTileLayer = (val:string): void =>{     
-    switchTileLayer(val, this.OSM, this.GOSM);
-  }
- 
 
   getTitleFromMappingCode = (code:string):any[] => {
     return this.mappings.filter( (elem) => {
@@ -251,7 +231,7 @@ export class MapComponent implements OnInit {
 
   zoomToCities = ():void => {
     this.map.getView().fit(
-      this.CITY_BNDS.getSource().getExtent(),{
+      this.mapLayersService.getCityBoundLayer().getSource().getExtent(),{
       padding:[100,100,100,100],
        size:this.map.getSize(),
        duration: 2000
@@ -269,7 +249,7 @@ export class MapComponent implements OnInit {
 
   setLyrOpacity = (event):void => {
     this.walkOpacity = event.value;
-    this.WALK.setOpacity(this.walkOpacity/100);
+    this.mapLayersService.getWalkabilityLayer().setOpacity(this.walkOpacity/100);
     
   }
 }

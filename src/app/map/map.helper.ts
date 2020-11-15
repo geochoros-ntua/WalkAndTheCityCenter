@@ -26,68 +26,6 @@ export const setSelIndex =(idx:string):void => {
   selIndex = idx;
 }
 
-export const initOSMLayer = (): TileLayer =>{
-     const OSMLayer = new TileLayer({
-        title: 'OSM',
-        visible:true,
-        source: new OSM()
-      });
-    
-      return OSMLayer;
-}
-
-
-export const initGOSMLayer = (): TileLayer =>{
-     const GOSMLayer = new TileLayer({
-      title: 'GOSM',
-       visible:false,
-       source: new OSM({
-       url: 'http://mt{0-3}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'
-       })
-     });
-     return GOSMLayer;
-}
-
-
-export const initWalkabilityLayer = (): VectorLayer[] =>{
-  const WALK = new VectorLayer({
-      visible:true,
-      title: 'WALK',
-      maxResolution: 50,
-      opacity:0.7,
-      // style: styleFnWalkGrids,
-      source:new Vector({
-          format: new GeoJSON({
-            defaultDataProjection:'EPSG:3857',
-            featureProjection:'EPSG:3857',
-            geometryName:'geometry'
-          }),
-          wrapX:false
-      })
-  })
-   return WALK;
-}
-
-
-export const initCityBoundsLayer = (): VectorLayer[] =>{
-    const CITY_BNDS = new VectorLayer({
-        visible:true,
-        title: 'CITY_BNDS',
-        style: styleFnCities,
-        minResolution: 50,
-        source:new Vector({
-            format: new GeoJSON({
-              defaultDataProjection:'EPSG:3857',
-              featureProjection:'EPSG:3857',
-              geometryName:'geometry'
-            }),
-            url: 'assets/geodata/city_boundaries.geojson',
-            wrapX:false
-        })
-    })
-     return CITY_BNDS;
-}
-
 
 export const styleFnCities = (feature:Feature, resolution:number): Style => {
     let retStyle:Style;
