@@ -2,21 +2,13 @@
   
   <app-tileselector></app-tileselector>
   <app-indexselector (selectedIndex$)="setSelectedIndex($event)" [dataLoaded]="mapService.dataLoaded"></app-indexselector>
-
+  <app-opacity-slider></app-opacity-slider>
+  
   <div *ngIf="mapService.dataLoaded === false" class="loader" >
     <mat-spinner  diameter="70" mode="indeterminate" ></mat-spinner>
   </div>
 
-  <div *ngIf="showSelector()" class='opacitySlider'>
-    <mat-slider  
-    (input)="setLyrOpacity($event)"
-    [(value)] = "walkOpacity"
-    thumbLabel
-    tickInterval="10"
-    vertical=true
-    min="1"
-    max="100"></mat-slider>
-    </div>
+  
   
 </div> 
 <app-popup></app-popup>

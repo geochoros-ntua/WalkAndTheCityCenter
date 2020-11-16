@@ -5,17 +5,6 @@
   position:fixed;
 }
 
-.opacitySlider {
-  bottom: 0.4em;
-  right: 0.2em;
-  position: absolute; 
-  z-index: 9999;  
-  font-size: 12px;
-  font-weight: bold;
-  color: white;
-  
-}
-
 .loader {
   top: 40%;
   left: 47%;
@@ -26,19 +15,3 @@
   color: white;
 }
 
-
-:host ::ng-deep .mat-slider-thumb {
-  background-color: #3c17d2;
-}
-
-:host ::ng-deep  .mat-slider-thumb-label {
-  background-color:  #3c17d2;
-}
-
-:host ::ng-deep .mat-slider-track-fill {
-  background-color:  #3c17d2;
-}
-
-:host ::ng-deep .mat-slider-focus-ring {
-  background-color:  #3c17d2;
-}

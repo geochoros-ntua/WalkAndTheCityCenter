@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import Map from 'ol/Map';
-import Feature from 'ol/Feature';
 import proj4 from 'proj4';
 import { MapService } from './map.service';
 import {legendControl} from './customControls/legendControl';
@@ -25,16 +24,12 @@ export class MapComponent implements OnInit {
      }
 
   map: Map;
-  this_:MapComponent;
   walkOpacity:number;
 
   ngOnInit(){
-
-    this.walkOpacity = 70;
-       
-    proj4.defs('urn:ogc:def:crs:EPSG::3857', proj4.defs('EPSG:3857'));
-   
     const this_ = this;
+    this.walkOpacity = 70;     
+    proj4.defs('urn:ogc:def:crs:EPSG::3857', proj4.defs('EPSG:3857'));
     const layers = [
       this.mapLayersService.initOSMLayer(), 
       this.mapLayersService.initGOSMLayer(), 
@@ -73,18 +68,4 @@ export class MapComponent implements OnInit {
      });
   }
 
-  showSelector = ():boolean =>{
-    if (this.mapService.dataLoaded && this.map.getView().getResolution()<=50){
-      return true;
-    } else {
-      return false;
-    }
-
-  }
-
-  setLyrOpacity = (event):void => {
-    this.walkOpacity = event.value;
-    this.mapLayersService.getWalkabilityLayer().setOpacity(this.walkOpacity/100);
-    
-  }
 }

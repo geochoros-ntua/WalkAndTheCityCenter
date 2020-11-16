@@ -26,6 +26,7 @@ import { MatCardModule } from '@angular/material/card';
 import { TileselectorComponent } from './map/customControls/tileselector/tileselector.component';
 import { IndexselectorComponent } from './map/customControls/indexselector/indexselector.component';
 import { PopupComponent } from './map/customControls/popup/popup.component';
+import { OpacitySliderComponent } from './map/customControls/opacity-slider/opacity-slider.component';
 
 @NgModule({
   imports:      [
@@ -33,7 +34,7 @@ import { PopupComponent } from './map/customControls/popup/popup.component';
      MatIconModule, MatButtonModule, MatSidenavModule, MatToolbarModule, MatSelectModule, MatSliderModule,
      MatMenuModule, MatProgressSpinnerModule, MatCardModule
    ],
-  declarations: [ AppComponent, MapComponent, AboutUsComponent, HomeComponent, TileselectorComponent, IndexselectorComponent, PopupComponent ],
+  declarations: [ AppComponent, MapComponent, AboutUsComponent, HomeComponent, TileselectorComponent, IndexselectorComponent, PopupComponent, OpacitySliderComponent ],
   bootstrap:    [ AppComponent ],
   providers: [{
     provide: RouteReuseStrategy,
