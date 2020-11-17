@@ -5,40 +5,6 @@
   position:fixed;
 }
 
-
-.tileSelectorCntrl {
-  top: 0.6em;
-  right: 20px; 
-  position: absolute; 
-  z-index: 9999;  
-  font-size: 12px;
-  font-weight: bold;
-  color: white;
-
-}
-
-.indexSelectorCntrl {
-  top: 4.4em;
-  right: 20px;
-  position: absolute; 
-  z-index: 9999;  
-  font-size: 12px;
-  font-weight: bold;
-  color: white;
-}
-
-.opacitySlider {
-  bottom: 0.4em;
-  right: 0.2em;
-  position: absolute; 
-  z-index: 9999;  
-  font-size: 12px;
-  font-weight: bold;
-  color: white;
-  
-}
-
-
 .loader {
   top: 40%;
   left: 47%;
@@ -49,68 +15,3 @@
   color: white;
 }
 
-.ol-popup {
-  position: absolute;
-  background-color: white;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-  padding: 15px;
-  border-radius: 10px;
-  border: 1px solid #cccccc;
-  bottom: 12px;
-  left: -50px;
-  min-width: 280px;
-}
-.ol-popup:after, .ol-popup:before {
-  top: 100%;
-  border: solid transparent;
-  content: " ";
-  height: 0;
-  width: 0;
-  position: absolute;
-  pointer-events: none;
-}
-.ol-popup:after {
-  border-top-color: white;
-  border-width: 10px;
-  left: 48px;
-  margin-left: -10px;
-}
-.ol-popup:before {
-  border-top-color: #cccccc;
-  border-width: 11px;
-  left: 48px;
-  margin-left: -11px;
-}
-.ol-popup-closer {
-  text-decoration: none;
-  position: absolute;
-  top: 2px;
-  right: 8px;
-}
-.ol-popup-closer:after {
-  content: "✖";
-}
-
-.popup-content {
-  max-height:200px; 
-  overflow-y:auto;
-  overflow-x:hidden;
-  margin-top:10px;
-  font-size:12px;
-}
-
-:host ::ng-deep .mat-slider-thumb {
-  background-color: #3c17d2;
-}
-
-:host ::ng-deep  .mat-slider-thumb-label {
-  background-color:  #3c17d2;
-}
-
-:host ::ng-deep .mat-slider-track-fill {
-  background-color:  #3c17d2;
-}
-
-:host ::ng-deep .mat-slider-focus-ring {
-  background-color:  #3c17d2;
-}

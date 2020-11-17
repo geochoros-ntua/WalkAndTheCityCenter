@@ -1,0 +1,9 @@
+<div *ngIf="showSelector()" class="indexSelectorCntrl">
+    <mat-form-field fillColor="accredent" appearance="fill">
+      <mat-label>Pick an Index</mat-label>
+      <mat-select [value]="selectedIndex" (selectionChange)="setDisplayIndex($event.value)">
+        <mat-option *ngFor="let mapping of mappings" [value]="mapping.Code">{{mapping.indiname}}</mat-option>
+      </mat-select>
+      
+    </mat-form-field>
+  </div> 

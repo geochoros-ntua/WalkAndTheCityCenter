@@ -1,45 +1,16 @@
 <div id="walk_map">
-  <div class="tileSelectorCntrl">
-      <mat-form-field fillColor="accent" appearance="fill">
-        <mat-label>Choose Background</mat-label>
-        <mat-select value = "OSM" (selectionChange)="setTileLayer($event.value)">
-          <mat-option value="NONE">None</mat-option>
-          <mat-option value="OSM">OSM</mat-option>
-          <mat-option value="GOSM">Google Sat</mat-option>
-        </mat-select>
-        
-      </mat-form-field>
-  </div>  
-
-  <div *ngIf="dataLoaded === false" class="loader" >
+  
+  <app-tileselector></app-tileselector>
+  <app-indexselector (selectedIndex$)="setSelectedIndex($event)" [dataLoaded]="mapService.dataLoaded"></app-indexselector>
+  <app-opacity-slider></app-opacity-slider>
+  
+  <div *ngIf="mapService.dataLoaded === false" class="loader" >
     <mat-spinner  diameter="70" mode="indeterminate" ></mat-spinner>
   </div>
 
-  <div *ngIf="showSelector()" class="indexSelectorCntrl">
-    <mat-form-field fillColor="accredent" appearance="fill">
-      <mat-label>Pick an Index</mat-label>
-      <mat-select [value]="selectedIndex" (selectionChange)="setDisplayIndex($event.value)">
-        <mat-option *ngFor="let mapping of mappings" [value]="mapping.Code">{{mapping.indiname}}</mat-option>
-      </mat-select>
-      
-    </mat-form-field>
-  </div> 
-
-  <div *ngIf="showSelector()" class='opacitySlider'>
-    <mat-slider  
-    (input)="setLyrOpacity($event)"
-    [(value)] = "walkOpacity"
-    thumbLabel
-    tickInterval="10"
-    vertical=true
-    min="1"
-    max="100"></mat-slider>
-    </div>
+  
   
 </div> 
-<div id="popup" class="ol-popup">
-  <a href="#" id="popup-closer" class="ol-popup-closer"></a>
-  <div class='popup-content' id="popup-content"></div>
-</div>
+<app-popup></app-popup>
 
 

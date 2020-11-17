@@ -1,0 +1,11 @@
+  <div *ngIf="showSelector()" class='opacitySlider'>
+    <mat-slider  
+    (input)="setLyrOpacity($event)"
+    [(value)] = "walkOpacity"
+    thumbLabel
+    tickInterval="10"
+    vertical=true
+    color="primary"
+    min="1"
+    max="100"></mat-slider>
+    </div>

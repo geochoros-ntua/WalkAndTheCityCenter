@@ -1,19 +1,10 @@
 import Feature from 'ol/Feature';
-import Map from 'ol/Map';
-import Layer from 'ol/layer';
-import Point from 'ol/geom/Point';
 import Polygon from 'ol/geom/Polygon';
 import Style from 'ol/style/Style';
 import Fill from 'ol/style/Fill';
 import Text from 'ol/style/Text';
 import Circle from 'ol/style/Circle';
 import Stroke from 'ol/style/Stroke';
-import OSM from 'ol/source/OSM';
-import GeoJSON from 'ol/format/GeoJSON';
-import * as olProj from 'ol/proj';
-import TileLayer from 'ol/layer/Tile';
-import VectorLayer from 'ol/layer/Vector';
-import { Vector } from 'ol/source';
 import geostats from 'geostats/lib/geostats'
 import chroma from 'chroma-js'
 
@@ -24,68 +15,6 @@ let classColors;
 
 export const setSelIndex =(idx:string):void => {
   selIndex = idx;
-}
-
-export const initOSMLayer = (): TileLayer =>{
-     const OSMLayer = new TileLayer({
-        title: 'OSM',
-        visible:true,
-        source: new OSM()
-      });
-    
-      return OSMLayer;
-}
-
-
-export const initGOSMLayer = (): TileLayer =>{
-     const GOSMLayer = new TileLayer({
-      title: 'GOSM',
-       visible:false,
-       source: new OSM({
-       url: 'http://mt{0-3}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'
-       })
-     });
-     return GOSMLayer;
-}
-
-
-export const initWalkabilityLayer = (): VectorLayer[] =>{
-  const WALK = new VectorLayer({
-      visible:true,
-      title: 'WALK',
-      maxResolution: 50,
-      opacity:0.7,
-      // style: styleFnWalkGrids,
-      source:new Vector({
-          format: new GeoJSON({
-            defaultDataProjection:'EPSG:3857',
-            featureProjection:'EPSG:3857',
-            geometryName:'geometry'
-          }),
-          wrapX:false
-      })
-  })
-   return WALK;
-}
-
-
-export const initCityBoundsLayer = (): VectorLayer[] =>{
-    const CITY_BNDS = new VectorLayer({
-        visible:true,
-        title: 'CITY_BNDS',
-        style: styleFnCities,
-        minResolution: 50,
-        source:new Vector({
-            format: new GeoJSON({
-              defaultDataProjection:'EPSG:3857',
-              featureProjection:'EPSG:3857',
-              geometryName:'geometry'
-            }),
-            url: 'assets/geodata/city_boundaries.geojson',
-            wrapX:false
-        })
-    })
-     return CITY_BNDS;
 }
 
 
@@ -170,26 +99,10 @@ export const highlightStyle = (feature:Feature, resolution:number): Style => {
 };
 
 
-export const switchTileLayer = (val:string, osm:TileLayer, gosm:TileLayer) =>{
-  if (val === "OSM"){
-      osm.setVisible(true); 
-      gosm.setVisible(false);
-    } 
-    else if (val === "GOSM"){
-      osm.setVisible(false); 
-      gosm.setVisible(true);
-    } 
-    else if (val === "NONE"){
-      osm.setVisible(false); 
-      gosm.setVisible(false);
-    } 
-}
-
-
-export const getAndSetClassesFromData = (data:any) => {
+export const getAndSetClassesFromData = (data:any, resetStyle?:boolean) => {
   let retObj = {};
   if (data.length>0){
-    
+    console.log('data',data)
     data = data.map(vals => {
       return Number(vals.toFixed(4));
     });
@@ -209,6 +122,7 @@ export const getAndSetClassesFromData = (data:any) => {
 }
 
 export const styleFnWalkGrids = (feature:Feature, resolution:number): Style => {
+  console.log('style fn')
   const currVal = parseFloat(feature.get(selIndex));
   const bounds = classSeries.bounds;
   let numRanges = new Array();
