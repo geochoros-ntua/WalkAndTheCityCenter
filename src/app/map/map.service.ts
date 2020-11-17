@@ -135,9 +135,7 @@ export class MapService {
         newSource.getFeatures().forEach((feat)=>{
           vals.push(feat.get(this.selectedIndex))
         })
-      const obj = getAndSetClassesFromData(vals);
-      // WALK.setStyle(styleFnWalkGrids);
-      console.log('obj====',obj)
+      getAndSetClassesFromData(vals);
       this.zoomToSelCityExtent();
       this.dataLoaded = true;
       } 

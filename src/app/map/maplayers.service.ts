@@ -47,7 +47,7 @@ export class MapLayersService {
     this.WALK = new VectorLayer({
         visible:true,
         title: 'WALK',
-        //maxResolution: 70,
+        maxResolution: 50,
         opacity:0.7,
         style:styleFnWalkGrids,
         source:new Vector({

@@ -122,7 +122,6 @@ export const getAndSetClassesFromData = (data:any, resetStyle?:boolean) => {
 }
 
 export const styleFnWalkGrids = (feature:Feature, resolution:number): Style => {
-  console.log('style fn')
   const currVal = parseFloat(feature.get(selIndex));
   const bounds = classSeries.bounds;
   let numRanges = new Array();
