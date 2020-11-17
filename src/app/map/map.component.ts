@@ -31,8 +31,8 @@ export class MapComponent implements OnInit {
     const layers = [
       this.mapLayersService.initOSMLayer(), 
       this.mapLayersService.initGOSMLayer(), 
-      this.mapLayersService.initWalkabilityLayer(),
-      this.mapLayersService.initCityBoundsLayer()
+      this.mapLayersService.initCityBoundsLayer(),
+      this.mapLayersService.initWalkabilityLayer()
     ];
    
 

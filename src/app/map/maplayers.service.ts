@@ -47,7 +47,7 @@ export class MapLayersService {
     this.WALK = new VectorLayer({
         visible:true,
         title: 'WALK',
-        maxResolution: 50,
+        //maxResolution: 50,
         opacity:0.7,
         style:styleFnWalkGrids,
         source:new Vector({
@@ -67,7 +67,6 @@ export class MapLayersService {
         visible:true,
         title: 'CITY_BNDS',
         style: styleFnCities,
-        minResolution: 50,
         source:new Vector({
             format: new GeoJSON({
               defaultDataProjection:'EPSG:3857',

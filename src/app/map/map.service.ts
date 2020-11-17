@@ -54,11 +54,12 @@ export class MapService {
   private registrEvents(){
     const this_= this;
     this.map.on('click', (event) => {
+      const resolution= this_.map.getView().getResolution();
       this_.getPopUpOverlay().setPosition(undefined);
       this_.map.forEachFeatureAtPixel(event.pixel, (feature,layer) => {
-        if (layer.get("title")==="WALK"){
+        if (layer.get("title")==="WALK" && resolution < 50){
           const keys = feature.getKeys();
-          let attrsTable ='<table class="mat-table  cdk-table"><tbody>';
+          let attrsTable ='<table><tbody>';
           keys.filter( el => ['OBJECTID','geometry','Shape_Area','Shape_Leng'].indexOf( el ) < 0).forEach(key => {
               if (this.getTitleFromMappingCode(key).length ===1){
                 attrsTable += '<tr class="mat-row"><td class="mat-cell">'+this.getTitleFromMappingCode(key)[0].indiname+':</td><td>'+parseFloat(feature.get(key)).toFixed(2)+'</td></tr>';
@@ -70,7 +71,7 @@ export class MapService {
           document.getElementById('popup-content').innerHTML = attrsTable;
           this_.getPopUpOverlay().setPosition(event.coordinate);
           return;
-        } else if (layer.get("title")==="CITY_BNDS") {
+        } else if (layer.get("title")==="CITY_BNDS" && resolution > 50) {
           if (this_.selectedCity){
             this_.selectedCity.setStyle(undefined);
           }
@@ -79,7 +80,7 @@ export class MapService {
           this_.loadAndZoomToCity();
           this_.getPopUpOverlay().setPosition(undefined);
         } else {
-          this_.getPopUpOverlay().setPosition(undefined);
+          //this_.getPopUpOverlay().setPosition(undefined);
         }
       });
     });
@@ -96,7 +97,7 @@ export class MapService {
       this_.map.forEachFeatureAtPixel(e.pixel,(f) => {
           this.hoveredCity = f;
           this.hoveredCity.setStyle(highlightStyle);
-          this.setPointerStyle(e);
+          this.map.getViewport().style.cursor = 'pointer';
           return true;
       },{
         layerFilter : (lyr) => {
@@ -106,11 +107,6 @@ export class MapService {
     });
   }
 
-  setPointerStyle = (e) => {
-    const pixel = this.map.getEventPixel(e.originalEvent);
-    const hit = this.map.hasFeatureAtPixel(pixel);
-    this.map.getViewport().style.cursor = hit ? 'pointer' : '';
-  }
 
 
   loadAndZoomToCity = ():void => {
@@ -128,8 +124,8 @@ export class MapService {
     const WALK = this.mapLayerService.getWalkabilityLayer()
     WALK.getSource().clear();
     WALK.setSource(newSource);
+    WALK.setMaxResolution(1000000);
     newSource.once('change', () => {
-      console.log('newSource.getState()',newSource.getState())
       if (newSource.getState() == 'ready' && newSource.getFeatures().length > 0 ) {
         const vals = new Array();
         newSource.getFeatures().forEach((feat)=>{
@@ -149,6 +145,7 @@ export class MapService {
       size:this.map.getSize(),
       duration: 2000
     });
+    this.mapLayerService.getWalkabilityLayer().setMaxResolution(50);
  }
 
   getTitleFromMappingCode = (code:string):any[] => {

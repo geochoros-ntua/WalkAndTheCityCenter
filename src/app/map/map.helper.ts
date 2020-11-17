@@ -23,7 +23,7 @@ export const styleFnCities = (feature:Feature, resolution:number): Style => {
     if (resolution<200){
       retStyle = new Style({
         fill: new Fill({
-          color: [255, 0, 0, 0]
+          color: [0, 0, 0, 0]
         }),
         stroke: new Stroke({
           color: [255, 255, 0, 1],
@@ -59,7 +59,7 @@ export const highlightStyle = (feature:Feature, resolution:number): Style => {
   if (resolution<200){
     retStyle = new Style({
       fill: new Fill({
-        color: [255, 0, 0, 0.5]
+        color: [255, 0, 0, 0]
       }),
       stroke: new Stroke({
         color: [0, 255, 0, 1],
@@ -99,10 +99,9 @@ export const highlightStyle = (feature:Feature, resolution:number): Style => {
 };
 
 
-export const getAndSetClassesFromData = (data:any, resetStyle?:boolean) => {
+export const getAndSetClassesFromData = (data:any) => {
   let retObj = {};
   if (data.length>0){
-    console.log('data',data)
     data = data.map(vals => {
       return Number(vals.toFixed(4));
     });
