@@ -27,6 +27,7 @@ import { TileselectorComponent } from './map/customControls/tileselector/tilesel
 import { IndexselectorComponent } from './map/customControls/indexselector/indexselector.component';
 import { PopupComponent } from './map/customControls/popup/popup.component';
 import { OpacitySliderComponent } from './map/customControls/opacity-slider/opacity-slider.component';
+import { HelpComponent } from './help/help.component';
 
 @NgModule({
   imports:      [
@@ -34,7 +35,7 @@ import { OpacitySliderComponent } from './map/customControls/opacity-slider/opac
      MatIconModule, MatButtonModule, MatSidenavModule, MatToolbarModule, MatSelectModule, MatSliderModule,
      MatMenuModule, MatProgressSpinnerModule, MatCardModule
    ],
-  declarations: [ AppComponent, MapComponent, AboutUsComponent, HomeComponent, TileselectorComponent, IndexselectorComponent, PopupComponent, OpacitySliderComponent ],
+  declarations: [ AppComponent, MapComponent, AboutUsComponent, HomeComponent, TileselectorComponent, IndexselectorComponent, PopupComponent, OpacitySliderComponent, HelpComponent ],
   bootstrap:    [ AppComponent ],
   providers: [{
     provide: RouteReuseStrategy,

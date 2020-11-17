@@ -20,15 +20,13 @@ export class MapComponent implements OnInit {
 
   constructor(
     public mapService: MapService, 
-    private mapLayersService:MapLayersService) {
-     }
+    private mapLayersService:MapLayersService) {}
 
   map: Map;
   walkOpacity:number;
 
   ngOnInit(){
-    const this_ = this;
-    this.walkOpacity = 70;     
+    const this_ = this; 
     proj4.defs('urn:ogc:def:crs:EPSG::3857', proj4.defs('EPSG:3857'));
     const layers = [
       this.mapLayersService.initOSMLayer(), 

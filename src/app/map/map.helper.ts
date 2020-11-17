@@ -99,7 +99,7 @@ export const highlightStyle = (feature:Feature, resolution:number): Style => {
 };
 
 
-export const getAndSetClassesFromData = (data:any) => {
+export const getAndSetClassesFromData = (data:any, resetStyle?:boolean) => {
   let retObj = {};
   if (data.length>0){
     console.log('data',data)
@@ -122,9 +122,8 @@ export const getAndSetClassesFromData = (data:any) => {
 }
 
 export const styleFnWalkGrids = (feature:Feature, resolution:number): Style => {
-  console.log('selIndex',selIndex)
+  console.log('style fn')
   const currVal = parseFloat(feature.get(selIndex));
-  // TODO here it is
   const bounds = classSeries.bounds;
   let numRanges = new Array();
   for (let i = 0; i < bounds.length-1; i++) { 

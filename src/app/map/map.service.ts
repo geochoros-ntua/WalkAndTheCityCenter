@@ -114,6 +114,7 @@ export class MapService {
 
 
   loadAndZoomToCity = ():void => {
+    
     this.dataLoaded = false;
     const newSource = new Vector({
       format: new GeoJSON({
@@ -127,18 +128,22 @@ export class MapService {
     const WALK = this.mapLayerService.getWalkabilityLayer()
     WALK.getSource().clear();
     WALK.setSource(newSource);
-    newSource.on('change', () => {
+    newSource.once('change', () => {
+      console.log('newSource.getState()',newSource.getState())
       if (newSource.getState() == 'ready' && newSource.getFeatures().length > 0 ) {
         const vals = new Array();
         newSource.getFeatures().forEach((feat)=>{
           vals.push(feat.get(this.selectedIndex))
         })
       const obj = getAndSetClassesFromData(vals);
-      WALK.setStyle(styleFnWalkGrids);
+      // WALK.setStyle(styleFnWalkGrids);
+      console.log('obj====',obj)
+      this.zoomToSelCityExtent();
       this.dataLoaded = true;
       } 
     })
-    this.zoomToSelCityExtent();
+    
+    
   }
   zoomToSelCityExtent = ():void => {
     this.map.getView().fit(this.selectedCity.getGeometry().getExtent(),{
