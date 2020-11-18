@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,  OnInit } from '@angular/core';
+import Feature from 'ol/Feature';
 import Overlay from 'ol/Overlay';
 import { MapService } from '../../map.service';
 
@@ -8,15 +9,22 @@ import { MapService } from '../../map.service';
   styleUrls: ['./popup.component.scss']
 })
 export class PopupComponent implements OnInit {
-  popupCloser: HTMLElement;
-  overlayPopup: any;
 
-  constructor(private mapService:MapService) { }
+  overlayPopup: Overlay;
+  featureClicked: Feature = null;
+  displayedColumns: string[] = ['name', 'value'];
+
+  constructor(private mapService:MapService) { 
+    this.mapService.featureClicked$.subscribe((obj) => {
+      if(obj){
+        this.featureClicked = obj;
+        this.mapService.getPopUpOverlay().setPosition(this.featureClicked.coord);
+      }
+  });
+  }
+  
 
   ngOnInit(): void {
-    this.popupCloser = document.getElementById('popup-closer');
-    const this_ = this;
-
     this.overlayPopup = new Overlay({
       id: 'popupoverlay',
       element: document.getElementById('popup'),
@@ -25,12 +33,20 @@ export class PopupComponent implements OnInit {
         duration: 250,
       }
     });
-    this.popupCloser.onclick = ():boolean => {
-      this_.overlayPopup.setPosition(undefined);
-      this_.popupCloser.blur();
-      return false;
-    };
     this.mapService.getCurrentMap().addOverlay(this.overlayPopup);
+  }
+
+  closeIt(){
+    this.overlayPopup.setPosition(undefined);
+    return true;
+  }
+
+  getValidKeys(keys){
+    return keys.filter( el => ['OBJECTID','City','geometry','Shape_Area','Shape_Leng'].indexOf( el ) < 0);
+  }
+
+  parseNumberKey(val){
+    return parseFloat(val).toFixed(2);
   }
 
 
