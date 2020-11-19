@@ -3,7 +3,6 @@ import Map from 'ol/Map';
 import proj4 from 'proj4';
 import { MapService } from './map.service';
 import {legendControl} from './customControls/legendControl';
-import {zoomInOutControl} from './customControls/zooomInOutControl';
 import { MapLayersService } from './maplayers.service';
 
 // ng build --prod --base-href /walkandthecitycenter/
@@ -39,7 +38,6 @@ export class MapComponent implements OnInit {
     });
     
     this.map.addControl(new legendControl());
-    // this.map.addControl(new zoomInOutControl());
 
     this.mapLayersService.getCityBoundLayer().once('change', () => {
       this_.zoomToCities();
