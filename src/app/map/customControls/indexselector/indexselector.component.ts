@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MapService } from '../../map.service';
+import { MapService } from '../../services/map.service';
 import mappingsData from '../../../../assets/geodata/lookup.json';
-import { MapLayersService } from '../../maplayers.service';
+import { MapLayersService } from '../../services/maplayers.service';
 import { setSelIndex, getAndSetClassesFromData } from '../../map.helper';
 
 @Component({
@@ -11,8 +11,9 @@ import { setSelIndex, getAndSetClassesFromData } from '../../map.helper';
 })
 export class IndexselectorComponent implements OnInit {
   @Input() dataLoaded: boolean;
+  @Input() selectedIndex:string = this.mapService.selectedIndex;
   @Output() selectedIndex$:EventEmitter<string> = new EventEmitter<string>();
-  selectedIndex:string = this.mapService.selectedIndex;
+  // selectedIndex:string = this.mapService.selectedIndex;
   
 
   private mappings:any = mappingsData.lookups;
@@ -24,7 +25,7 @@ export class IndexselectorComponent implements OnInit {
     this.selectedIndex$.subscribe(
       (sel) => {
           console.log('sel',sel)
-          this.selectedIndex = sel
+          // this.selectedIndex = sel
           this.mapService.selectedIndex = sel;
         }
       );

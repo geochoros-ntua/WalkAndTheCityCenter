@@ -1,7 +1,7 @@
 import { Component,  OnInit } from '@angular/core';
 import Feature from 'ol/Feature';
 import Overlay from 'ol/Overlay';
-import { MapService } from '../../map.service';
+import { MapService } from '../../services/map.service';
 
 @Component({
   selector: 'app-popup',

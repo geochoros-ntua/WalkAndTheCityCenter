@@ -1,11 +1,10 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
-import { MapService } from './map.service';
 import TileLayer from 'ol/layer/Tile';
 import VectorLayer from 'ol/layer/Vector';
 import { Vector } from 'ol/source';
 import GeoJSON from 'ol/format/GeoJSON';
 import OSM from 'ol/source/OSM';
-import {styleFnCities, styleFnWalkGrids} from './map.helper';
+import {styleFnCities, styleFnWalkGrids} from '../map.helper';
 
 
 @Injectable({

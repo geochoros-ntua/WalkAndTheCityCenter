@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import Map from 'ol/Map';
 import Feature from 'ol/Feature';
 import GeoJSON from 'ol/format/GeoJSON';
-import { MapService } from '../../map.service';
-import { MapLayersService } from '../../maplayers.service';
+import { MapService } from '../../services/map.service';
+import { MapLayersService } from '../../services/maplayers.service';
 
 @Component({
   selector: 'app-downloader',
@@ -46,7 +45,7 @@ export class DownloaderComponent implements OnInit {
     element.setAttribute('download', "walkhub-data.geojson");
     element.style.display = 'none';
     document.body.appendChild(element);
-    element.click(); // simulate click
+    element.click();
     document.body.removeChild(element);
   }
 

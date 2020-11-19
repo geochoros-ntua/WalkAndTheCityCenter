@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MapService } from '../../map.service';
+import { MapService } from '../../services/map.service';
 
 @Component({
   selector: 'app-zoominout',
@@ -14,13 +14,13 @@ export class ZoominoutComponent implements OnInit {
 
   }
 
-  zoomIn(){
+  zoomIn():void{
     this.mapService.getCurrentMap().getView().animate({
       center: this.mapService.getCurrentMap().getView().getCenter(),
       zoom:   this.mapService.getCurrentMap().getView().getZoom() + 1
     });
   }
-  zoomOut(){
+  zoomOut():void{
     this.mapService.getCurrentMap().getView().animate({
       center: this.mapService.getCurrentMap().getView().getCenter(),
       zoom:   this.mapService.getCurrentMap().getView().getZoom() - 1

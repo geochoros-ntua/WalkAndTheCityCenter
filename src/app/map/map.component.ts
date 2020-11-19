@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import Map from 'ol/Map';
 import proj4 from 'proj4';
-import { MapService } from './map.service';
+import { MapService } from './services/map.service';
 import {legendControl} from './customControls/legendControl';
-import { MapLayersService } from './maplayers.service';
+import { MapLayersService } from './services/maplayers.service';
 
 // ng build --prod --base-href /walkandthecitycenter/
 
@@ -46,9 +46,9 @@ export class MapComponent implements OnInit {
     
   }
 
-  setSelectedIndex(index:string){
-    this.mapService.selectedIndex = index;
-  }
+  // setSelectedIndex(index:string){
+  //   this.mapService.selectedIndex = index;
+  // }
 
   zoomToCities = ():void => {
     this.map.getView().fit(

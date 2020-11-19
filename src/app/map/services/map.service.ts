@@ -6,14 +6,14 @@ import * as olProj from 'ol/proj';
 import {defaults as defaultControls} from 'ol/control';
 import Overlay from 'ol/Overlay';
 import Layer from 'ol/layer';
-import mappingsData from '../../assets/geodata/lookup.json';
-import {getAndSetClassesFromData,highlightStyle} from './map.helper';
+import mappingsData from '../../../assets/geodata/lookup.json';
+import {getAndSetClassesFromData,highlightStyle} from '../map.helper';
 import Feature from 'ol/Feature';
 import GeoJSON from 'ol/format/GeoJSON';
 import { Vector } from 'ol/source';
 import { MapLayersService } from './maplayers.service';
 import { BehaviorSubject } from 'rxjs';
-import {featureClickedWithPos} from '../api/app.interfaces'
+import {featureClickedWithPos} from '../api/map.interfaces'
 
 @Injectable({
   providedIn: 'root'

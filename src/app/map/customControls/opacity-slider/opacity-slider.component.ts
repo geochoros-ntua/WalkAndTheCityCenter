@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MapService } from '../../map.service';
-import { MapLayersService } from '../../maplayers.service';
+import { MapService } from '../../services/map.service';
+import { MapLayersService } from '../../services/maplayers.service';
 
 @Component({
   selector: 'app-opacity-slider',
