@@ -5,6 +5,7 @@ import View from 'ol/View';
 import * as olProj from 'ol/proj';
 import {defaults as defaultControls} from 'ol/control';
 import Overlay from 'ol/Overlay';
+import Layer from 'ol/layer';
 import mappingsData from '../../assets/geodata/lookup.json';
 import {getAndSetClassesFromData,highlightStyle} from './map.helper';
 import Feature from 'ol/Feature';
@@ -22,9 +23,9 @@ export class MapService {
   private selectedCity:Feature;
   private hoveredCity:Feature;
   private mappings:any = mappingsData.lookups;
-  dataLoaded:boolean;
-  selectedIndex:string;
-  featureClicked$ = new BehaviorSubject<featureClickedWithPos>(null);
+  public dataLoaded:boolean;
+  public selectedIndex:string = 'Score';
+  public featureClicked$ = new BehaviorSubject<featureClickedWithPos>(null);
   
 
   constructor(private mapLayerService:MapLayersService) {}
@@ -39,7 +40,7 @@ export class MapService {
         zoom: 1
       })
     });
-    this.registrEvents();
+    this.registerMapEvents();
     return this.map;
   }
 
@@ -52,7 +53,7 @@ export class MapService {
   }
 
   
-  private registrEvents(){
+  private registerMapEvents(){
     const this_= this;
     this.map.on('click', (event) => {
       const resolution= this_.map.getView().getResolution();
@@ -92,7 +93,7 @@ export class MapService {
           this.map.getViewport().style.cursor = 'pointer';
           return true;
       },{
-        layerFilter : (lyr) => {
+        layerFilter : (lyr:Layer) => {
           return lyr.get('title') === 'CITY_BNDS';
         }
       });
@@ -102,7 +103,6 @@ export class MapService {
 
 
   loadAndZoomToCity = ():void => {
-    
     this.dataLoaded = false;
     const newSource = new Vector({
       format: new GeoJSON({
@@ -140,7 +140,7 @@ export class MapService {
     this.mapLayerService.getWalkabilityLayer().setMaxResolution(50);
  }
 
-  getTitleFromMappingCode = (code:string):any[] => {
+  getTitleFromMappingCode = (code:string):string[] => {
     const title = this.mappings.filter( elem => {
       return elem.Code === code;
     });
@@ -149,6 +149,14 @@ export class MapService {
     return title[0].indiname;
     } else {
 
+    }
+  }
+
+  showSelector = ():boolean =>{
+    if (this.dataLoaded && this.map.getView().getResolution()<=50){
+      return true;
+    } else {
+      return false;
     }
   }
 

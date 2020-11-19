@@ -9,10 +9,9 @@ import { MapService } from '../../map.service';
   styleUrls: ['./popup.component.scss']
 })
 export class PopupComponent implements OnInit {
-
-  overlayPopup: Overlay;
-  featureClicked: Feature = null;
-  displayedColumns: string[] = ['name', 'value'];
+  public featureClicked: Feature = null;
+  private overlayPopup: Overlay;
+  private displayedColumns: string[] = ['name', 'value'];
 
   constructor(private mapService:MapService) { 
     this.mapService.featureClicked$.subscribe((obj) => {
@@ -36,16 +35,15 @@ export class PopupComponent implements OnInit {
     this.mapService.getCurrentMap().addOverlay(this.overlayPopup);
   }
 
-  closeIt(){
+  public closeIt(){
     this.overlayPopup.setPosition(undefined);
-    return true;
   }
 
-  getValidKeys(keys){
+  public getValidKeys(keys:string[]):string[]{
     return keys.filter( el => ['OBJECTID','City','geometry','Shape_Area','Shape_Leng'].indexOf( el ) < 0);
   }
 
-  parseNumberKey(val){
+  public parseNumberKey(val){
     return parseFloat(val).toFixed(2);
   }
 

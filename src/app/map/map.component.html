@@ -3,6 +3,10 @@
   <app-tileselector></app-tileselector>
   <app-indexselector (selectedIndex$)="setSelectedIndex($event)" [dataLoaded]="mapService.dataLoaded"></app-indexselector>
   <app-opacity-slider></app-opacity-slider>
+  <app-downloader [selectedIndex]="mapService.selectedIndex"></app-downloader>
+  <app-worldzoom></app-worldzoom>
+  <app-zoominout></app-zoominout>
+  
   
   <div *ngIf="mapService.dataLoaded === false" class="loader" >
     <mat-spinner  diameter="70" mode="indeterminate" ></mat-spinner>

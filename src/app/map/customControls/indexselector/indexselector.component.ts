@@ -3,7 +3,6 @@ import { MapService } from '../../map.service';
 import mappingsData from '../../../../assets/geodata/lookup.json';
 import { MapLayersService } from '../../maplayers.service';
 import { setSelIndex, getAndSetClassesFromData } from '../../map.helper';
-import {setSelIndexDownCntlr} from '../../customControls/downloadControl';
 
 @Component({
   selector: 'app-indexselector',
@@ -13,37 +12,30 @@ import {setSelIndexDownCntlr} from '../../customControls/downloadControl';
 export class IndexselectorComponent implements OnInit {
   @Input() dataLoaded: boolean;
   @Output() selectedIndex$:EventEmitter<string> = new EventEmitter<string>();
-  selectedIndex:string;
+  selectedIndex:string = this.mapService.selectedIndex;
   
 
   private mappings:any = mappingsData.lookups;
   
-  constructor(private mapService:MapService,private mapLayersService:MapLayersService) { }
+  constructor(public mapService:MapService,private mapLayersService:MapLayersService) { }
 
   ngOnInit(): void {
     
     this.selectedIndex$.subscribe(
-      sel => this.selectedIndex = sel
+      (sel) => {
+          console.log('sel',sel)
+          this.selectedIndex = sel
+          this.mapService.selectedIndex = sel;
+        }
       );
-    this.selectedIndex$.emit("Score");
-  }
-
-  public showSelector = ():boolean =>{
-    if (this.dataLoaded && this.mapService.getCurrentMap().getView().getResolution()<=50){
-      return true;
-    } else {
-      return false;
-    }
 
   }
-
 
   setDisplayIndex = (val:string): void =>{   
     this.dataLoaded = false;  
     this.mapService.getPopUpOverlay().setPosition(undefined);
-    this.selectedIndex$.emit(val);
+    this.mapService.selectedIndex = val;
     setSelIndex(val);
-    setSelIndexDownCntlr(val);
     const vals = new Array();
     this.mapLayersService.getWalkabilityLayer().getSource().getFeatures().forEach((feat)=>{
         vals.push(feat.get(val))

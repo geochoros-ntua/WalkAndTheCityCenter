@@ -102,8 +102,8 @@ export const highlightStyle = (feature:Feature, resolution:number): Style => {
 export const getAndSetClassesFromData = (data:any) => {
   let retObj = {};
   if (data.length>0){
-    data = data.map(vals => {
-      return Number(vals.toFixed(4));
+    data = data.map(val => {
+      return Number(val.toFixed(4));
     });
     let serie = new geostats(data);
     serie.getClassQuantile(10);

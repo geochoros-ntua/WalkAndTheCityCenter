@@ -3,8 +3,6 @@ import Map from 'ol/Map';
 import proj4 from 'proj4';
 import { MapService } from './map.service';
 import {legendControl} from './customControls/legendControl';
-import {zoomToWorldControl} from './customControls/zoomToWorldControl';
-import {downloadControl} from './customControls/downloadControl';
 import {zoomInOutControl} from './customControls/zooomInOutControl';
 import { MapLayersService } from './maplayers.service';
 
@@ -21,9 +19,8 @@ export class MapComponent implements OnInit {
   constructor(
     public mapService: MapService, 
     private mapLayersService:MapLayersService) {}
-
-  map: Map;
-  walkOpacity:number;
+    map: Map;
+    walkOpacity:number;
 
   ngOnInit(){
     const this_ = this; 
@@ -42,9 +39,7 @@ export class MapComponent implements OnInit {
     });
     
     this.map.addControl(new legendControl());
-    this.map.addControl(new zoomToWorldControl());
-    this.map.addControl(new downloadControl());
-    this.map.addControl(new zoomInOutControl());
+    // this.map.addControl(new zoomInOutControl());
 
     this.mapLayersService.getCityBoundLayer().once('change', () => {
       this_.zoomToCities();

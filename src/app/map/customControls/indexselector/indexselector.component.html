@@ -1,4 +1,4 @@
-<div *ngIf="showSelector()" class="indexSelectorCntrl">
+<div *ngIf="mapService.showSelector()" class="indexSelectorCntrl">
     <mat-form-field fillColor="accredent" appearance="fill">
       <mat-label>Pick an Index</mat-label>
       <mat-select [value]="selectedIndex" (selectionChange)="setDisplayIndex($event.value)">

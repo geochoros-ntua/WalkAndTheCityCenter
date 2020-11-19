@@ -15,6 +15,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select'; 
 import { MatMenuModule } from '@angular/material/menu'; 
+import { MatTooltipModule } from '@angular/material/tooltip'; 
+
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; 
 import { MapComponent } from './map/map.component';
 import { AboutUsComponent } from './about-us/about-us.component';
@@ -29,17 +31,20 @@ import { IndexselectorComponent } from './map/customControls/indexselector/index
 import { PopupComponent } from './map/customControls/popup/popup.component';
 import { OpacitySliderComponent } from './map/customControls/opacity-slider/opacity-slider.component';
 import { HelpComponent } from './help/help.component';
+import { DownloaderComponent } from './map/customControls/downloader/downloader.component';
+import { WorldzoomComponent } from './map/customControls/worldzoom/worldzoom.component';
+import { ZoominoutComponent } from './map/customControls/zoominout/zoominout.component';
 
 @NgModule({
   imports:      [
      BrowserModule, AppRoutingModule, FormsModule, FlexLayoutModule, BrowserAnimationsModule,
      MatIconModule, MatButtonModule, MatSidenavModule, MatToolbarModule, MatSelectModule, MatSliderModule,
-     MatMenuModule, MatProgressSpinnerModule, MatCardModule, MatTableModule
+     MatMenuModule, MatProgressSpinnerModule, MatCardModule, MatTableModule,MatTooltipModule
    ],
   declarations: [ 
     AppComponent, MapComponent, AboutUsComponent, 
     HomeComponent, TileselectorComponent, IndexselectorComponent, 
-    PopupComponent, OpacitySliderComponent, HelpComponent ],
+    PopupComponent, OpacitySliderComponent, HelpComponent, DownloaderComponent, WorldzoomComponent, ZoominoutComponent ],
   bootstrap:    [ AppComponent ],
   providers: [{
     provide: RouteReuseStrategy,
