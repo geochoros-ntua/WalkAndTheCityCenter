@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import Map from 'ol/Map';
 import proj4 from 'proj4';
 import { MapService } from './services/map.service';
-import {legendControl} from './customControls/legendControl';
 import { MapLayersService } from './services/maplayers.service';
 
 // ng build --prod --base-href /walkandthecitycenter/
@@ -37,7 +36,6 @@ export class MapComponent implements OnInit {
       this.map.addLayer(lyr);
     });
     
-    this.map.addControl(new legendControl());
 
     this.mapLayersService.getCityBoundLayer().once('change', () => {
       this_.zoomToCities();
@@ -45,10 +43,6 @@ export class MapComponent implements OnInit {
     })
     
   }
-
-  // setSelectedIndex(index:string){
-  //   this.mapService.selectedIndex = index;
-  // }
 
   zoomToCities = ():void => {
     this.map.getView().fit(

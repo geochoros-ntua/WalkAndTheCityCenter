@@ -1,0 +1,53 @@
+.ol-legendCntrl {
+    position: absolute;
+    bottom: 0.5em;
+    left: 0.5em;
+    z-index: 9999;
+  }
+  
+  .ol-legendCntrl-closer {
+    text-decoration: none;
+    position: absolute;
+    top: 2px;
+    right: 8px;
+  }
+  .ol-legendCntrl-closer:after {
+    content: "✖";
+  }
+  
+  .legendDivHide {
+    margin: 0;
+    display: none;
+  }
+  
+  .legendDivShow {
+    border: 1px solid #cccccc;
+    margin: 0;
+    padding-right: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .geostats-legend div {
+    padding: 2px 3px 2px 3px;
+    font-size: 12px;
+  }
+  
+  .geostats-legend-title {
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+
+  .geostats-legend-color {
+    width:50px
+  }
+
+  .geostats-legend-ranges {
+    font-size: 0.9em;
+  }
+  
+  
+  .geostats-legend-counter {
+    font-size: 0.7em;
+    color: #666;
+    font-style: italic;
+  }

@@ -1,0 +1,21 @@
+<div *ngIf="mapService.showSelector()" class="ol-legendCntrl">
+    <a href="#" [routerLink]="" (click)="toggleLegend()" class="ol-legendCntrl-closer"></a>
+    <div id="legend" class="legendDivHide">
+        <table>
+            <tr class="geostats-legend-title">
+                <td colspan="3">Index: {{mapStatsService.selectedIndex}}</td></tr>
+            <tr *ngFor="let range of mapStatsService.classSeries.getRanges();index as i">
+                <td class="geostats-legend-color" [style.background-color]="mapStatsService.classSeries.colors[i]"></td>
+                <td class="geostats-legend-ranges" >{{ range }}</td>
+                <td class="geostats-legend-counter">({{ mapStatsService.classSeries.counter[i] }})</td>
+            </tr>
+        </table>
+        
+    </div> 
+    <button id="btnlgnd"
+        mat-mini-fab color="primary" 
+        (click)="toggleLegend()"
+        matTooltip="Map Legend">
+            <mat-icon>art_track</mat-icon>
+        </button>
+</div>

@@ -34,6 +34,7 @@ import { HelpComponent } from './help/help.component';
 import { DownloaderComponent } from './map/customControls/downloader/downloader.component';
 import { WorldzoomComponent } from './map/customControls/worldzoom/worldzoom.component';
 import { ZoominoutComponent } from './map/customControls/zoominout/zoominout.component';
+import { LegendComponent } from './map/customControls/legend/legend.component';
 
 @NgModule({
   imports:      [
@@ -44,7 +45,7 @@ import { ZoominoutComponent } from './map/customControls/zoominout/zoominout.com
   declarations: [ 
     AppComponent, MapComponent, AboutUsComponent, 
     HomeComponent, TileselectorComponent, IndexselectorComponent, 
-    PopupComponent, OpacitySliderComponent, HelpComponent, DownloaderComponent, WorldzoomComponent, ZoominoutComponent ],
+    PopupComponent, OpacitySliderComponent, HelpComponent, DownloaderComponent, WorldzoomComponent, ZoominoutComponent, LegendComponent ],
   bootstrap:    [ AppComponent ],
   providers: [{
     provide: RouteReuseStrategy,

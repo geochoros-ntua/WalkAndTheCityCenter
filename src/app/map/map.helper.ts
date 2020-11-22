@@ -5,17 +5,7 @@ import Fill from 'ol/style/Fill';
 import Text from 'ol/style/Text';
 import Circle from 'ol/style/Circle';
 import Stroke from 'ol/style/Stroke';
-import geostats from 'geostats/lib/geostats'
-import chroma from 'chroma-js'
 
-
-let selIndex = 'Score';
-let classSeries;
-let classColors;
-
-export const setSelIndex =(idx:string):void => {
-  selIndex = idx;
-}
 
 
 export const styleFnCities = (feature:Feature, resolution:number): Style => {
@@ -97,62 +87,6 @@ export const highlightStyle = (feature:Feature, resolution:number): Style => {
   }
   return retStyle;
 };
-
-
-export const getAndSetClassesFromData = (data:any) => {
-  let retObj = {};
-  if (data.length>0){
-    data = data.map(val => {
-      return Number(val.toFixed(4));
-    });
-    let serie = new geostats(data);
-    serie.getClassQuantile(10);
-    let colors = chroma.scale([[253, 231, 37, 1],[30, 158, 137, 1], [68, 1, 84, 1]]).colors(10);
-    serie.setColors(colors);
-    classSeries = serie;
-    classColors = colors;
-    document.getElementById('legend').innerHTML = serie.getHtmlLegend(null, "Walkability. Index:"+selIndex,1);
-    retObj= {
-      'ser':serie, 
-      'cols':colors
-    };
-  }
-  return retObj;
-}
-
-export const styleFnWalkGrids = (feature:Feature, resolution:number): Style => {
-  const currVal = parseFloat(feature.get(selIndex));
-  const bounds = classSeries.bounds;
-  let numRanges = new Array();
-  for (let i = 0; i < bounds.length-1; i++) { 
-  numRanges.push({
-      min: parseFloat(bounds[i]),
-      max: parseFloat(bounds[i+1])
-    });  
-  }  
-  var classIndex = verifyClassFromVal(numRanges, currVal);
-  var polyStyleConfig = {
-    stroke: new Stroke({
-      color: [255, 255, 0, 0],
-      width: 0
-    }),
-    fill: new Fill({
-      color: classColors[classIndex]
-    }),
-  };
-return new Style(polyStyleConfig);
-}
-
-export const verifyClassFromVal = (rangevals, val) => {
-  let retIndex = -1;
-  let valRound = Number(val.toFixed(4))
-  for (let i = 0; i < rangevals.length; i++) {
-    if (valRound >= rangevals[i].min && valRound <= rangevals[i].max) {
-      retIndex = i;
-    } 
-  }
-  return retIndex;
-}
 
 /**
  *    get the maximum polygon out of the supllied  array of polygons

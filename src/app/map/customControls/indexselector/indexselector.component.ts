@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MapService } from '../../services/map.service';
 import mappingsData from '../../../../assets/geodata/lookup.json';
 import { MapLayersService } from '../../services/maplayers.service';
-import { setSelIndex, getAndSetClassesFromData } from '../../map.helper';
+import { MapStatsService } from '../../services/mapstats.service';
 
 @Component({
   selector: 'app-indexselector',
@@ -18,7 +18,12 @@ export class IndexselectorComponent implements OnInit {
 
   private mappings:any = mappingsData.lookups;
   
-  constructor(public mapService:MapService,private mapLayersService:MapLayersService) { }
+  constructor(
+    public mapService:MapService,
+    private mapLayersService:MapLayersService, 
+    private mapStatsService:MapStatsService) { 
+
+    }
 
   ngOnInit(): void {
     
@@ -36,12 +41,12 @@ export class IndexselectorComponent implements OnInit {
     this.dataLoaded = false;  
     this.mapService.getPopUpOverlay().setPosition(undefined);
     this.mapService.selectedIndex = val;
-    setSelIndex(val);
+    this.mapStatsService.selectedIndex = val;
     const vals = new Array();
     this.mapLayersService.getWalkabilityLayer().getSource().getFeatures().forEach((feat)=>{
         vals.push(feat.get(val))
         })
-    getAndSetClassesFromData(vals);
+    this.mapStatsService.getAndSetClassesFromData(vals);
     if (vals.length === 0){
       this.dataLoaded = true; 
     }

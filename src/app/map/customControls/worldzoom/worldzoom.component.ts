@@ -15,8 +15,7 @@ export class WorldzoomComponent implements OnInit {
   }
 
   click() {
-    const cityLyr = this.mapLayersService.getCityBoundLayer();
-        
+    const cityLyr = this.mapLayersService.getCityBoundLayer();  
     this.mapService.getCurrentMap().getView().fit(cityLyr.getSource().getExtent(),{
         padding:[100,100,100,100],
          size:this.mapService.getCurrentMap().getSize(),

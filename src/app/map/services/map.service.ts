@@ -7,13 +7,14 @@ import {defaults as defaultControls} from 'ol/control';
 import Overlay from 'ol/Overlay';
 import Layer from 'ol/layer';
 import mappingsData from '../../../assets/geodata/lookup.json';
-import {getAndSetClassesFromData,highlightStyle} from '../map.helper';
+import {highlightStyle} from '../map.helper';
 import Feature from 'ol/Feature';
 import GeoJSON from 'ol/format/GeoJSON';
 import { Vector } from 'ol/source';
 import { MapLayersService } from './maplayers.service';
 import { BehaviorSubject } from 'rxjs';
 import {featureClickedWithPos} from '../api/map.interfaces'
+import { MapStatsService } from './mapstats.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,11 @@ export class MapService {
   public featureClicked$ = new BehaviorSubject<featureClickedWithPos>(null);
   
 
-  constructor(private mapLayerService:MapLayersService) {}
+  constructor(
+    private mapLayerService:MapLayersService, 
+    private mapStatsService:MapStatsService) {
+
+  }
 
   public createMap(id): Map {
     this.map = new Map({
@@ -123,7 +128,7 @@ export class MapService {
         newSource.getFeatures().forEach((feat)=>{
           vals.push(feat.get(this.selectedIndex))
         })
-      getAndSetClassesFromData(vals);
+      this.mapStatsService.getAndSetClassesFromData(vals);
       this.zoomToSelCityExtent();
       this.dataLoaded = true;
       } 
