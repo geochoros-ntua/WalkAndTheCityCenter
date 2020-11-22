@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MapService } from '../../map.service';
-import { MapLayersService } from '../../maplayers.service';
+import { MapService } from '../../services/map.service';
+import { MapLayersService } from '../../services/maplayers.service';
 
 @Component({
   selector: 'app-opacity-slider',
@@ -9,7 +9,7 @@ import { MapLayersService } from '../../maplayers.service';
 })
 export class OpacitySliderComponent implements OnInit {
 
-  constructor(private mapService: MapService, private mapLayersService:MapLayersService) { }
+  constructor(public mapService: MapService, private mapLayersService:MapLayersService) { }
   private walkOpacity:number;
 
   ngOnInit(): void {
@@ -22,11 +22,4 @@ export class OpacitySliderComponent implements OnInit {
     
   }
 
-  showSelector = ():boolean =>{
-    if (this.mapService.dataLoaded && this.mapService.getCurrentMap().getView().getResolution()<=50){
-      return true;
-    } else {
-      return false;
-    }
-  }
 }

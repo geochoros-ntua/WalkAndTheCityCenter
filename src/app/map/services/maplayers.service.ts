@@ -1,11 +1,11 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
-import { MapService } from './map.service';
 import TileLayer from 'ol/layer/Tile';
 import VectorLayer from 'ol/layer/Vector';
 import { Vector } from 'ol/source';
 import GeoJSON from 'ol/format/GeoJSON';
 import OSM from 'ol/source/OSM';
-import {styleFnCities, styleFnWalkGrids} from './map.helper';
+import {styleFnCities} from '../map.helper';
+import { MapStatsService } from './mapstats.service';
 
 
 @Injectable({
@@ -17,7 +17,7 @@ export class MapLayersService {
     private GOSMLayer:TileLayer;
     private WALK:Vector;
     private CITY_BNDS:ViewContainerRef;
-    constructor() {
+    constructor(private mapStatsService:MapStatsService) {
 
     }
 
@@ -49,7 +49,7 @@ export class MapLayersService {
         title: 'WALK',
         //maxResolution: 50,
         opacity:0.7,
-        style:styleFnWalkGrids,
+        style:this.mapStatsService.styleFnWalkGrids,
         source:new Vector({
             format: new GeoJSON({
               defaultDataProjection:'EPSG:3857',

@@ -1,7 +1,8 @@
-  <div *ngIf="showSelector()" class='opacitySlider'>
+  <div *ngIf="mapService.showSelector()" class='opacitySlider'>
     <mat-slider  
     (input)="setLyrOpacity($event)"
     [(value)] = "walkOpacity"
+    matTooltip="Adjust Layer Opacity"
     thumbLabel
     tickInterval="10"
     vertical=true

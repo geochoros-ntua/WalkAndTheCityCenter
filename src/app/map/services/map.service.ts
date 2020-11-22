@@ -5,13 +5,16 @@ import View from 'ol/View';
 import * as olProj from 'ol/proj';
 import {defaults as defaultControls} from 'ol/control';
 import Overlay from 'ol/Overlay';
-import mappingsData from '../../assets/geodata/lookup.json';
-import {getAndSetClassesFromData,styleFnWalkGrids,highlightStyle} from './map.helper';
+import Layer from 'ol/layer';
+import mappingsData from '../../../assets/geodata/lookup.json';
+import {highlightStyle} from '../map.helper';
 import Feature from 'ol/Feature';
 import GeoJSON from 'ol/format/GeoJSON';
 import { Vector } from 'ol/source';
 import { MapLayersService } from './maplayers.service';
-
+import { BehaviorSubject } from 'rxjs';
+import {featureClickedWithPos} from '../api/map.interfaces'
+import { MapStatsService } from './mapstats.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +24,16 @@ export class MapService {
   private selectedCity:Feature;
   private hoveredCity:Feature;
   private mappings:any = mappingsData.lookups;
-  dataLoaded:boolean;
-  selectedIndex:string;
-
-  constructor(private mapLayerService:MapLayersService) { }
-
+  public dataLoaded:boolean;
+  public selectedIndex:string = 'Score';
+  public featureClicked$ = new BehaviorSubject<featureClickedWithPos>(null);
   
+
+  constructor(
+    private mapLayerService:MapLayersService, 
+    private mapStatsService:MapStatsService) {
+
+  }
 
   public createMap(id): Map {
     this.map = new Map({
@@ -38,7 +45,7 @@ export class MapService {
         zoom: 1
       })
     });
-    this.registrEvents();
+    this.registerMapEvents();
     return this.map;
   }
 
@@ -51,25 +58,16 @@ export class MapService {
   }
 
   
-  private registrEvents(){
+  private registerMapEvents(){
     const this_= this;
     this.map.on('click', (event) => {
       const resolution= this_.map.getView().getResolution();
       this_.getPopUpOverlay().setPosition(undefined);
       this_.map.forEachFeatureAtPixel(event.pixel, (feature,layer) => {
         if (layer.get("title")==="WALK" && resolution < 50){
-          const keys = feature.getKeys();
-          let attrsTable ='<table><tbody>';
-          keys.filter( el => ['OBJECTID','geometry','Shape_Area','Shape_Leng'].indexOf( el ) < 0).forEach(key => {
-              if (this.getTitleFromMappingCode(key).length ===1){
-                attrsTable += '<tr class="mat-row"><td class="mat-cell">'+this.getTitleFromMappingCode(key)[0].indiname+':</td><td>'+parseFloat(feature.get(key)).toFixed(2)+'</td></tr>';
-              } else {
-                attrsTable += '<tr class="mat-row"><td class="mat-cell">'+key+':</td><td>'+feature.get(key)+'</td></tr>';
-              }
-          });
-          attrsTable += '</tbody></table>';
-          document.getElementById('popup-content').innerHTML = attrsTable;
-          this_.getPopUpOverlay().setPosition(event.coordinate);
+          this.featureClicked$.next({
+            feat:feature,
+            coord:event.coordinate});
           return;
         } else if (layer.get("title")==="CITY_BNDS" && resolution > 50) {
           if (this_.selectedCity){
@@ -100,7 +98,7 @@ export class MapService {
           this.map.getViewport().style.cursor = 'pointer';
           return true;
       },{
-        layerFilter : (lyr) => {
+        layerFilter : (lyr:Layer) => {
           return lyr.get('title') === 'CITY_BNDS';
         }
       });
@@ -110,7 +108,6 @@ export class MapService {
 
 
   loadAndZoomToCity = ():void => {
-    
     this.dataLoaded = false;
     const newSource = new Vector({
       format: new GeoJSON({
@@ -131,7 +128,7 @@ export class MapService {
         newSource.getFeatures().forEach((feat)=>{
           vals.push(feat.get(this.selectedIndex))
         })
-      getAndSetClassesFromData(vals);
+      this.mapStatsService.getAndSetClassesFromData(vals);
       this.zoomToSelCityExtent();
       this.dataLoaded = true;
       } 
@@ -148,10 +145,24 @@ export class MapService {
     this.mapLayerService.getWalkabilityLayer().setMaxResolution(50);
  }
 
-  getTitleFromMappingCode = (code:string):any[] => {
-    return this.mappings.filter( (elem) => {
+  getTitleFromMappingCode = (code:string):string[] => {
+    const title = this.mappings.filter( elem => {
       return elem.Code === code;
     });
+    
+    if (title.length > 0){
+    return title[0].indiname;
+    } else {
+
+    }
+  }
+
+  showSelector = ():boolean =>{
+    if (this.dataLoaded && this.map.getView().getResolution()<=50){
+      return true;
+    } else {
+      return false;
+    }
   }
 
 

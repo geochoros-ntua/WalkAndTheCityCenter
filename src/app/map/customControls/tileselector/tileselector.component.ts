@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import TileLayer from 'ol/layer/Tile';
-import { MapService } from '../../map.service';
-import { MapLayersService } from '../../maplayers.service';
+import { MapService } from '../../services/map.service';
+import { MapLayersService } from '../../services/maplayers.service';
 
 @Component({
   selector: 'app-tileselector',

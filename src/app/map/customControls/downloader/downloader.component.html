@@ -1,0 +1,7 @@
+<button *ngIf="mapService.showSelector()" 
+mat-mini-fab color="primary" 
+class="ol-downloadCntrl"
+(click)="downloadData()"
+matTooltip="Download Data">
+    <mat-icon>download</mat-icon>
+  </button>

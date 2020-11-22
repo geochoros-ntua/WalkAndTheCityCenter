@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MapService } from '../../map.service';
+import { MapService } from '../../services/map.service';
 import mappingsData from '../../../../assets/geodata/lookup.json';
-import { MapLayersService } from '../../maplayers.service';
-import { setSelIndex, getAndSetClassesFromData } from '../../map.helper';
-import {setSelIndexDownCntlr} from '../../customControls/downloadControl';
+import { MapLayersService } from '../../services/maplayers.service';
+import { MapStatsService } from '../../services/mapstats.service';
 
 @Component({
   selector: 'app-indexselector',
@@ -12,43 +11,42 @@ import {setSelIndexDownCntlr} from '../../customControls/downloadControl';
 })
 export class IndexselectorComponent implements OnInit {
   @Input() dataLoaded: boolean;
+  @Input() selectedIndex:string = this.mapService.selectedIndex;
   @Output() selectedIndex$:EventEmitter<string> = new EventEmitter<string>();
-  selectedIndex:string;
+  // selectedIndex:string = this.mapService.selectedIndex;
   
 
   private mappings:any = mappingsData.lookups;
   
-  constructor(private mapService:MapService,private mapLayersService:MapLayersService) { }
+  constructor(
+    public mapService:MapService,
+    private mapLayersService:MapLayersService, 
+    private mapStatsService:MapStatsService) { 
+
+    }
 
   ngOnInit(): void {
     
     this.selectedIndex$.subscribe(
-      sel => this.selectedIndex = sel
+      (sel) => {
+          console.log('sel',sel)
+          // this.selectedIndex = sel
+          this.mapService.selectedIndex = sel;
+        }
       );
-    this.selectedIndex$.emit("Score");
-  }
-
-  public showSelector = ():boolean =>{
-    if (this.dataLoaded && this.mapService.getCurrentMap().getView().getResolution()<=50){
-      return true;
-    } else {
-      return false;
-    }
 
   }
-
 
   setDisplayIndex = (val:string): void =>{   
     this.dataLoaded = false;  
     this.mapService.getPopUpOverlay().setPosition(undefined);
-    this.selectedIndex$.emit(val);
-    setSelIndex(val);
-    setSelIndexDownCntlr(val);
+    this.mapService.selectedIndex = val;
+    this.mapStatsService.selectedIndex = val;
     const vals = new Array();
     this.mapLayersService.getWalkabilityLayer().getSource().getFeatures().forEach((feat)=>{
         vals.push(feat.get(val))
         })
-    getAndSetClassesFromData(vals);
+    this.mapStatsService.getAndSetClassesFromData(vals);
     if (vals.length === 0){
       this.dataLoaded = true; 
     }
