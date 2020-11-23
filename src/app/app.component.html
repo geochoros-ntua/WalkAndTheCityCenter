@@ -6,7 +6,7 @@
       </button>
     </div>
 
-    <a mat-button class="companyName" (click)="reloadHomePage()">
+    <a mat-button class="companyName" routerLink="/">
     <img src="assets/icons/logo_v2_transparent.gif" style="height: 7vh;"><span>{{name}}</span>
     </a>
     <span class="example-spacer"></span>
@@ -25,6 +25,7 @@
       <div fxLayout="column">
         <a mat-button routerLink="/">Home</a>
         <a mat-button routerLink="/about-us">About us</a>
+        <a mat-button routerLink="/app-help">Help</a>
         <a mat-button routerLink="/app-map">Map</a>
       </div>
     </mat-sidenav>
@@ -33,4 +34,3 @@
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
-
