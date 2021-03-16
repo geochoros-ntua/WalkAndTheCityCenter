@@ -16,7 +16,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select'; 
 import { MatMenuModule } from '@angular/material/menu'; 
 import { MatTooltipModule } from '@angular/material/tooltip'; 
-
+import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; 
 import { MapComponent } from './map/map.component';
 import { AboutUsComponent } from './about-us/about-us.component';
@@ -40,7 +40,7 @@ import { LegendComponent } from './map/customControls/legend/legend.component';
   imports:      [
      BrowserModule, AppRoutingModule, FormsModule, FlexLayoutModule, BrowserAnimationsModule,
      MatIconModule, MatButtonModule, MatSidenavModule, MatToolbarModule, MatSelectModule, MatSliderModule,
-     MatMenuModule, MatProgressSpinnerModule, MatCardModule, MatTableModule,MatTooltipModule
+     MatMenuModule, MatProgressSpinnerModule, MatCardModule, MatTableModule,MatTooltipModule,MatListModule,MatGridListModule
    ],
   declarations: [ 
     AppComponent, MapComponent, AboutUsComponent, 

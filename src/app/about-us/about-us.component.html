@@ -1,5 +1,66 @@
-
-
-<h1>About Us</h1>
-
-       
+<section>
+    <div class="about-container">
+        <mat-card style="margin-bottom: 32px;">
+            <h2>TEAM</h2>
+            <p>GeoCHOROS is a spatial research group powered by the Geography Lab at National Technical University of
+                Athens, Greece. The group focuses on research and education with regards to City Science, Urban and
+                Transport Geography, Urban Sustainability, Planning Healthier Mobility Systems & Communities, Urban
+                Analytics, Geospatial Analysis, as well as Geographic Information Science.
+            </p>
+            <div class="teams">
+                <div class="research-team">
+                    <h3>Research</h3>
+                    <mat-list>
+                        <mat-list-item *ngFor="let member of teamR">
+                            <div style="display: inline-block; margin-right: 8px;" class="item-img">
+                                <img [src]="member.img">
+                            </div>
+                            <div style="display: inline-block;" class="item-content">
+                                <div style="line-height: 20px; font-size: 20px; font-weight: 700;" mat-line>
+                                    {{member.title}}{{member.name}}<span><a title="facebook" href="member.rid"
+                                            target="_blank" class="rid-link"><img style="margin-left: 8px;" width="20"
+                                                height="20" src="assets/icons/orcid.logo.icon.svg" type="image/svg+xml"
+                                                class="rid-button"></a></span></div>
+                                <div style="font-style: italic;" mat-line> {{member.description}} </div>
+                                <div mat-line> <a style="color: #3f51b5;"
+                                        href="mailto: {{member.email }}">{{member.email}}</a>
+                                </div>
+                            </div>
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+                <div class="research-team"> 
+                    <h3>Website, GIS, & Visualization</h3>
+                    <mat-list>
+                        <mat-list-item *ngFor="let member of teamD">
+                            <div style="display: inline-block; margin-right: 8px;" class="item-img">
+                                <img [src]="member.img">
+                            </div>
+                            <div style="display: inline-block;" class="item-content">
+                                <div style="line-height: 20px; font-size: 20px; font-weight: 700;" mat-line>
+                                    {{member.title}}{{member.name}}<span><a title="facebook" href="member.rid"
+                                            target="_blank" class="rid-link"><img style="margin-left: 8px;" width="20"
+                                                height="20" src="assets/icons/orcid.logo.icon.svg" type="image/svg+xml"
+                                                class="rid-button"></a></span></div>
+                                <div style="font-style: italic;" mat-line> {{member.description}} </div>
+                                <div mat-line> <a style="color: #3f51b5;"
+                                        href="mailto: {{member.email }}">{{member.email}}</a>
+                                </div>
+                            </div>
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+            </div>
+        </mat-card>
+        <mat-card>
+            <div class="collection-team">
+                <h3>Data Collection Team Members</h3>
+                <mat-grid-list [cols]="breakpoint" rowHeight="2:0.5" (window:resize)="onResize($event)">
+                    <mat-grid-tile *ngFor="let member of dataCollection">
+                       {{member.name}}
+                    </mat-grid-tile> 
+                </mat-grid-list>
+            </div>
+        </mat-card>
+    </div>
+</section>

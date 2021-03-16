@@ -1,14 +1,22 @@
+@import '~@angular/material/theming';
+
 html,
 body {
   height: 100%;
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  // font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: 'Rajdhani', sans-serif;
 }
 
+$custom-typography: mat-typography-config(
+  $font-family: 'Rajdhani, sans-serif',
+  $headline: mat-typography-level(32px, 48px, 700),
+  $body-1: mat-typography-level(16px, 24px, 500)
+);
 
-
+@include mat-core($custom-typography);
 
 .mat-form-field .mat-form-field-flex {
   background-color: rgba(111, 111, 111, 0.6);
