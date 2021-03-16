@@ -21,7 +21,7 @@ import { MapStatsService } from './mapstats.service';
 })
 export class MapService {
   private map:Map;
-  private selectedCity:Feature;
+  public selectedCity:Feature;
   private hoveredCity:Feature;
   private mappings:any = mappingsData.lookups;
   public dataLoaded:boolean;

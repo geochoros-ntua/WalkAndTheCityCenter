@@ -1,0 +1,22 @@
+.download-modal-body{
+    height: 60vh;
+    overflow-y: auto;
+}
+
+.sticky-modal-footer {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: 1px solid #efefef;
+    background-color: white;
+    padding: 10px 24px;
+  }
+
+
+::ng-deep .mat-form-field.customInputField {
+    .mat-form-field-infix  {
+        background-color:white;
+        padding: .65em 0;
+    }
+}

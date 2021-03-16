@@ -1,8 +1,9 @@
 <div class="tileSelectorCntrl">
     <mat-form-field fillColor="accent" appearance="fill">
       <mat-label>Choose Background</mat-label>
-      <mat-select value = "OSM" (selectionChange)="setTileLayer($event.value)">
+      <mat-select value = "CARTODARK" (selectionChange)="setTileLayer($event.value)">
         <mat-option value="NONE">None</mat-option>
+        <mat-option value="CARTODARK">Carto Dark</mat-option>
         <mat-option value="OSM">OSM</mat-option>
         <mat-option value="GOSM">Google Sat</mat-option>
       </mat-select>  

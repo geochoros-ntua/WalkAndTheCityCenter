@@ -1,0 +1,120 @@
+<h1 mat-dialog-title>Walk & the City Center</h1>
+
+<mat-horizontal-stepper #stepper [linear]="true">
+
+    <mat-step [stepControl]="acceptDisclaimer" label="Data Disclaimer"  optional="false">
+        <div class="download-modal-body">
+        <form [formGroup]="acceptDisclaimer">
+        <h3>Data Download Disclaimer</h3>
+        
+            <p>All datasets provided by GeoCHOROS on its web pages are made available to provide immediate access for the convenience of interested persons and as a benefit to the environmental, public health, and urban planning science community. 
+            </p>
+            <p>
+            Whilst GeoCHOROS believes these datasets to be reliable, human or mechanical error remains a possibility. Our team gives no warranty, expressed or implied, as to the accuracy, reliability, or completeness of these datasets. THE ENTIRE RISK OF USE OF THE DATA SHALL BE WITH THE USER. GeoCHOROS do not express or imply warranty made regarding the utility of the data on other systems for general or scientific purposes nor shall the act of distribution to the public or other agencies constitute any such warranty. This disclaimer applies both to individual use of the data and aggregate use with other data. 
+            </p>
+            <p>
+            To access and use this data, we ask that you agree to this liability disclaimer and that you use proper citation on any materials (digital or printed) in which this information appears, and that you use the data appropriately. Since this system will be used by data providers on an ongoing basis please be aware that periodic revisions will be made to some of these datasets by their original owners.
+            </p>
+            <p><b>
+            Citation: 
+            GeoCHOROS Research Group. (2021). Walk & the City Center: WebGIS platform. National Technical University of Athens, Greece. 
+            </b></p>
+            <p>
+            <a href="http://geochoros.survey.ntua.gr/walkandthecitycenter/app-map">http://geochoros.survey.ntua.gr/walkandthecitycenter/app-map </a>
+            </p>
+              
+            </form>
+    
+        </div>
+        <footer class="sticky-modal-footer">
+            
+            <div mat-dialog-actions align="end">
+                <button type="button" mat-raised-button color="primary" (click)="closeDialog()" >Decline</button>
+                <button type="button" mat-raised-button color="primary" matStepperNext >Accept</button>
+            </div>
+        </footer>
+    
+    </mat-step>
+  
+    <mat-step [stepControl]="personalDetails" label="Personal Details">
+        <div class="download-modal-body">
+        <form [formGroup]="personalDetails">
+            <div  class="col-12" >
+                <div class="row">
+                    
+                    <mat-form-field class="customInputField" appearance="legacy">
+                        <mat-label>First name</mat-label>
+                        <input matInput placeholder="First name" formControlName="firstName">
+                    </mat-form-field>
+                
+                    <mat-form-field class="customInputField" appearance="legacy">
+                        <mat-label>Last name</mat-label>
+                        <input matInput placeholder="Last name" formControlName="lastName">
+                    </mat-form-field>
+                    
+                </div>
+                <div class="row">
+                    <mat-form-field class="customInputField" appearance="legacy">
+                        <mat-label>Organisation</mat-label>
+                        <input matInput placeholder="Organisation" formControlName="organisation">
+                    </mat-form-field>
+
+                    <mat-form-field class="customInputField" appearance="legacy">
+                        <mat-label>Country</mat-label>
+                        <input matInput placeholder="Country" formControlName="country">
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field class="customInputField" appearance="legacy">
+                        <mat-label>City(*)</mat-label>
+                        <input matInput placeholder="City" formControlName="city">
+                    </mat-form-field>
+
+                    <mat-form-field class="customInputField" appearance="legacy">
+                        <mat-label>Age</mat-label>
+                        <input matInput placeholder="Age" formControlName="age">
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field class="customInputField" appearance="legacy">
+                        <mat-label>Email</mat-label>
+                        <input matInput placeholder="Email(*)" formControlName="email">
+                    </mat-form-field>
+                </div>
+            
+            </div>
+        </form>
+            </div>
+        
+            <footer class="sticky-modal-footer">
+                <div mat-dialog-actions align="end">
+                    <button type="button" mat-raised-button color="primary" mat-button matStepperPrevious>Back</button>
+                    <button type="button" mat-raised-button color="primary" mat-button matStepperNext>Next</button>
+                </div>
+            </footer>
+            
+          
+      
+    </mat-step>
+  
+    <mat-step label="Download">
+        <div class="download-modal-body">
+        <h3>Download Data</h3>
+        <p>Please press the 'download' button to download the complete dataset </p>
+        <p>59 EU Cities - (36MB zipped shapefile)</p>
+        <p>Our project is hosted on  <a href="https://github.com/geochoros-ntua/WalkAndTheCityCenter/">github</a>. You are welcome to contribute!</p>
+        <p>Thanks for your interest</p>
+      <h5>The Walk & the City Center Team</h5>
+      
+    </div>
+    <footer class="sticky-modal-footer">
+        <div mat-dialog-actions align="end">
+            <button type="button" mat-raised-button color="primary" mat-button matStepperPrevious>Back</button>
+            <a mat-raised-button color="warn" href="https://github.com/geochoros-ntua/WalkAndTheCityCenter/blob/main/src/assets/geodata/amsterdam.geojson">Download</a>
+            
+            <!-- <button type="button" mat-raised-button color="warn" mat-button matStepperNext>Download</button>  -->
+        </div>
+    </footer>
+    </mat-step>
+  
+  </mat-horizontal-stepper>

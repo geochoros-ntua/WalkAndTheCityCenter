@@ -18,14 +18,22 @@ export class TileselectorComponent implements OnInit {
   
   setTileLayer = (val:string) =>{
     if (val === "OSM"){
+      this.mapLayersService.getCartoDarkLayer().setVisible(false);
       this.mapLayersService.getOSMLayer().setVisible(true); 
       this.mapLayersService.getGOSMLayer().setVisible(false);
     } 
-      else if (val === "GOSM"){
+    else if (val === "GOSM"){
+      this.mapLayersService.getCartoDarkLayer().setVisible(false);
       this.mapLayersService.getOSMLayer().setVisible(false); 
       this.mapLayersService.getGOSMLayer().setVisible(true);
     } 
+    else if (val === "CARTODARK"){
+      this.mapLayersService.getCartoDarkLayer().setVisible(true);
+      this.mapLayersService.getOSMLayer().setVisible(false); 
+      this.mapLayersService.getGOSMLayer().setVisible(false);
+    } 
     else if (val === "NONE"){
+      this.mapLayersService.getCartoDarkLayer().setVisible(false);
       this.mapLayersService.getOSMLayer().setVisible(false); 
       this.mapLayersService.getGOSMLayer().setVisible(false);
     } 
