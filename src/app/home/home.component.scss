@@ -1,6 +1,6 @@
 .front-image {
   position: relative;
-  background-image: url("../../assets/images/Walking_Barcelona’s_Passeig_de_Gràcia_and_Rambla_de_Catalunya.gif");
+  background-image: url("../../assets/images/front_page.gif");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -18,18 +18,52 @@
     mix-blend-mode: multiply;
 }
 
+.front-info-container {
+  display: inline-flex;
+  width: 100%;
+}
+
+.front-logo-container {
+  border-right: solid white 4px;
+}
+
+.front-slogan-container {
+  padding-left: 16px;
+  padding-right: 16px;
+  align-self: center;
+}
+
 .front-image-info {
   position: absolute;
-  top: 50%;
-  text-align: center;
+  top: 25%;
+  // text-align: center;
   left: 0;
   width: 100%;
 }
 
+.ntua-container {
+  display: flex;
+}
+
+.ntua-logo {
+  width: 50px;
+  height: 50px;
+}
+
+.ntua-text {
+  color: white;
+  font-size: 16px !important;
+  line-height: 50px;
+  margin: 0;
+  padding-left: 8px;
+  text-shadow: 3px 2px 3px rgba(0, 0, 0, 1);
+}
+
 .front-image-text {
   color: white;
-  font-size: 42px !important;
-  line-height: 42px;
+  font-size: 24px !important;
+  line-height: 24px;
+  font-style: italic;
   text-shadow: 3px 2px 3px rgba(0, 0, 0, 1);
 }
 
@@ -83,6 +117,12 @@
   padding: 32px;
 }
 
+.footer-logos {
+  margin: 0;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
 footer a {
   display: flex;
   align-items: center;
@@ -124,4 +164,30 @@ footer a {
 .circle-link:hover {
   transform: translateY(-0.25rem);
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+}
+
+.more-info {
+  margin: 0;
+  padding: 32px;
+}
+
+.footer-team {
+  margin: 0;
+  padding: 0px 32px 0 32px;
+}
+
+.footer-publications {
+  margin: 0;
+  padding: 32px 32px 0 32px;
+}
+
+@media only screen and (max-width: 960px) {
+  .front-info-container {
+    display: block;
+  }
+
+  .front-logo-container {
+    border-right: solid white 0px;
+    border-bottom: solid white 4px;
+  }
 }

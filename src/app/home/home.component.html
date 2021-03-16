@@ -2,21 +2,48 @@
     <div class="front-image">
         <div class="front-image-blend"></div>
         <div class="front-image-info">
-            <h1 class="front-image-text">Some slogan...</h1>
+            <div class="front-info-container">
+                <div class="front-logo-container"><img style="max-width: 100%;" src="assets/images/watc_logo.png"></div>
+                <div class="front-slogan-container">
+                    <p class="front-image-text">How pedestrian-friendly are European city centers?</p>
+                    <div class="ntua-container">
+                        <img class="ntua-logo" src="assets/images/ntua_logo.png">
+                        <p class="ntua-text">National Technical University of Athens, Greece</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="front-content">
         <div class="front-text">
-            <h2>More text</h2>
+            <h2>Description</h2>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non lacus accumsan, pellentesque nibh ut,
-                mollis urna. Integer fringilla id turpis eget ornare. Vivamus varius malesuada dui. Curabitur quis metus
-                vel erat euismod molestie vel vitae orci. Vestibulum eu faucibus odio. Curabitur mattis enim at ipsum
-                eleifend egestas. Praesent quis lacus lacinia, ultrices lectus sed, elementum ligula. Donec id imperdiet
-                augue, et ornare arcu. Aenean diam orci, sollicitudin molestie lacus id, convallis blandit purus. In
-                accumsan urna id nisl ornare, ut dictum tellus aliquam. Donec eu dignissim est, et varius augue. Morbi
-                eu erat erat. Phasellus vel varius lectus. Sed porta, nibh sit amet fermentum fringilla, augue elit
-                auctor diam, in lacinia nulla dolor sit amet velit.
+                Planning for more walking-friendly central urban areas improves public space attractiveness, walking
+                experience, and urban sustainability. However, lack of micro-scale design data (e.g., sidewalks,
+                crosswalks, aesthetics, etc.) measuring aspects of walking qualities within Europe was a significant
+                barrier in creating more comprehensive research programs and policies.
+            </p>
+            <p>
+                By developing urban analytics for healthier and more walkable street environments throughout Europe, we
+                envision how pedestrian-friendly are European central urban areas and we get a better understanding
+                about the location of development gaps in public spaces of each city center area.
+            </p>
+            <p>
+                This website introduces density maps of high spatial resolution (100m X 100m) of 17 pre-processed and
+                microscale walkability indicators, covering 59 central urban areas from 26 European countries. To
+                collect the raw GIS data, we applied a virtual (i.e., Google Street View) street audit tool on every
+                street and crossing segment, and on both sides of each street separately, block-by-block. We digitized
+                in polyline features observations and evaluations for a total of 112.577 street- and/or
+                crossing-segments, during a 21 month data collection period which required more than 46 trained
+                observers.
+            </p>
+            <p>
+                The datasets can be utilized to raise awareness of unsatisfactory pedestrian environments and appoint it
+                as a key health and environmental issue, as well as to assist European policy-makers to apply urban
+                mobility strategies and monitor progress in urban sustainability and public health goals.
+            </p>
+            <p>
+                Further details can be found in: citation
             </p>
         </div>
         <div class="front-teaser-parent">
@@ -53,8 +80,42 @@
                     class="circle-link"><img src="assets/icons/twitter.svg" type="image/svg+xml"
                         class="social-button"></a><a title="youtube" href="https://youtube" target="_blank"
                     class="circle-link"><img src="assets/icons/youtube.svg" type="image/svg+xml"
+                        class="social-button"></a><a title="github"
+                    href="https://github.com/geochoros-ntua/WalkAndTheCityCenter" target="_blank"
+                    class="circle-link"><img src="assets/icons/github.svg" type="image/svg+xml"
                         class="social-button"></a></div>
+
+            <div class="footer-team">
+                <h2>Team</h2>
+                <mat-list>
+                    <mat-list-item *ngFor="let member of team">
+                        <div style="color: white; font-size: 22px; line-height: 24px;">{{member.name}}, {{member.description}}</div>
+                    </mat-list-item>
+                </mat-list>
+            </div>
+            <div class="footer-publications">
+                <h2>Publications</h2>
+                <mat-list>
+                    <mat-list-item style="height: auto; color: white; margin-bottom: 4px;" *ngFor="let pub of pubs">
+                        {{pub.name}}
+                    </mat-list-item>
+                </mat-list>
+            </div>
+            <div class="more-info">
+                <p>For more information,</p>
+                <a style="color: white;" href="mailto: geochoros@mail.ntua.gr">geochoros@mail.ntua.gr</a>
+            </div>
+
+
+            <div class="footer-logos">
+                <a href="http://geospatial.ntua.gr/" target="_blank"><img width="50"
+                        src="assets/images/geochoros.png"></a>
+                <a style="padding-left: 16px;" href="https://ntua.gr/" target="_blank"><img width="50"
+                        src="assets/images/ntua_logo.png"></a>
+            </div>
+
             <p class="copyright">&#169; GeoCHOROS, 2020. All rights reserved.</p>
+
         </div>
     </div>
 </section>

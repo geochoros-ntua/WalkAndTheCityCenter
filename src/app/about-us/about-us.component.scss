@@ -1,0 +1,21 @@
+.about-container {
+  padding: 32px;
+}
+
+.teams {
+    width: 100%;
+  display: inline-flex;
+}
+
+.research-team {
+  width: 50%;
+}
+
+@media only screen and (max-width: 960px) {
+  .teams {
+    display: block;
+  }
+  .research-team {
+    width: 100%;
+  }
+}
