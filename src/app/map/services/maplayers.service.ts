@@ -4,6 +4,7 @@ import VectorLayer from 'ol/layer/Vector';
 import { Vector } from 'ol/source';
 import GeoJSON from 'ol/format/GeoJSON';
 import OSM from 'ol/source/OSM';
+import XYZ from 'ol/source/XYZ';
 import {styleFnCities} from '../map.helper';
 import { MapStatsService } from './mapstats.service';
 
@@ -15,6 +16,7 @@ export class MapLayersService {
 
     private OSMLayer:TileLayer;
     private GOSMLayer:TileLayer;
+    private cartoDBDark:TileLayer;
     private WALK:Vector;
     private CITY_BNDS:ViewContainerRef;
     constructor(private mapStatsService:MapStatsService) {
@@ -24,7 +26,7 @@ export class MapLayersService {
    public initOSMLayer = (): TileLayer =>{
     this.OSMLayer = new TileLayer({
         title: 'OSM',
-        visible:true,
+        visible:false,
         source: new OSM()
         });
     
@@ -43,7 +45,17 @@ export class MapLayersService {
     return this.GOSMLayer;
    }
 
-   public initWalkabilityLayer = (): VectorLayer =>{
+   public initCartoDarkLayer = (): TileLayer =>{
+   this.cartoDBDark = new TileLayer({
+    visible:true,
+    source: new XYZ({
+      url: 'https://cartodb-basemaps-b.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
+    })
+  });
+    return this.cartoDBDark;
+  }
+  
+  public initWalkabilityLayer = (): VectorLayer =>{
     this.WALK = new VectorLayer({
         visible:true,
         title: 'WALK',
@@ -86,6 +98,10 @@ export class MapLayersService {
 
    public getOSMLayer():TileLayer {
     return this.OSMLayer;
+   }
+
+   public getCartoDarkLayer():TileLayer {
+    return this.cartoDBDark;
    }
 
    public getWalkabilityLayer():Vector {

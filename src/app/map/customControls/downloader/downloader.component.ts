@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import Feature from 'ol/Feature';
 import GeoJSON from 'ol/format/GeoJSON';
 import { MapService } from '../../services/map.service';
 import { MapLayersService } from '../../services/maplayers.service';
+import { DownloadModalComponent } from '../download-modal/download-modal.component';
 
 @Component({
   selector: 'app-downloader',
@@ -11,7 +13,11 @@ import { MapLayersService } from '../../services/maplayers.service';
 })
 export class DownloaderComponent implements OnInit {
 @Input()selectedIndex:string;
-  constructor(public mapService:MapService, private mapLayersService:MapLayersService) { }
+
+  constructor(
+    public mapService:MapService, 
+    private mapLayersService:MapLayersService,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -48,5 +54,18 @@ export class DownloaderComponent implements OnInit {
     element.click();
     document.body.removeChild(element);
   }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DownloadModalComponent, {
+      //width: '250px',
+      // data: { selectedCity: this.mapService.selectedCity }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      
+    });
+  }
+
 
 }

@@ -24,6 +24,7 @@ export class MapComponent implements OnInit {
     const this_ = this; 
     proj4.defs('urn:ogc:def:crs:EPSG::3857', proj4.defs('EPSG:3857'));
     const layers = [
+      this.mapLayersService.initCartoDarkLayer(), 
       this.mapLayersService.initOSMLayer(), 
       this.mapLayersService.initGOSMLayer(), 
       this.mapLayersService.initCityBoundsLayer(),
