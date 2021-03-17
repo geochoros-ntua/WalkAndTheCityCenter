@@ -35,17 +35,19 @@ import { DownloaderComponent } from './map/customControls/downloader/downloader.
 import { WorldzoomComponent } from './map/customControls/worldzoom/worldzoom.component';
 import { ZoominoutComponent } from './map/customControls/zoominout/zoominout.component';
 import { LegendComponent } from './map/customControls/legend/legend.component';
+import { CitiesComponent } from './cities/cities.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports:      [
      BrowserModule, AppRoutingModule, FormsModule, FlexLayoutModule, BrowserAnimationsModule,
      MatIconModule, MatButtonModule, MatSidenavModule, MatToolbarModule, MatSelectModule, MatSliderModule,
-     MatMenuModule, MatProgressSpinnerModule, MatCardModule, MatTableModule,MatTooltipModule,MatListModule,MatGridListModule
+     MatMenuModule, MatProgressSpinnerModule, MatCardModule, MatTableModule,MatTooltipModule,MatListModule,MatGridListModule, HttpClientModule
    ],
   declarations: [ 
     AppComponent, MapComponent, AboutUsComponent, 
     HomeComponent, TileselectorComponent, IndexselectorComponent, 
-    PopupComponent, OpacitySliderComponent, HelpComponent, DownloaderComponent, WorldzoomComponent, ZoominoutComponent, LegendComponent ],
+    PopupComponent, OpacitySliderComponent, HelpComponent, DownloaderComponent, WorldzoomComponent, ZoominoutComponent, LegendComponent, CitiesComponent ],
   bootstrap:    [ AppComponent ],
   providers: [{
     provide: RouteReuseStrategy,

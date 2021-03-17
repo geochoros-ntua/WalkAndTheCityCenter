@@ -1,3 +1,6 @@
+@import "~@angular/material/theming";
+@import "../../styles.scss";
+
 .front-image {
   position: relative;
   background-image: url("../../assets/images/front_page.gif");
@@ -10,12 +13,12 @@
 }
 
 .front-image-blend {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background-color: green;
-    opacity: 0.5;
-    mix-blend-mode: multiply;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: gray;
+  opacity: 0.75;
+  mix-blend-mode: multiply;
 }
 
 .front-info-container {
@@ -51,7 +54,7 @@
 }
 
 .ntua-text {
-  color: white;
+  // color: white;
   font-size: 16px !important;
   line-height: 50px;
   margin: 0;
@@ -60,7 +63,7 @@
 }
 
 .front-image-text {
-  color: white;
+  // color: white;
   font-size: 24px !important;
   line-height: 24px;
   font-style: italic;
@@ -68,42 +71,59 @@
 }
 
 .front-content {
-  padding: 16px;
+  padding: 32px;
   margin-bottom: 32px;
+  margin-top: 32px;
 }
+
+.front-explore {
+  max-width: 1170px;
+  margin: auto;
+  justify-content: center;
+  display: flex;
+}
+
+.explore-item {
+  padding: 32px;
+  text-align: center;
+  width: 50%;
+}
+
+.explore-item-text {
+  font-size: 24px;
+  text-shadow: 0px 0px 0px rgba(255, 255, 255, 0);
+  transition: all 1s ease-in-out;
+}
+
+.explore-item-text-a {
+  color: white !important;
+  text-decoration: none;
+}
+
+.explore-button {
+  transition: 1s ease-in-out;
+}
+
+.explore-item:hover {
+  .explore-button {
+    transform: translateY(-0.25rem);
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+  }
+  .explore-item-text {
+    transform: translateY(-0.25rem);
+    text-shadow: 0px 1px 1px rgba(255, 255, 255, 1);
+  }
+}
+
+
 
 .front-text {
   max-width: 1170px;
   margin: auto;
 }
 
-.front-teaser-parent {
-  max-width: 1170px;
-  margin: auto;
-}
-
-.front-teaser {
-  display: flex;
-  flex-flow: row wrap;
-  margin: auto;
-  align-items: center;
-  justify-content: center;
-}
-
-.city-card {
-  width: 200px;
-  margin-left: 16px;
-  margin-right: 16px;
-  margin-bottom: 16px;
-}
-
-.city-image {
-  background-image: url("../../assets/images/citymobility.jpg");
-  background-size: cover;
-}
-
 .footer {
-  background: #3f51b5;
+  background: mat-color($watc-app-primary);
   color: #fff;
 }
 
@@ -121,6 +141,7 @@
   margin: 0;
   padding-left: 32px;
   padding-right: 32px;
+  display: flex;
 }
 
 footer a {
@@ -134,31 +155,45 @@ footer a {
 }
 
 .social-button {
-  width: 70%;
   opacity: 0.5;
-  filter: invert(25%) sepia(91%) saturate(927%) hue-rotate(207deg)
-    brightness(98%) contrast(94%);
   transition: 1s ease-out;
 }
 
 .social-button:hover {
-  width: 70%;
   opacity: 0.75;
 }
 
 .circle-link {
-  height: 40px;
-  width: 40px;
-  border-radius: 40px;
-  margin: 8px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+  margin-left: 16px;
   background-color: white;
   border: 1px solid #eeeeee;
-  display: flex;
+  align-content: center;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   transition: 1s ease-out;
+}
+
+.circle-link-uncolored {
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+  margin-left: 16px;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: 1s ease-out;
+}
+
+.circle-link-uncolored:hover {
+  transform: translateY(-0.25rem);
+  box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
 }
 
 .circle-link:hover {
@@ -173,7 +208,7 @@ footer a {
 
 .footer-team {
   margin: 0;
-  padding: 0px 32px 0 32px;
+  padding: 32px 32px 0 32px;
 }
 
 .footer-publications {

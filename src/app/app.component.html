@@ -1,4 +1,4 @@
-<div> 
+<div>
   <mat-toolbar color="primary">
     <div fxShow="true" fxHide.gt-sm="true">
       <button mat-icon-button (click)="sidenav.toggle()">
@@ -7,27 +7,56 @@
     </div>
 
     <a mat-button class="companyName" routerLink="/">
-    <!-- <img src="assets/icons/logo_v2_transparent.gif" style="height: 7vh;"> -->
-    <span>{{name}}</span>
+      <!-- <img src="assets/icons/logo_v2_transparent.gif" style="height: 7vh;"> -->
+      <span>{{name}}</span>
     </a>
     <span class="example-spacer"></span>
     <div fxShow="true" fxHide.lt-md="true">
-      <a mat-button routerLink="/">Home</a>
+      <!-- <a mat-button routerLink="/">Home</a>
       <a mat-button routerLink="/app-map">Map</a>
       <a mat-button routerLink="/app-help">Help</a>
-      <a mat-button routerLink="/about-us">About us</a>
-      
+      <a mat-button routerLink="/about-us">About us</a> -->
+      <button mat-icon-button routerLink="/">
+        <mat-icon>home</mat-icon>
+      </button>
+      <button mat-icon-button routerLink="/cities">
+        <mat-icon>location_city</mat-icon>
+      </button>
+      <button mat-icon-button routerLink="/app-map">
+        <mat-icon>map</mat-icon>
+      </button>
+      <button mat-icon-button routerLink="/app-help">
+        <mat-icon>help</mat-icon>
+      </button>
+      <button mat-icon-button routerLink="/about-us">
+        <mat-icon>info</mat-icon>
+      </button>
     </div>
 
   </mat-toolbar>
   <mat-sidenav-container fxFlexFill class="example-container">
 
-    <mat-sidenav color="primary" #sidenav fxLayout="column" mode="over"  opened="false" fxHide.gt-sm="true">
-      <div fxLayout="column">
-        <a mat-button routerLink="/">Home</a>
+    <mat-sidenav color="primary" #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true">
+      <div style="padding: 8px;" fxLayout="column">
+        <!-- <a mat-button routerLink="/">Home</a>
         <a mat-button routerLink="/about-us">About us</a>
         <a mat-button routerLink="/app-help">Help</a>
-        <a mat-button routerLink="/app-map">Map</a>
+        <a mat-button routerLink="/app-map">Map</a> -->
+        <button mat-icon-button routerLink="/">
+          <mat-icon>home</mat-icon>
+        </button>
+        <button mat-icon-button routerLink="/cities">
+          <mat-icon>location_city</mat-icon>
+        </button>
+        <button mat-icon-button routerLink="/app-map">
+          <mat-icon>map</mat-icon>
+        </button>
+        <button mat-icon-button routerLink="/app-help">
+          <mat-icon>help</mat-icon>
+        </button>
+        <button mat-icon-button routerLink="/about-us">
+          <mat-icon>info</mat-icon>
+        </button>
       </div>
     </mat-sidenav>
     <mat-sidenav-content fxFlexFill>

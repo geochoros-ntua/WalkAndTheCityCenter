@@ -11,7 +11,7 @@ export class AboutUsComponent implements OnInit {
   teamR = [
     {
       name: "Yorgos N. Photis",
-      title: "Prof. Dr.",
+      title: "Prof. Dr. ",
       description: "Director, Geography Lab, NTUA",
       email: "yphotis@mail.ntua.gr",
       img: "assets/images/Picture1.png",
@@ -22,8 +22,8 @@ export class AboutUsComponent implements OnInit {
       title: "",
       description: "Lead Researcher, NTUA",
       email: "abartzok@mail.ntua.gr",
-      img: "assets/images/Picture1.png",
-      rid: ""
+      img: "assets/images/alex.jpg",
+      rid: "https://orcid.org/0000-0002-1013-8076"
     },
   ]
 
@@ -33,16 +33,16 @@ export class AboutUsComponent implements OnInit {
       name: "Pavlos Tsagkis",
       title: "",
       description: "GIS & Visualization, NTUA",
-      email: "p.tsagkis@gmail.com",
+      email: "tsagkis@mail.ntua.gr",
       img: "assets/images/Picture1.png",
       rid: ""
     },
     {
       name: "George Panagiotopoulos",
-      title: "Dr.",
+      title: "Dr. ",
       description: "Website & Visualization, NTUA",
       email: "g.panag@metal.ntua.gr",
-      img: "assets/images/Picture1.png",
+      img: "assets/images/coach.jpg",
       rid: "https://orcid.org/0000-0002-9100-2081"
     },
   ]
