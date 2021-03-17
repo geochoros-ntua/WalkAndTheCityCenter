@@ -8,6 +8,7 @@ body {
   margin: 0;
   // font-family: Roboto, "Helvetica Neue", sans-serif;
   font-family: 'Rajdhani', sans-serif;
+  background: #a8a9ad;
 }
 
 $custom-typography: mat-typography-config(
@@ -18,8 +19,76 @@ $custom-typography: mat-typography-config(
 
 @include mat-core($custom-typography);
 
-$watc-app-primary: mat-palette($mat-grey, 800, 700, 900);
-$watc-app-accent:  mat-palette($mat-red, A200, A100, A400);
+// $watc-app-primary: mat-palette($mat-grey, 800, 700, 900);
+// $watc-app-accent:  mat-palette($mat-red, A200, A100, A400);
+$my-black: (
+  50: #010203,
+  100: #010203,
+  200: #010203,
+  300: #010203,
+  400: #010203,
+  500: #010203,
+  600: #010203,
+  700: #010203,
+  800: #010203,
+  900: #010203,
+  A100: #010203,
+  A200: #010203,
+  A400: #010203,
+  A700: #010203,
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$my-yellow: (
+  50: #fdcc0d,
+  100: #fdcc0d,
+  200: #fdcc0d,
+  300: #fdcc0d,
+  400: #fdcc0d,
+  500: #fdcc0d,
+  600: #fdcc0d,
+  700: #fdcc0d,
+  800: #fdcc0d,
+  900: #fdcc0d,
+  A100: #fdcc0d,
+  A200: #fdcc0d,
+  A400: #fdcc0d,
+  A700: #fdcc0d,
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$watc-app-primary: mat-palette($my-black, 800, 700, 900);
+$watc-app-accent:  mat-palette($my-yellow, A200, A100, A400);
 
 $watc-app-theme: mat-dark-theme((
   color: (
