@@ -39,7 +39,7 @@
     <mat-step [stepControl]="personalDetails" label="Personal Details">
         <div class="download-modal-body">
         <form [formGroup]="personalDetails">
-            <div  class="col-12" >
+            <div class="col-12" >
                 <div class="row">
                     
                     <mat-form-field class="customInputField" appearance="legacy">
@@ -81,7 +81,6 @@
                         <input matInput placeholder="Email(*)" formControlName="email">
                     </mat-form-field>
                 </div>
-            
             </div>
         </form>
             </div>
@@ -89,28 +88,67 @@
             <footer class="sticky-modal-footer">
                 <div mat-dialog-actions align="end">
                     <button type="button" mat-raised-button color="primary" mat-button matStepperPrevious>Back</button>
-                    <button type="button" mat-raised-button color="primary" mat-button matStepperNext>Next</button>
+                    <button type="button" mat-raised-button color="primary" [disabled]="!personalDetails.valid" mat-button matStepperNext>Next</button>
                 </div>
             </footer>
+    </mat-step>
+
+  
+    <mat-step label="Survey" [stepControl]="survey">
+        
+        <div class="download-modal-body">
             
-          
-      
+        <h3>Give us some valuable information!</h3>
+        <form [formGroup]="survey">
+            <table>
+        <tr *ngFor="let item of surveyDataObjects"><td>
+            {{item.quest}}
+            </td><td>
+        <mat-button-toggle-group appearance="legacy" formControlName="{{item.cntrlName}}" #group1="matButtonToggleGroup">
+            <mat-button-toggle value="1" aria-label="Very Satisfied">
+              <mat-icon>sentiment_very_satisfied</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="2" aria-label="Satisfied">
+              <mat-icon>sentiment_satisfied</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="3" aria-label="Neutral">
+              <mat-icon>sentiment_neutral</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="4" aria-label="Dissatisfied">
+              <mat-icon>sentiment_dissatisfied</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="5" aria-label="Very Dissatisfied">
+                <mat-icon>sentiment_very_dissatisfied</mat-icon>
+              </mat-button-toggle>
+          </mat-button-toggle-group>
+        </td></tr>
+        </table>
+        </form>
+    </div>
+    <footer class="sticky-modal-footer">
+        <div mat-dialog-actions align="end">
+            <button type="button" mat-raised-button color="primary" mat-button matStepperPrevious>Back</button>
+            <button type="button" mat-raised-button color="primary" [disabled]="!survey.valid" mat-button matStepperNext>Next</button>
+        </div>
+    </footer>
     </mat-step>
   
     <mat-step label="Download">
+        
         <div class="download-modal-body">
+            
         <h3>Download Data</h3>
         <p>Please press the 'download' button to download the complete dataset </p>
         <p>59 EU Cities - (36MB zipped shapefile)</p>
         <p>Our project is hosted on  <a href="https://github.com/geochoros-ntua/WalkAndTheCityCenter/">github</a>. You are welcome to contribute!</p>
         <p>Thanks for your interest</p>
       <h5>The Walk & the City Center Team</h5>
-      
+
     </div>
     <footer class="sticky-modal-footer">
         <div mat-dialog-actions align="end">
             <button type="button" mat-raised-button color="primary" mat-button matStepperPrevious>Back</button>
-            <a mat-raised-button color="warn" href="https://github.com/geochoros-ntua/WalkAndTheCityCenter/blob/main/src/assets/geodata/amsterdam.geojson">Download</a>
+            <a mat-raised-button color="warn" href="https://github.com/geochoros-ntua/WalkAndTheCityCenter/blob/main/src/assets/geodata/walk_datahub_all_cities.zip">Download</a>
             
             <!-- <button type="button" mat-raised-button color="warn" mat-button matStepperNext>Download</button>  -->
         </div>

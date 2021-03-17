@@ -13,7 +13,7 @@ import GeoJSON from 'ol/format/GeoJSON';
 import { Vector } from 'ol/source';
 import { MapLayersService } from './maplayers.service';
 import { BehaviorSubject } from 'rxjs';
-import {featureClickedWithPos} from '../api/map.interfaces'
+import { FeatureClickedWithPos} from '../api/map.interfaces'
 import { MapStatsService } from './mapstats.service';
 
 @Injectable({
@@ -26,7 +26,7 @@ export class MapService {
   private mappings:any = mappingsData.lookups;
   public dataLoaded:boolean;
   public selectedIndex:string = 'Score';
-  public featureClicked$ = new BehaviorSubject<featureClickedWithPos>(null);
+  public featureClicked$ = new BehaviorSubject<FeatureClickedWithPos>(null);
   
 
   constructor(
