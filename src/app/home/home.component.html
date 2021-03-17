@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="front-content">
-        <div class="front-text">
+        <mat-card class="front-text">
             <h2>Description</h2>
             <p>
                 Planning for more walking-friendly central urban areas improves public space attractiveness, walking
@@ -45,34 +45,31 @@
             <p>
                 Further details can be found in: citation
             </p>
-        </div>
-        <div class="front-teaser-parent">
-            <h1>Cities</h1>
-            <div class="front-teaser">
-                <mat-card class="city-card" *ngFor="let city of dummyCities">
-                    <mat-card-header>
-                        <mat-card-title>{{city.name}}</mat-card-title>
-                        <mat-card-subtitle>{{city.country}}</mat-card-subtitle>
-                    </mat-card-header>
-                    <img mat-card-image src="assets/images/citymobility.jpg">
-                    <mat-card-content>
-                        <p>
-                            {{city.description}}
-                        </p>
-                        <p>
-                            walkability: {{city.walkability}}
-                        </p>
-                        <p>
-                            {{city.morevars}}
-                        </p>
-                    </mat-card-content>
-                </mat-card>
+        </mat-card>
+
+    </div>
+
+    <div class="front-content">
+        <div class="front-explore">
+            <div class="explore-item">
+                <button class="explore-button" mat-fab color="accent" routerLink="/cities">
+                    <mat-icon>location_city</mat-icon>
+                </button>
+               <p class="explore-item-text"><a routerLink="/cities" class="explore-item-text-a">Explore the cities</a></p>
+            </div>
+            <div  class="explore-item">
+                <button class="explore-button" mat-fab color="accent" routerLink="/app-map">
+                    <mat-icon>map</mat-icon>
+                </button>
+                <p class="explore-item-text"><a routerLink="/app-map" class="explore-item-text-a">Explore the map</a></p>
             </div>
         </div>
     </div>
+
+
     <div class="footer">
         <div class="inner-footer">
-            <div class="social-container"><a title="facebook" href="https://facebook" target="_blank"
+            <!-- <div class="social-container"><a title="facebook" href="https://facebook" target="_blank"
                     class="circle-link"><img src="assets/icons/facebook.svg" type="image/svg+xml"
                         class="social-button"></a><a title="instagram" href="https://instagram" target="_blank"
                     class="circle-link"><img src="assets/icons/instagram.svg" type="image/svg+xml"
@@ -83,38 +80,41 @@
                         class="social-button"></a><a title="github"
                     href="https://github.com/geochoros-ntua/WalkAndTheCityCenter" target="_blank"
                     class="circle-link"><img src="assets/icons/github.svg" type="image/svg+xml"
-                        class="social-button"></a></div>
+                        class="social-button"></a></div> -->
 
             <div class="footer-team">
                 <h2>Team</h2>
                 <mat-list>
                     <mat-list-item *ngFor="let member of team">
-                        <div style="color: white; font-size: 22px; line-height: 24px;">{{member.name}}, {{member.description}}</div>
+                        <div style="font-size: 22px; line-height: 24px;">{{member.name}}, {{member.description}}</div>
                     </mat-list-item>
                 </mat-list>
             </div>
             <div class="footer-publications">
                 <h2>Publications</h2>
                 <mat-list>
-                    <mat-list-item style="height: auto; color: white; margin-bottom: 4px;" *ngFor="let pub of pubs">
-                        {{pub.name}}
+                    <mat-list-item class="pub-item" style="height: auto; margin-bottom: 4px;" *ngFor="let pub of pubs">
+                        <span>{{pub.name}} </span><a href="{{pub.doi}}" target="_blank">{{pub.doi}}</a>
                     </mat-list-item>
                 </mat-list>
-            </div>
+            </div> 
             <div class="more-info">
                 <p>For more information,</p>
-                <a style="color: white;" href="mailto: geochoros@mail.ntua.gr">geochoros@mail.ntua.gr</a>
+                <a href="mailto: geochoros@mail.ntua.gr">geochoros@mail.ntua.gr</a>
             </div>
 
 
             <div class="footer-logos">
-                <a href="http://geospatial.ntua.gr/" target="_blank"><img width="50"
+                <a class="circle-link-uncolored" href="http://geospatial.ntua.gr/" target="_blank"><img width="50"
                         src="assets/images/geochoros.png"></a>
-                <a style="padding-left: 16px;" href="https://ntua.gr/" target="_blank"><img width="50"
+                <a class="circle-link-uncolored" href="https://ntua.gr/" target="_blank"><img width="50"
                         src="assets/images/ntua_logo.png"></a>
+                <a title="github" href="https://github.com/geochoros-ntua/WalkAndTheCityCenter" target="_blank"
+                    class="circle-link"><img src="assets/icons/github.svg" width="50" type="image/svg+xml"
+                        class="social-button"></a>
             </div>
 
-            <p class="copyright">&#169; GeoCHOROS, 2020. All rights reserved.</p>
+            <p class="copyright">&#169; GeoCHOROS, 2021. All rights reserved.</p>
 
         </div>
     </div>

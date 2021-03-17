@@ -18,8 +18,29 @@ $custom-typography: mat-typography-config(
 
 @include mat-core($custom-typography);
 
+$watc-app-primary: mat-palette($mat-grey, 800, 700, 900);
+$watc-app-accent:  mat-palette($mat-red, A200, A100, A400);
+
+$watc-app-theme: mat-dark-theme((
+  color: (
+    primary: $watc-app-primary,
+    accent: $watc-app-accent,
+  )
+));
+
+@include angular-material-theme($watc-app-theme);
+
 .mat-form-field .mat-form-field-flex {
   background-color: rgba(111, 111, 111, 0.6);
+}
+
+a {
+  color: mat-color($watc-app-accent);
+  text-decoration: none;
+}
+
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: mat-color($watc-app-accent);
 }
 
 .material-icons {
@@ -30,4 +51,10 @@ $custom-typography: mat-typography-config(
   z-index: 2;
   box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.5);
   position: relative;
+}
+
+.pub-item {
+  .mat-list-item-content {
+    display: block !important; 
+  }
 }

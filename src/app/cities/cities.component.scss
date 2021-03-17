@@ -1,0 +1,31 @@
+.front-teaser-parent {
+  max-width: 1170px;
+  margin: auto;
+  padding: 32px;
+}
+
+.front-teaser {
+  display: flex;
+  flex-flow: row wrap;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.city-card {
+  width: 200px;
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-bottom: 16px;
+}
+
+.city-image {
+  background-image: url("../../assets/images/citymobility.jpg");
+  background-size: cover;
+}
+
+.cities-header {
+  max-width: 1170px;
+  margin: auto;
+  display: flex;
+}
