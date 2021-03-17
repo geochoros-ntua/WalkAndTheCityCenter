@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle'; 
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
@@ -43,12 +44,13 @@ import { LegendComponent } from './map/customControls/legend/legend.component';
 import { DownloadModalComponent } from './map/customControls/download-modal/download-modal.component';
 import { CitiesComponent } from './cities/cities.component';
 
+
 @NgModule({
   imports:      [
      BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, FlexLayoutModule, BrowserAnimationsModule,
-     MatIconModule, MatButtonModule, MatSidenavModule, MatToolbarModule, MatSelectModule, MatSliderModule,
+     MatIconModule, MatButtonModule, MatButtonToggleModule, MatSidenavModule, MatToolbarModule, MatSelectModule, MatSliderModule,
      MatMenuModule, MatProgressSpinnerModule, MatCardModule, MatTableModule,MatTooltipModule,MatListModule,MatGridListModule,
-     MatProgressSpinnerModule, MatCardModule, MatTableModule,MatTooltipModule, 
+     MatProgressSpinnerModule, MatCardModule, MatTableModule,MatTooltipModule,
      MatDialogModule, MatStepperModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, HttpClientModule 
    ],
   declarations: [ 
