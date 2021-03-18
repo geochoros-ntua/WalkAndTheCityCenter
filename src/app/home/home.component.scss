@@ -12,12 +12,19 @@
   min-height: calc(100vh - 8vh);
 }
 
+.front-image-cover {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-image: linear-gradient(transparent 99%, #5e747e);
+}
+
 .front-image-blend {
   width: 100%;
   height: 100%;
   position: absolute;
-  background-color: gray;
-  opacity: 0.75;
+  background-color: #5e747e;
+  opacity: 0.8;
   mix-blend-mode: multiply;
 }
 
@@ -28,12 +35,18 @@
 
 .front-logo-container {
   border-right: solid white 4px;
+  animation: left-right 5s infinite ease-in-out;
+}
+
+.front-image-logo {
+  animation: grow 5s infinite ease-in-out;
 }
 
 .front-slogan-container {
-  padding-left: 16px;
+  padding-left: 110px;
   padding-right: 16px;
   align-self: center;
+  animation: grow_b 5s infinite ease-in-out;
 }
 
 .front-image-info {
@@ -64,6 +77,7 @@
 
 .front-image-text {
   // color: white;
+  margin-top: 6px;
   font-size: 24px !important;
   line-height: 24px;
   font-style: italic;
@@ -96,7 +110,7 @@
 }
 
 .explore-item-text-a {
-  color: white !important;
+  color: #010203;
   text-decoration: none;
 }
 
@@ -107,15 +121,14 @@
 .explore-item:hover {
   .explore-button {
     transform: translateY(-0.25rem);
-    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 5px 7px -1px rgb(0 0 0 / 20%),
+      0px 8px 12px 0px rgb(0 0 0 / 14%), 0px 2px 24px 0px rgb(0 0 0 / 12%);
   }
   .explore-item-text {
     transform: translateY(-0.25rem);
-    text-shadow: 0px 1px 1px rgba(255, 255, 255, 1);
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 1);
   }
 }
-
-
 
 .front-text {
   max-width: 1170px;
@@ -168,8 +181,8 @@ footer a {
   width: 50px;
   border-radius: 50px;
   margin-left: 16px;
-  background-color: white;
-  border: 1px solid #eeeeee;
+  background-color: mat-color($watc-app-accent);
+  // border: 1px solid #eeeeee;
   align-content: center;
   justify-content: center;
   align-items: center;
@@ -192,12 +205,12 @@ footer a {
 }
 
 .circle-link-uncolored:hover {
-  transform: translateY(-0.25rem);
+  transform: translateY(-0.35rem);
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
 }
 
 .circle-link:hover {
-  transform: translateY(-0.25rem);
+  transform: translateY(-0.35rem);
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -214,6 +227,46 @@ footer a {
 .footer-publications {
   margin: 0;
   padding: 32px 32px 0 32px;
+}
+
+.footer-member-name {
+  color: mat-color($watc-app-accent);
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(1.2) ;
+  }
+  50% {
+    transform: scale(1) ;
+  }
+  100% {
+    transform: scale(1.2) ;
+  }
+}
+
+@keyframes grow_b {
+  0% {
+    transform: scale(1) ;
+  }
+  50% {
+    transform: scale(1.2) ;
+  }
+  100% {
+    transform: scale(1) ;
+  }
+}
+
+@keyframes left-right {
+  0% {
+    transform: translateX(20px) ;
+  }
+  50% {
+    transform: translateX(-20px) ;
+  }
+  100% {
+    transform: translateX(20px) ;
+  }
 }
 
 @media only screen and (max-width: 960px) {
