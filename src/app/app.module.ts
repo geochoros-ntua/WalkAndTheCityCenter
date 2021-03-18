@@ -43,6 +43,7 @@ import { ZoominoutComponent } from './map/customControls/zoominout/zoominout.com
 import { LegendComponent } from './map/customControls/legend/legend.component';
 import { DownloadModalComponent } from './map/customControls/download-modal/download-modal.component';
 import { CitiesComponent } from './cities/cities.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 @NgModule({
@@ -51,7 +52,7 @@ import { CitiesComponent } from './cities/cities.component';
      MatIconModule, MatButtonModule, MatButtonToggleModule, MatSidenavModule, MatToolbarModule, MatSelectModule, MatSliderModule,
      MatMenuModule, MatProgressSpinnerModule, MatCardModule, MatTableModule,MatTooltipModule,MatListModule,MatGridListModule,
      MatProgressSpinnerModule, MatCardModule, MatTableModule,MatTooltipModule,
-     MatDialogModule, MatStepperModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, HttpClientModule 
+     MatDialogModule, MatStepperModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, HttpClientModule, MatExpansionModule
    ],
   declarations: [ 
     AppComponent, MapComponent, AboutUsComponent, 

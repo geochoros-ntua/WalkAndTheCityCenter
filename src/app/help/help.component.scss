@@ -1,14 +1,18 @@
-.help {
-    background-color:#ffffff;
-    color:#ffffff;
-    text-align: center;
-    height:100%;
-    width:100%;
-    position:fixed;
-    }
-    .help p {
-    color:black;
-    }
-    .help h1 {
-    color:black;
-    }
+.help-page {
+    max-width: 1170px;
+    margin: auto;
+    padding: 32px;
+  }
+
+  table, th, td {
+    border: 1px solid white;
+    border-collapse: collapse;
+  }
+
+  td {
+    padding: 8px;
+  }
+
+  .faq-accord {
+    margin-bottom: 16px;
+  }

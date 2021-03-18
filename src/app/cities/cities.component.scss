@@ -1,5 +1,8 @@
+@import "~@angular/material/theming";
+@import "../../styles.scss";
+
 .front-teaser-parent {
-  max-width: 1170px;
+  // max-width: 1170px;
   margin: auto;
   padding: 32px;
 }
@@ -13,7 +16,7 @@
 }
 
 .city-card {
-  width: 200px;
+  width: 250px;
   margin-left: 16px;
   margin-right: 16px;
   margin-bottom: 16px;
@@ -28,4 +31,20 @@
   max-width: 1170px;
   margin: auto;
   display: flex;
+  // color: black;
+}
+
+.order-number {
+  color: mat-color($watc-app-accent);
+  font-weight: 800;
+}
+
+.yellow-value {
+  color: mat-color($watc-app-accent);
+}
+
+.cities-download {
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-right: 0.83em;
 }

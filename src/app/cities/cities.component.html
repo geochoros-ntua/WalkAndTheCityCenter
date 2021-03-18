@@ -3,10 +3,12 @@
         <div class="cities-header">
             <h1>Cities</h1>
             <div style="flex: 1;"></div>
-            <mat-form-field appearance="fill">
+            <!-- <a class="cities-download" mat-icon-button href="https://md-datasets-cache-zipfiles-prod.s3.eu-west-1.amazonaws.com/pvtwcjs365-1.zip"><mat-icon>download</mat-icon></a> -->
+            <a class="cities-download" mat-icon-button href="https://data.mendeley.com/datasets/pvtwcjs365/1" target="_blank"><mat-icon>download</mat-icon></a>
+            <mat-form-field style="width: 500px; max-width: 75%;" appearance="fill">
                 <mat-label>Variable</mat-label>
-                <mat-select (selectionChange)="sortCities($event)">
-                    <mat-option *ngFor="let header of headers" [value]="header.value">
+                <mat-select [(value)]="selectedVariable" (selectionChange)="sortCities($event)">
+                    <mat-option *ngFor="let header of headers" [value]="header">
                         {{header.name}}
                     </mat-option>
                 </mat-select>
@@ -16,19 +18,18 @@
             <mat-card class="city-card" *ngFor="let city of cities">
                 <mat-card-header>
                     <mat-card-title>{{city.name}}</mat-card-title>
-                    <mat-card-subtitle>{{city.order_number}}</mat-card-subtitle>
+                    <mat-card-subtitle>Rank:&nbsp;<span class="order-number">{{city.order_number}}</span></mat-card-subtitle>
                 </mat-card-header>
-                <img mat-card-image src="assets/images/citymobility.jpg">
+                <img mat-card-image [src]="city.image" loading="lazy">
                 <mat-card-content>
-                    <p>
-                        {{city.selected_variable}}
+                    <p *ngIf="selectedVariable">
+                        <span style="font-weight: 700;">{{selectedVariable?.name}}:</span>&nbsp;<span class="yellow-value">{{city.selected_variable}}%</span>&nbsp;{{suffix}}
                     </p>
-                    <!-- <p>
-                        walkability: {{city.walkability}}
+                    <p style="font-size: 90%;">
+                        Total Length of Segments (km):&nbsp;<span class="yellow-value">{{city.segments}}</span><br>
+                        Total Area (sq.km):&nbsp;<span class="yellow-value">{{city.area}}</span><br>
+                        Max. % of audited segments & Year of Google Image Capture:&nbsp;<span class="yellow-value">{{city.max_segments}}</span>
                     </p>
-                    <p>
-                        {{city.morevars}}
-                    </p> -->
                 </mat-card-content>
             </mat-card>
         </div>
