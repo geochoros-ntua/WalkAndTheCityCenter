@@ -15,6 +15,7 @@ import { MapLayersService } from './maplayers.service';
 import { BehaviorSubject } from 'rxjs';
 import { FeatureClickedWithPos} from '../api/map.interfaces'
 import { MapStatsService } from './mapstats.service';
+import * as olExtent from 'ol/extent';
 
 @Injectable({
   providedIn: 'root'
@@ -58,30 +59,28 @@ export class MapService {
   }
 
   
-  private registerMapEvents(){
+  private registerMapEvents(): void{
     const this_= this;
     this.map.on('click', (event) => {
       const resolution= this_.map.getView().getResolution();
       this_.getPopUpOverlay().setPosition(undefined);
       this_.map.forEachFeatureAtPixel(event.pixel, (feature,layer) => {
+        const differentCityClicked = this_.selectedCity?.get('City') !== feature.get('City');
         if (layer.get("title")==="WALK" && resolution < 50){
           this.featureClicked$.next({
             feat:feature,
             coord:event.coordinate});
-          return;
-        } else if (layer.get("title")==="CITY_BNDS" && resolution > 50) {
-          if (this_.selectedCity){
-            this_.selectedCity.setStyle(undefined);
-          }
-          this_.selectedCity = feature;
-          this_.selectedCity.setStyle(highlightStyle)
-          this_.loadAndZoomToCity();
-          this_.getPopUpOverlay().setPosition(undefined);
+        } else if (layer.get("title")==="CITY_BNDS" && resolution >= 50) {
+          this.selectCity(feature); 
         } else {
-          //this_.getPopUpOverlay().setPosition(undefined);
+          if (layer.get("title")==="CITY_BNDS" && differentCityClicked){
+            this.selectCity(feature); 
+          }
         }
       });
     });
+
+
 
 
     this.map.on('pointermove', (e) => {
@@ -105,9 +104,17 @@ export class MapService {
     });
   }
 
+  private selectCity(feature: Feature): void{
+    this.selectedCity?.setStyle(undefined);
+    this.selectedCity = feature;
+    this.selectedCity.setStyle(highlightStyle)
+    this.loadAndZoomToCity();
+    this.getPopUpOverlay().setPosition(undefined);
 
+  }
+  
 
-  loadAndZoomToCity = ():void => {
+  private loadAndZoomToCity = ():void => {
     this.dataLoaded = false;
     const newSource = new Vector({
       format: new GeoJSON({
@@ -142,6 +149,12 @@ export class MapService {
       size:this.map.getSize(),
       duration: 2000
     });
+   
+    // this.map.getView().animate({
+    //   center: olExtent.getCenter(this.selectedCity.getGeometry().getExtent()),
+    //   duration: 2000,
+    //   zoom:13
+    // });
     this.mapLayerService.getWalkabilityLayer().setMaxResolution(50);
  }
 

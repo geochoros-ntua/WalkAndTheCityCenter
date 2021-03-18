@@ -57,8 +57,6 @@ export class DownloaderComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DownloadModalComponent, {
-      //width: '250px',
-      // data: { selectedCity: this.mapService.selectedCity }
     });
 
     dialogRef.afterClosed().subscribe(result => {

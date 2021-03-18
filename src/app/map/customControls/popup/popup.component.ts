@@ -35,17 +35,27 @@ export class PopupComponent implements OnInit {
     this.mapService.getCurrentMap().addOverlay(this.overlayPopup);
   }
 
-  public closeIt(){
+  public closeIt(): void{
     this.overlayPopup.setPosition(undefined);
   }
 
   public getValidKeys(keys:string[]):string[]{
-    return keys.filter( el => ['OBJECTID','City','geometry','Shape_Area','Shape_Leng'].indexOf( el ) < 0);
+    let validKeys = keys.filter( el => ['OBJECTID','City','geometry','Shape_Area','Shape_Leng'].indexOf( el ) < 0);
+    const fromIndex = validKeys.findIndex( el => el === this.mapService.selectedIndex);
+    validKeys = this.swapElements(validKeys, fromIndex, 0);
+    return validKeys;
   }
 
-  public parseNumberKey(val){
+  public parseNumberKey(val): string {
     return parseFloat(val).toFixed(2);
   }
+
+  private swapElements(arr: any[], fromIndex: number, toIndex: number): any[] {
+    const element = arr[fromIndex];
+    arr.splice(fromIndex, 1);
+    arr.splice(toIndex, 0, element);
+    return arr;
+}
 
 
 }
