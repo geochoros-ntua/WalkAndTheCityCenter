@@ -34,7 +34,6 @@ export class MapStatsService {
 
 
     public styleFnWalkGrids = (feature:Feature, resolution:number): Style => {
-        console.log('styleFnWalkGrids index',this.selectedIndex)
         const currVal = parseFloat(feature.get(this.selectedIndex));
         const bounds = this.classSeries.bounds;
         let numRanges = new Array();
