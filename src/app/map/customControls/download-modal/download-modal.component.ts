@@ -70,6 +70,11 @@ export class DownloadModalComponent implements OnInit {
     });
   }
 
+  /**
+   * Not used. Just in case .... use it for checkbox forwarding
+   * @param stepper 
+   * @param event 
+   */
   goForward(stepper: MatStepper ,event: any){
     if (event.checked){
       stepper.next();
