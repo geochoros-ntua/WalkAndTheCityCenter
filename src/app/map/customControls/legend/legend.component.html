@@ -3,7 +3,11 @@
     <div id="legend" class="legendDivHide">
         <table>
             <tr class="geostats-legend-title">
-                <td colspan="3">Index: {{mapStatsService.selectedIndex}}</td></tr>
+                <td colspan="3">Unit: km per km2</td>
+            </tr>
+            <tr class="geostats-legend-title">
+                <td colspan="3">Classification: Quantile (n=10)</td>
+            </tr>                
             <tr *ngFor="let range of mapStatsService.classSeries.getRanges();index as i">
                 <td class="geostats-legend-color" [style.background-color]="mapStatsService.classSeries.colors[i]"></td>
                 <td class="geostats-legend-ranges" >{{ range }}</td>
