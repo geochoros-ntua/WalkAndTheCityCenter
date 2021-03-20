@@ -12,3 +12,10 @@ export interface SurveyDataObject {
     cntrlName: string,
     answerVals: number[]
 }
+
+export interface MapShareParams {
+    center: string,
+    zoom: string,
+    statIndex: string,
+    city: string
+}
