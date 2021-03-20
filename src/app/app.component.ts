@@ -10,6 +10,7 @@ import { NavigationEnd, Router } from '@angular/router';
 export class AppComponent {
   name = 'Walk & the City Center';
 
+
   constructor(private router: Router) {
 
   }

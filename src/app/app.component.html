@@ -12,49 +12,59 @@
     </a>
     <span class="example-spacer"></span>
     <div fxShow="true" fxHide.lt-md="true">
-      <!-- <a mat-button routerLink="/">Home</a>
-      <a mat-button routerLink="/app-map">Map</a>
-      <a mat-button routerLink="/app-help">Help</a>
-      <a mat-button routerLink="/about-us">About us</a> -->
-      <button mat-icon-button routerLink="/">
+      <button mat-icon-button routerLink="/home" [routerLinkActive]="['is-active']"
+        [routerLinkActiveOptions]="{exact: true}">
         <mat-icon>home</mat-icon>
       </button>
-      <button mat-icon-button routerLink="/cities">
+      <button mat-icon-button routerLink="/cities" [routerLinkActive]="['is-active']"
+        [routerLinkActiveOptions]="{exact: true}">
         <mat-icon>location_city</mat-icon>
       </button>
-      <button mat-icon-button routerLink="/app-map">
+      <button mat-icon-button routerLink="/app-map" [routerLinkActive]="['is-active']"
+        [routerLinkActiveOptions]="{exact: true}">
         <mat-icon>map</mat-icon>
       </button>
-      <button mat-icon-button routerLink="/app-help">
+      <button mat-icon-button routerLink="/chart" [routerLinkActive]="['is-active']"
+        [routerLinkActiveOptions]="{exact: true}">
+        <mat-icon>multiline_chart</mat-icon>
+      </button>
+      <button mat-icon-button routerLink="/app-help" [routerLinkActive]="['is-active']"
+        [routerLinkActiveOptions]="{exact: true}">
         <mat-icon>help</mat-icon>
       </button>
-      <button mat-icon-button routerLink="/about-us">
+      <button mat-icon-button routerLink="/about-us" [routerLinkActive]="['is-active']"
+        [routerLinkActiveOptions]="{exact: true}">
         <mat-icon>info</mat-icon>
       </button>
     </div>
 
   </mat-toolbar>
-  <mat-sidenav-container fxFlexFill class="example-container">
+  <mat-sidenav-container fxFlexFill class="example-container" [hasBackdrop]="false">
 
     <mat-sidenav color="primary" #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true">
       <div style="padding: 8px;" fxLayout="column">
-        <!-- <a mat-button routerLink="/">Home</a>
-        <a mat-button routerLink="/about-us">About us</a>
-        <a mat-button routerLink="/app-help">Help</a>
-        <a mat-button routerLink="/app-map">Map</a> -->
-        <button mat-icon-button routerLink="/">
+        <button mat-icon-button routerLink="/home" [routerLinkActive]="['is-active']"
+          [routerLinkActiveOptions]="{exact: true}">
           <mat-icon>home</mat-icon>
         </button>
-        <button mat-icon-button routerLink="/cities">
+        <button mat-icon-button routerLink="/cities" [routerLinkActive]="['is-active']"
+          [routerLinkActiveOptions]="{exact: true}">
           <mat-icon>location_city</mat-icon>
         </button>
-        <button mat-icon-button routerLink="/app-map">
+        <button mat-icon-button routerLink="/app-map" [routerLinkActive]="['is-active']"
+          [routerLinkActiveOptions]="{exact: true}">
           <mat-icon>map</mat-icon>
         </button>
-        <button mat-icon-button routerLink="/app-help">
+        <button mat-icon-button routerLink="/chart" [routerLinkActive]="['is-active']"
+          [routerLinkActiveOptions]="{exact: true}">
+          <mat-icon>multiline_chart</mat-icon>
+        </button>
+        <button mat-icon-button routerLink="/app-help" [routerLinkActive]="['is-active']"
+          [routerLinkActiveOptions]="{exact: true}">
           <mat-icon>help</mat-icon>
         </button>
-        <button mat-icon-button routerLink="/about-us">
+        <button mat-icon-button routerLink="/about-us" [routerLinkActive]="['is-active']"
+          [routerLinkActiveOptions]="{exact: true}">
           <mat-icon>info</mat-icon>
         </button>
       </div>

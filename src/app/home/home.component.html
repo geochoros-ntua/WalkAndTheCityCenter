@@ -30,7 +30,7 @@
                 about the location of development gaps in public spaces of each city center area.
             </p>
             <p>
-                This website introduces density maps of high spatial resolution (100m X 100m) of 17 pre-processed and
+                This website introduces density maps of high spatial resolution (50m X 50m) of 17 pre-processed and
                 microscale walkability indicators, covering 59 central urban areas from 26 European countries. To
                 collect the raw GIS data, we applied a virtual (i.e., Google Street View) street audit tool on every
                 street and crossing segment, and on both sides of each street separately, block-by-block. We digitized
@@ -67,26 +67,20 @@
                 <p class="explore-item-text"><a routerLink="/app-map" class="explore-item-text-a">Visualize Maps</a>
                 </p>
             </div>
+            <div class="explore-item">
+                <button class="explore-button" mat-fab color="accent" routerLink="/chart">
+                    <mat-icon>multiline_chart</mat-icon>
+                </button>
+                <p class="explore-item-text"><a routerLink="/chart" class="explore-item-text-a">Compare Graphs</a>
+                </p>
+            </div>
         </div>
     </div>
 
 
     <div class="footer">
         <div class="inner-footer">
-            <!-- <div class="social-container"><a title="facebook" href="https://facebook" target="_blank"
-                    class="circle-link"><img src="assets/icons/facebook.svg" type="image/svg+xml"
-                        class="social-button"></a><a title="instagram" href="https://instagram" target="_blank"
-                    class="circle-link"><img src="assets/icons/instagram.svg" type="image/svg+xml"
-                        class="social-button"></a><a title="twitter" href="https://twitter" target="_blank"
-                    class="circle-link"><img src="assets/icons/twitter.svg" type="image/svg+xml"
-                        class="social-button"></a><a title="youtube" href="https://youtube" target="_blank"
-                    class="circle-link"><img src="assets/icons/youtube.svg" type="image/svg+xml"
-                        class="social-button"></a><a title="github"
-                    href="https://github.com/geochoros-ntua/WalkAndTheCityCenter" target="_blank"
-                    class="circle-link"><img src="assets/icons/github.svg" type="image/svg+xml"
-                        class="social-button"></a></div> -->
-
-            <div class="footer-team">
+                   <div class="footer-team">
                 <h2>Team</h2>
                 <mat-list>
                     <mat-list-item *ngFor="let member of team">

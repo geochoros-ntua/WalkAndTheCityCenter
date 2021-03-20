@@ -30,8 +30,12 @@
 .cities-header {
   max-width: 1170px;
   margin: auto;
-  display: flex;
-  // color: black;
+}
+
+.cities-controls {
+  max-width: 1170px;
+  margin: auto;
+  text-align: end;
 }
 
 .order-number {
@@ -43,8 +47,12 @@
   color: mat-color($watc-app-accent);
 }
 
+.gray-value {
+  color: #5e747e;
+}
+
 .cities-download {
-  margin-block-start: 0.83em;
-  margin-block-end: 0.83em;
+  vertical-align: middle;
   margin-right: 0.83em;
 }
+

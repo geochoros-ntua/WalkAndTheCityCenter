@@ -2,12 +2,34 @@
     <div class="front-teaser-parent">
         <div class="cities-header">
             <h1>Cities</h1>
-            <div style="flex: 1;"></div>
-            <!-- <a class="cities-download" mat-icon-button href="https://md-datasets-cache-zipfiles-prod.s3.eu-west-1.amazonaws.com/pvtwcjs365-1.zip"><mat-icon>download</mat-icon></a> -->
-            <a class="cities-download" mat-icon-button href="https://data.mendeley.com/datasets/pvtwcjs365/1" target="_blank"><mat-icon>download</mat-icon></a>
+        </div>
+        <div class="cities-header">
+            <p>Attractive and pleasant pedestrian streetscapes bring together people and the city. They also boost
+                walking activity and support social interactions. However, European cities demonstrate diverse urban
+                qualities and significant sidewalk-level differences. Thus, pedestrian infrastructure deficiencies and
+                dysfunctional walking environments might prevent some places becoming more sustainable and livable,
+                while at the same time environmental inequities among European cities are created. In this application,
+                users can explore the performance of several central urban areas across Europe concerning some critical
+                topics of microscale design factors, such as sidewalk or building maintenance, curb cuts, crosswalks,
+                graffiti, shading, public seats, active uses, streetlights, sidewalk width, etc. Users can rank city
+                centers per each walkability-related topic and according to the results of a massive virtual street
+                observation process applied in each city and street or crossing segment, separately, block-by-block.
+                More methodological details about the raw data collection and processing can be seen in our data article
+                published by Data in Brief Journal&nbsp;<span><a href="#" target="_blank">here</a></span>.
+            </p>
+        </div>
+        <div class="cities-controls">
+            <a class="cities-download" mat-icon-button href="https://data.mendeley.com/datasets/pvtwcjs365/1"
+                target="_blank">
+                <mat-icon>download</mat-icon>
+            </a>
+            <mat-slide-toggle class="cities-download" [disabled]="selectedVariable === null" [checked]="false"
+                [(ngModel)]="reverse" (change)="sortCities(selectedVariable, reverse, true)">
+                Reverse order
+            </mat-slide-toggle>
             <mat-form-field style="width: 500px; max-width: 75%;" appearance="fill">
                 <mat-label>Variable</mat-label>
-                <mat-select [(value)]="selectedVariable" (selectionChange)="sortCities($event)">
+                <mat-select [(value)]="selectedVariable" (selectionChange)="sortCities($event, reverse, false)">
                     <mat-option *ngFor="let header of headers" [value]="header">
                         {{header.name}}
                     </mat-option>
@@ -18,17 +40,32 @@
             <mat-card class="city-card" *ngFor="let city of cities">
                 <mat-card-header>
                     <mat-card-title>{{city.name}}</mat-card-title>
-                    <mat-card-subtitle>Rank:&nbsp;<span class="order-number">{{city.order_number}}</span></mat-card-subtitle>
+                    <mat-card-subtitle *ngIf="selectedVariable.value !== 'alphabetical'" >Rank:&nbsp;<span class="order-number">{{city.order_number}}</span>
+                    </mat-card-subtitle>
                 </mat-card-header>
-                <img mat-card-image [src]="city.image" loading="lazy">
+                <!-- city.flipped_image ? city.chart_image : city.image -->
+         
+                <img [title]="city.flipped_image ? city.name : 'Share of indicator rankings'" style="display: block;" [@rotatedState]='city.state' class="city-image" mat-card-image [src]="city.flipped_image ? city.chart_image : city.image"
+                    (click)="flipImage(city)">
+                    <!-- <img [hidden]="!city.flipped_image" [@rotatedState]='city.state' class="city-image" mat-card-image [src]="city.chart_image"
+                    loading="lazy" (click)="flipImage(city)"> -->
+    
                 <mat-card-content>
-                    <p *ngIf="selectedVariable">
-                        <span style="font-weight: 700;">{{selectedVariable?.name}}:</span>&nbsp;<span class="yellow-value">{{city.selected_variable}}%</span>&nbsp;{{suffix}}
+                    <p *ngIf="selectedVariable.value !== 'alphabetical'">
+                        <span style="font-weight: 700;">{{selectedVariable?.name}}:</span>&nbsp;<span
+                            class="yellow-value">{{city.selected_variable}}%</span>&nbsp;{{suffix}}
                     </p>
-                    <p style="font-size: 90%;">
+                    <p *ngIf="selectedVariable.value === 'alphabetical'" style="font-size: 90%;">
                         Total Length of Segments (km):&nbsp;<span class="yellow-value">{{city.segments}}</span><br>
                         Total Area (sq.km):&nbsp;<span class="yellow-value">{{city.area}}</span><br>
-                        Max. % of audited segments & Year of Google Image Capture:&nbsp;<span class="yellow-value">{{city.max_segments}}</span>
+                        Max. % of audited segments & Year of Google Image Capture:&nbsp;<span
+                            class="yellow-value">{{city.max_segments}}</span>
+                    </p>
+                    <p *ngIf="selectedVariable.value !== 'alphabetical'" style="font-size: 90%;">
+                        <span class="gray-value">Total Length of Segments (km):</span>&nbsp;<span class="yellow-value">{{city.segments}}</span><br>
+                        <span class="gray-value">Total Area (sq.km):</span>&nbsp;<span class="yellow-value">{{city.area}}</span><br>
+                        <span class="gray-value">Max. % of audited segments & Year of Google Image Capture:</span>&nbsp;<span
+                            class="yellow-value">{{city.max_segments}}</span>
                     </p>
                 </mat-card-content>
             </mat-card>
