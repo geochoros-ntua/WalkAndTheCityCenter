@@ -100,29 +100,30 @@
             
         <h3>Give us some valuable information!</h3>
         <form [formGroup]="survey">
-            <table>
-        <tr *ngFor="let item of surveyDataObjects"><td>
-            {{item.quest}}
-            </td><td>
-        <mat-button-toggle-group appearance="legacy" formControlName="{{item.cntrlName}}" #group1="matButtonToggleGroup">
-            <mat-button-toggle value="1" aria-label="Very Satisfied">
-              <mat-icon>sentiment_very_satisfied</mat-icon>
+
+        <p *ngFor="let item of surveyDataObjects">
+           
+            
+        <mat-button-toggle-group appearance="legacy" formControlName="{{item.cntrlName}}" #group="matButtonToggleGroup">
+            
+            <mat-button-toggle value="1" aria-label="Very Dissatisfied">
+                <mat-icon style="color:red">sentiment_very_dissatisfied</mat-icon>
             </mat-button-toggle>
-            <mat-button-toggle value="2" aria-label="Satisfied">
-              <mat-icon>sentiment_satisfied</mat-icon>
+            <mat-button-toggle value="2" aria-label="Dissatisfied">
+                <mat-icon style="color:orange">sentiment_dissatisfied</mat-icon>
             </mat-button-toggle>
             <mat-button-toggle value="3" aria-label="Neutral">
-              <mat-icon>sentiment_neutral</mat-icon>
+              <mat-icon style="color:yellow">sentiment_neutral</mat-icon>
             </mat-button-toggle>
-            <mat-button-toggle value="4" aria-label="Dissatisfied">
-              <mat-icon>sentiment_dissatisfied</mat-icon>
+            <mat-button-toggle value="4" aria-label="Satisfied">
+                <mat-icon style="color:limegreen">sentiment_satisfied</mat-icon>
             </mat-button-toggle>
-            <mat-button-toggle value="5" aria-label="Very Dissatisfied">
-                <mat-icon>sentiment_very_dissatisfied</mat-icon>
-              </mat-button-toggle>
+            <mat-button-toggle value="5" aria-label="Very Satisfied">
+                <mat-icon style="color:green">sentiment_very_satisfied</mat-icon>
+            </mat-button-toggle>
           </mat-button-toggle-group>
-        </td></tr>
-        </table>
+          {{item.quest}}
+        </p>
         </form>
     </div>
     <footer class="sticky-modal-footer">

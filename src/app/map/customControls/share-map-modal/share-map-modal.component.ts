@@ -22,7 +22,6 @@ export class ShareMapModalComponent implements OnInit {
     this._selectedCity = this.mapService.selectedCity?.get('City');
     this._selectedIndex = this.mapService.selectedIndex;
     this._selectedIndexTitle = this.mapService.getTitleFromMappingCode(this._selectedIndex);
-    console.log('this.selectedIndex', this._selectedIndex, this._selectedIndexTitle)
     this.currentCenter = olProj.toLonLat(this.mapService.getCurrentMap().getView().getCenter()).join(',');
     this.currentZoomLevel = this.mapService.getCurrentMap().getView().getZoom();
   }
