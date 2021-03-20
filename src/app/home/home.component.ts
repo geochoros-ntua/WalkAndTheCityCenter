@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit {
   }
 
   scrollDown() {
-    window.scrollBy(0, 100);
+    window.scrollBy(0, window.innerHeight);
   }
 
 

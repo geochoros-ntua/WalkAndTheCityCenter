@@ -191,6 +191,12 @@ a {
   color: mat-color($watc-app-accent);
 }
 
+.mat-dialog-container {
+  background: #09090c;
+}
+
+[hidden] { display: none !important;}
+
 @media only screen and (max-width: 700px) {
   .profile-item {
     width: 100% !important;

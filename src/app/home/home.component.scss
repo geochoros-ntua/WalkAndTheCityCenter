@@ -235,43 +235,52 @@ footer a {
 
 .scroll-down {
   position: absolute;
-  bottom: 4px;
-  left: 50%;
+  bottom: 16px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border: 2px solid white;
+  transition: 1s ease-in-out;
+}
+
+.scroll-down:hover {
+  transform: scale(1.2);
 }
 
 @keyframes grow {
   0% {
-    transform: scale(1.2) ;
+    transform: scale(1.2);
   }
   50% {
-    transform: scale(1) ;
+    transform: scale(1);
   }
   100% {
-    transform: scale(1.2) ;
+    transform: scale(1.2);
   }
 }
 
 @keyframes grow_b {
   0% {
-    transform: scale(1) ;
+    transform: scale(1);
   }
   50% {
-    transform: scale(1.2) ;
+    transform: scale(1.2);
   }
   100% {
-    transform: scale(1) ;
+    transform: scale(1);
   }
 }
 
 @keyframes left-right {
   0% {
-    transform: translateX(20px) ;
+    transform: translateX(20px);
   }
   50% {
-    transform: translateX(-20px) ;
+    transform: translateX(-20px);
   }
   100% {
-    transform: translateX(20px) ;
+    transform: translateX(20px);
   }
 }
 
@@ -289,7 +298,7 @@ footer a {
     border-bottom: solid white 4px;
     animation: none;
   }
-  
+
   .front-image-logo {
     animation: none;
   }
@@ -297,7 +306,7 @@ footer a {
   .ntua-text {
     line-height: 25px;
   }
-  
+
   .front-slogan-container {
     padding-left: 40px;
     padding-top: 40px;

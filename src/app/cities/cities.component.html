@@ -19,14 +19,6 @@
             </p>
         </div>
         <div class="cities-controls">
-            <a class="cities-download" mat-icon-button href="https://data.mendeley.com/datasets/pvtwcjs365/1"
-                target="_blank">
-                <mat-icon>download</mat-icon>
-            </a>
-            <mat-slide-toggle class="cities-download" [disabled]="selectedVariable === null" [checked]="false"
-                [(ngModel)]="reverse" (change)="sortCities(selectedVariable, reverse, true)">
-                Reverse order
-            </mat-slide-toggle>
             <mat-form-field style="width: 500px; max-width: 75%;" appearance="fill">
                 <mat-label>Variable</mat-label>
                 <mat-select [(value)]="selectedVariable" (selectionChange)="sortCities($event, reverse, false)">
@@ -35,6 +27,14 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+            <mat-slide-toggle class="cities-download" [disabled]="selectedVariable === null" [checked]="false"
+                [(ngModel)]="reverse" (change)="sortCities(selectedVariable, reverse, true)">
+                Reverse order
+            </mat-slide-toggle>
+            <a class="cities-download" mat-icon-button href="https://data.mendeley.com/datasets/pvtwcjs365/1"
+                target="_blank">
+                <mat-icon>download</mat-icon>
+            </a>
         </div>
         <div *ngIf="cities.length > 0" class="front-teaser" [@listAnimation]="suffleCards">
             <mat-card class="city-card" *ngFor="let city of cities" [@rotatedState]='city.state'>

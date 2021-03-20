@@ -82,6 +82,9 @@ export class ChartComponent implements OnInit {
     this.citiesDataService.citiesData$.subscribe(data => {
       if (data) {
         this.cities = data;
+        this.cities.sort((a: any, b: any) => {
+          return a.name.localeCompare(b.name);
+        });
       }
     });
   }
@@ -90,6 +93,10 @@ export class ChartComponent implements OnInit {
     this.cities = this.citiesDataService.getCities();
     this.headers = this.citiesDataService.getVariables();
     Chart.platform.disableCSSInjection = true;
+    this.cities.sort((a: any, b: any) => {
+      return a.name.localeCompare(b.name);
+    });
+    this.hasGraph = false;
   }
 
   selectedCitiesAndVariables(cities, variables) {
@@ -112,13 +119,10 @@ export class ChartComponent implements OnInit {
 
     let datasets = [];
     if (cities.length > 0 && variables.length > 2) {
-      // console.log(cities)
-      // console.log(variables)
       this.hasGraph = true;
 
       for (let indexCity = 0; indexCity < cities.length; indexCity++) {
         const city = cities[indexCity];
-
         let dataset = {
           label: null,
           data: [],
@@ -144,7 +148,6 @@ export class ChartComponent implements OnInit {
         datasets.push(dataset);
       }
 
-      // console.log(datasets)
 
       for (let index = 0; index < variables.length; index++) {
         const element = variables[index];
@@ -156,15 +159,14 @@ export class ChartComponent implements OnInit {
 
       this.data.datasets = datasets;
 
-      // console.log(this.data)
-
-
-
       myRadarChart = new Chart(document.getElementById('spiderChart'), {
         type: 'radar',
         data: this.data,
         options: this.options
       });
+    }
+    else {
+      this.hasGraph = false;
     }
 
   }
