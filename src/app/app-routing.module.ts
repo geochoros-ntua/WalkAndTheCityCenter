@@ -1,3 +1,4 @@
+import { ChartComponent } from './chart/chart.component';
 import { CitiesComponent } from './cities/cities.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'cities', component: CitiesComponent },
   { path: 'app-map', component: MapComponent },
+  { path: 'chart', component: ChartComponent },
   { path: 'app-help', component: HelpComponent },
   { path: 'about-us', component: AboutUsComponent }
 ];

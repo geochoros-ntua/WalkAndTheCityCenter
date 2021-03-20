@@ -1,0 +1,41 @@
+<section>
+    <div class="front-teaser-parent">
+        <div class="chart-header">
+            <h1>Comparisons</h1>
+        </div>
+        <div class="chart-header">
+            <p>Using this tool you can compare microscale environmental factors and its indicators for six central
+                urban areas by our dataset. Compare cities on pedestrian infrastructure and deficiencies, crosswalks,
+                active uses, street furniture, aesthetics, shading, road environment, and more. Explore the diversity of
+                city centers in street-level design qualities and get a better understanding of the walking-friendliness
+                levels across Europe. Pick up to six cities and the indicators you prefer (between three and six
+                variables) and discover the performance of city centers in the chart.
+            </p>
+        </div>
+        <div [formGroup]="chartCtrlsGroup" class="chart-controls">
+            <mat-form-field style="margin-right: 16px; width: 30%; max-width: 500px;" appearance="fill">
+                <mat-label>Cities (up to six)</mat-label>
+                <mat-select formControlName="citiesCtrl" [(value)]="selectedCities"
+                    (selectionChange)="selectedCitiesAndVariables(selectedCities, selectedVariables)" multiple>
+                    <mat-option
+                        [disabled]="chartCtrlsGroup.get('citiesCtrl').value?.length > 5 && !chartCtrlsGroup.get('citiesCtrl').value?.includes(city)"
+                        *ngFor="let city of cities" [value]="city">{{city.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field style="margin-right: 16px; width: 50%; max-width: 500px;" appearance="fill">
+                <mat-label>Indices (three or more up to six)</mat-label>
+                <mat-select formControlName="variablesCtrl" [(value)]="selectedVariables"
+                    (selectionChange)="selectedCitiesAndVariables(selectedCities, selectedVariables)" multiple>
+                    <mat-option
+                        [disabled]="chartCtrlsGroup.get('variablesCtrl').value?.length > 5 && !chartCtrlsGroup.get('variablesCtrl').value?.includes(header)"
+                        *ngFor="let header of headers" [value]="header">{{header.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <mat-card *ngIf="hasGraph" class="no-click">
+            <canvas class="no-click" id="spiderChart"></canvas>
+        </mat-card>
+    </div>
+</section>

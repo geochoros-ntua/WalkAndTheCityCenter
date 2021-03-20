@@ -54,7 +54,9 @@
                             1. Go to the<span>&nbsp;<a routerLink="/cities">stats</a></span>&nbsp;page
                         </mat-list-item>
                         <mat-list-item>
-                            2. Click on the download button
+                            2. Click on the download button&nbsp;<span>
+                                <mat-icon>download</mat-icon>
+                            </span>
                         </mat-list-item>
                     </mat-list>
                 </mat-expansion-panel>
@@ -81,9 +83,9 @@
                         <mat-panel-description>
                         </mat-panel-description>
                     </mat-expansion-panel-header>
-                    <span><img style="width: 60px; margin-right: 8px;" src="assets/images/cc_bb.png"></span>Spatial data
-                    are licenced by&nbsp;<span><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC
-                            BB</a></span>&nbsp;.
+                    Spatial data
+                    are licenced by&nbsp;<span><a href="https://creativecommons.org/licenses/by-nc/3.0/"
+                            target="_blank">CC BY-NC 3.0</a></span>&nbsp;.
                     You can share,
                     copy and modify this dataset so long as you give appropriate credit, provide a link to the CC BY
                     license, and indicate if changes were made, but you may not do so in a way that suggests the rights
@@ -97,9 +99,9 @@
                             Tabular Data
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <span><img style="width: 60px; margin-right: 8px;" src="assets/images/cc_bb.png"></span>Spatial data
-                    are licenced by&nbsp;<span><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC
-                            BB</a></span>&nbsp;.
+                    Spatial data
+                    are licenced by&nbsp;<span><a href="https://creativecommons.org/licenses/by-nc/3.0/"
+                            target="_blank">CC BY-NC 3.0</a></span>&nbsp;.
                     You can share,
                     copy and modify this dataset so long as you give appropriate credit, provide a link to the CC BY
                     license, and indicate if changes were made, but you may not do so in a way that suggests the rights
@@ -133,7 +135,7 @@
                             Technical University of Athens</a></span>&nbsp;and the administrators are
                     members and academic staff of the Geography Lab in the&nbsp;<span><a
                             href="http://www.survey.ntua.gr/en/departments/geo" target="_blank">Department of Geography
-                            & Regional Planning</a></span>&nbsp;.
+                            & Regional Planning</a></span>.
                 </mat-expansion-panel>
             </mat-expansion-panel>
 
@@ -175,13 +177,9 @@
                     75% of
                     the total street-segments length have at least one graffiti present.</p>
 
-                <p>On the other hand, the pre-processed geospatial data grids illustrate average density maps (50m X
-                    50m) of street- or crossing-segments per each audit item. Using the example of segments with
-                    graffiti, suppose we use an output cell size of 0.05 km, and we see that one cell receives a
-                    value
-                    of 89 km per square kilometer in 250 m radius. Since the area of the cell is 0.0025 square
-                    kilometers (0.05 km * 0.05 km = 0.0025 km2), we can multiply the density by the area to get an
-                    expected count of 0.2225 km (89 km/km2 * 0.0025 km2= 0.2225 km) of segments with graffiti.</p>
+                <p>On the other hand, the pre-processed geospatial data grids illustrate average density (decile) maps
+                    (50m X 50m) of street- or crossing-segments per each audit item (in kilometers per square
+                    kilometers).</p>
             </mat-expansion-panel>
 
 
@@ -318,7 +316,7 @@
 
                 <p>Our map provides open access to pre-processed geospatial data grids and in high spatial
                     resolution
-                    (100 m X 100 m). The geospatial data of the platform include both the micro-level walkability
+                    (50 m X 50 m). The geospatial data of the platform include both the micro-level walkability
                     indicators and the boundary polygons of each analyzed central urban area. The geospatial grids
                     have
                     been calculated using the Kernel density tool in ArcGIS Desktop, v.10.3 (ESRI, REDLANDS) applied
@@ -1198,6 +1196,109 @@
                 </p>
 
             </mat-expansion-panel>
+
+            <mat-expansion-panel class="faq-accord">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Forthcoming Data
+                    </mat-panel-title>
+                    <mat-panel-description>
+
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <mat-expansion-panel class="faq-accord">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            SERBIA
+                        </mat-panel-title>
+                        <mat-panel-description>
+
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <mat-list>
+                        <mat-list-item>
+                            Belgrade
+                        </mat-list-item>
+                    </mat-list>
+
+                </mat-expansion-panel>
+                <mat-expansion-panel class="faq-accord">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            UK
+                        </mat-panel-title>
+                        <mat-panel-description>
+
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <mat-list>
+                        <mat-list-item>
+                            Belfast
+                        </mat-list-item>
+                        <mat-list-item>
+                            Edinburgh
+                        </mat-list-item>
+                    </mat-list>
+
+                </mat-expansion-panel>
+                <mat-expansion-panel class="faq-accord">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            SPAIN
+                        </mat-panel-title>
+                        <mat-panel-description>
+
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <mat-list>
+                        <mat-list-item>
+                            Las Palmas
+                        </mat-list-item>
+                    </mat-list>
+
+                </mat-expansion-panel>
+                <mat-expansion-panel class="faq-accord">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            ITALY
+                        </mat-panel-title>
+                        <mat-panel-description>
+
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <mat-list>
+                        <mat-list-item>
+                            Catania
+                        </mat-list-item>
+                    </mat-list>
+
+                </mat-expansion-panel>
+                <mat-expansion-panel class="faq-accord">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            GREECE
+                        </mat-panel-title>
+                        <mat-panel-description>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <mat-list>
+                        <mat-list-item>
+                            Patra
+                        </mat-list-item>
+                        <mat-list-item>
+                            Larisa
+                        </mat-list-item>
+                        <mat-list-item>
+                            Trikala
+                        </mat-list-item>
+                    </mat-list>
+
+
+
+                </mat-expansion-panel>
+            </mat-expansion-panel>
+
 
         </mat-accordion>
     </div>

@@ -100,7 +100,7 @@
 .explore-item {
   padding: 32px;
   text-align: center;
-  width: 50%;
+  width: 33%;
 }
 
 .explore-item-text {
@@ -277,5 +277,15 @@ footer a {
   .front-logo-container {
     border-right: solid white 0px;
     border-bottom: solid white 4px;
+    animation: none;
+  }
+  
+  .front-image-logo {
+    animation: none;
+  }
+  
+  .front-slogan-container {
+    padding-top: 40px;
+    animation: none;
   }
 }

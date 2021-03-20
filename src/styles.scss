@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 
 html,
 body {
@@ -7,14 +7,14 @@ body {
 body {
   margin: 0;
   // font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-family: 'Rajdhani', sans-serif;
+  font-family: "Rajdhani", sans-serif;
   background: #5e747e;
 }
 
 $custom-typography: mat-typography-config(
-  $font-family: 'Rajdhani, sans-serif',
+  $font-family: "Rajdhani, sans-serif",
   $headline: mat-typography-level(32px, 48px, 700),
-  $body-1: mat-typography-level(16px, 24px, 500)
+  $body-1: mat-typography-level(16px, 24px, 500),
 );
 
 @include mat-core($custom-typography);
@@ -55,7 +55,7 @@ $my-black: (
     A200: white,
     A400: white,
     A700: white,
-  )
+  ),
 );
 
 $my-yellow: (
@@ -88,18 +88,20 @@ $my-yellow: (
     A200: black,
     A400: black,
     A700: black,
-  )
+  ),
 );
 
 $watc-app-primary: mat-palette($my-black, 800, 700, 900);
-$watc-app-accent:  mat-palette($my-yellow, A200, A100, A400);
+$watc-app-accent: mat-palette($my-yellow, A200, A100, A400);
 
-$watc-app-theme: mat-dark-theme((
-  color: (
-    primary: $watc-app-primary,
-    accent: $watc-app-accent,
+$watc-app-theme: mat-dark-theme(
+  (
+    color: (
+      primary: $watc-app-primary,
+      accent: $watc-app-accent,
+    ),
   )
-));
+);
 
 @include angular-material-theme($watc-app-theme);
 
@@ -136,7 +138,7 @@ a {
 
 .pub-item {
   .mat-list-item-content {
-    display: block !important; 
+    display: block !important;
   }
 }
 
@@ -147,6 +149,10 @@ a {
 .mat-card-image {
   object-fit: cover;
   height: 200px;
+  // transform: rotateY(-180deg);
+  transform-style: preserve-3d;
+  cursor: pointer;
+  transition: all .8s ease-in-out;
 }
 
 .mat-form-field.mat-focused.mat-primary .mat-select-arrow {
@@ -154,5 +160,39 @@ a {
 }
 
 .mat-form-field.mat-focused .mat-form-field-label {
-  color: rgba(0,0,0,.6);
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.profile-item {
+  width: 50% !important;
+  height: auto !important;
+  display: inline-block !important;
+  .mat-list-item-content {
+    display: block !important;
+  }
+}
+
+.geochoros-logo {
+  img {
+    margin-right: 16px;
+    margin-top: 6px;
+    width: 10%;
+    float: left;
+    max-width: 50px;
+  }
+}
+
+.geochoros-text {
+  display: inline;
+}
+
+.is-active {
+  color: mat-color($watc-app-accent);
+}
+
+@media only screen and (max-width: 700px) {
+  .profile-item {
+    width: 100% !important;
+    display: block !important;
+  }
 }
