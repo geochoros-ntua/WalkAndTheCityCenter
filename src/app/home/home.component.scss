@@ -233,6 +233,12 @@ footer a {
   color: mat-color($watc-app-accent);
 }
 
+.scroll-down {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+}
+
 @keyframes grow {
   0% {
     transform: scale(1.2) ;
