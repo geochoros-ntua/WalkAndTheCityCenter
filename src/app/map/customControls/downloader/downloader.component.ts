@@ -12,7 +12,8 @@ import { DownloadModalComponent } from '../download-modal/download-modal.compone
   styleUrls: ['./downloader.component.scss']
 })
 export class DownloaderComponent implements OnInit {
-@Input()selectedIndex:string;
+
+@Input() selectedIndex:string;
 
   constructor(
     public mapService:MapService, 
@@ -64,6 +65,4 @@ export class DownloaderComponent implements OnInit {
       
     });
   }
-
-
 }

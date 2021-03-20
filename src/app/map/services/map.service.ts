@@ -15,6 +15,7 @@ import { MapLayersService } from './maplayers.service';
 import { BehaviorSubject } from 'rxjs';
 import { FeatureClickedWithPos} from '../api/map.interfaces'
 import { MapStatsService } from './mapstats.service';
+import * as olCoordinate from 'ol/coordinate';
 import * as olExtent from 'ol/extent';
 
 @Injectable({
@@ -36,14 +37,14 @@ export class MapService {
 
   }
 
-  public createMap(id): Map {
+  public createMap(id: string, zoomLevel:number, center: olCoordinate): Map {
     this.map = new Map({
       target: id,
       controls: defaultControls({zoom:false,attribution : false}),
       view: new View({
-        center: olProj.fromLonLat([15.0785, 51.4614]),
+        center: center,
         projection: 'EPSG:3857',
-        zoom: 1
+        zoom: zoomLevel
       })
     });
     this.registerMapEvents();
@@ -71,6 +72,7 @@ export class MapService {
             feat:feature,
             coord:event.coordinate});
         } else if (layer.get("title")==="CITY_BNDS" && resolution >= 50) {
+          console.log('feature',feature)
           this.selectCity(feature); 
         } else {
           if (layer.get("title")==="CITY_BNDS" && differentCityClicked){
@@ -79,9 +81,6 @@ export class MapService {
         }
       });
     });
-
-
-
 
     this.map.on('pointermove', (e) => {
       if (this.hoveredCity){
@@ -104,7 +103,7 @@ export class MapService {
     });
   }
 
-  private selectCity(feature: Feature): void{
+  public selectCity(feature: Feature): void{
     this.selectedCity?.setStyle(undefined);
     this.selectedCity = feature;
     this.selectedCity.setStyle(highlightStyle)
