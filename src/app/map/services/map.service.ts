@@ -15,6 +15,7 @@ import { MapLayersService } from './maplayers.service';
 import { BehaviorSubject } from 'rxjs';
 import { FeatureClickedWithPos} from '../api/map.interfaces'
 import { MapStatsService } from './mapstats.service';
+import * as olCoordinate from 'ol/coordinate';
 import * as olExtent from 'ol/extent';
 
 @Injectable({
@@ -36,28 +37,27 @@ export class MapService {
 
   }
 
-  public createMap(id): Map {
+  public createMap(id: string, zoomLevel:number, center: olCoordinate): Map {
     this.map = new Map({
       target: id,
       controls: defaultControls({zoom:false,attribution : false}),
       view: new View({
-        center: olProj.fromLonLat([15.0785, 51.4614]),
+        center: center,
         projection: 'EPSG:3857',
-        zoom: 1
+        zoom: zoomLevel
       })
     });
     this.registerMapEvents();
     return this.map;
   }
 
-  public getCurrentMap(){
+  public getCurrentMap(): Map{
     return this.map;
   }
 
   public getPopUpOverlay(): Overlay{
     return this.map.getOverlayById('popupoverlay')
   }
-
   
   private registerMapEvents(): void{
     const this_= this;
@@ -71,6 +71,7 @@ export class MapService {
             feat:feature,
             coord:event.coordinate});
         } else if (layer.get("title")==="CITY_BNDS" && resolution >= 50) {
+          console.log('feature',feature)
           this.selectCity(feature); 
         } else {
           if (layer.get("title")==="CITY_BNDS" && differentCityClicked){
@@ -79,9 +80,6 @@ export class MapService {
         }
       });
     });
-
-
-
 
     this.map.on('pointermove', (e) => {
       if (this.hoveredCity){
@@ -104,7 +102,7 @@ export class MapService {
     });
   }
 
-  private selectCity(feature: Feature): void{
+  public selectCity(feature: Feature): void{
     this.selectedCity?.setStyle(undefined);
     this.selectedCity = feature;
     this.selectedCity.setStyle(highlightStyle)
@@ -143,26 +141,19 @@ export class MapService {
     
     
   }
-  zoomToSelCityExtent = ():void => {
+  public zoomToSelCityExtent = ():void => {
     this.map.getView().fit(this.selectedCity.getGeometry().getExtent(),{
      padding:[100,100,100,100],
       size:this.map.getSize(),
       duration: 2000
     });
-   
-    // this.map.getView().animate({
-    //   center: olExtent.getCenter(this.selectedCity.getGeometry().getExtent()),
-    //   duration: 2000,
-    //   zoom:13
-    // });
     this.mapLayerService.getWalkabilityLayer().setMaxResolution(50);
  }
 
-  getTitleFromMappingCode = (code:string):string[] => {
+  public getTitleFromMappingCode = (code:string):string => {
     const title = this.mappings.filter( elem => {
       return elem.Code === code;
     });
-    
     if (title.length > 0){
     return title[0].indiname;
     } else {
@@ -170,7 +161,7 @@ export class MapService {
     }
   }
 
-  showSelector = ():boolean =>{
+  public showSelector = ():boolean =>{
     if (this.dataLoaded && this.map.getView().getResolution()<=50){
       return true;
     } else {

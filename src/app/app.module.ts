@@ -46,19 +46,22 @@ import { CitiesComponent } from './cities/cities.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ChartComponent } from './chart/chart.component';
+import { ShareMapComponent } from './map/customControls/share-map/share-map.component';
+import { ShareMapModalComponent } from './map/customControls/share-map-modal/share-map-modal.component';
+import { ClipboardModule } from '@angular/cdk/clipboard'; 
 
 @NgModule({
   imports: [
     BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, FlexLayoutModule, BrowserAnimationsModule,
     MatIconModule, MatButtonModule, MatButtonToggleModule, MatSidenavModule, MatToolbarModule, MatSelectModule, MatSliderModule,
     MatMenuModule, MatProgressSpinnerModule, MatCardModule, MatTableModule, MatTooltipModule, MatListModule, MatGridListModule,
-    MatProgressSpinnerModule, MatCardModule, MatTableModule, MatTooltipModule,
+    MatProgressSpinnerModule, MatCardModule, MatTableModule, MatTooltipModule, ClipboardModule,
     MatDialogModule, MatStepperModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, HttpClientModule, MatExpansionModule, MatSlideToggleModule
   ],
   declarations: [
     AppComponent, MapComponent, AboutUsComponent,
     HomeComponent, TileselectorComponent, IndexselectorComponent,
-    PopupComponent, OpacitySliderComponent, HelpComponent, DownloaderComponent, WorldzoomComponent, ZoominoutComponent, LegendComponent, DownloadModalComponent, CitiesComponent, ChartComponent],
+    PopupComponent, OpacitySliderComponent, HelpComponent, DownloaderComponent, WorldzoomComponent, ZoominoutComponent, LegendComponent, DownloadModalComponent, CitiesComponent, ChartComponent, ShareMapComponent, ShareMapModalComponent],
   bootstrap: [AppComponent],
   providers: [{
     provide: [RouteReuseStrategy, MatDialogRef],
