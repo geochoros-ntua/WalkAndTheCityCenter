@@ -54,7 +54,7 @@ export class MapComponent implements OnInit {
           const selCity: Feature[] = this.mapLayersService
           .getCityBoundLayer().getSource().getFeatures()
           .find(feat => feat.get('City')===city);
-          console.log('load city', city, selCity)
+
           if (statIndex){
             this_.mapService.selectedIndex = statIndex;
             this_.mapStatsService.selectedIndex = statIndex;

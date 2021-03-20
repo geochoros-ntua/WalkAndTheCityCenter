@@ -51,14 +51,13 @@ export class MapService {
     return this.map;
   }
 
-  public getCurrentMap(){
+  public getCurrentMap(): Map{
     return this.map;
   }
 
   public getPopUpOverlay(): Overlay{
     return this.map.getOverlayById('popupoverlay')
   }
-
   
   private registerMapEvents(): void{
     const this_= this;
@@ -142,26 +141,19 @@ export class MapService {
     
     
   }
-  zoomToSelCityExtent = ():void => {
+  public zoomToSelCityExtent = ():void => {
     this.map.getView().fit(this.selectedCity.getGeometry().getExtent(),{
      padding:[100,100,100,100],
       size:this.map.getSize(),
       duration: 2000
     });
-   
-    // this.map.getView().animate({
-    //   center: olExtent.getCenter(this.selectedCity.getGeometry().getExtent()),
-    //   duration: 2000,
-    //   zoom:13
-    // });
     this.mapLayerService.getWalkabilityLayer().setMaxResolution(50);
  }
 
-  getTitleFromMappingCode = (code:string):string[] => {
+  public getTitleFromMappingCode = (code:string):string => {
     const title = this.mappings.filter( elem => {
       return elem.Code === code;
     });
-    
     if (title.length > 0){
     return title[0].indiname;
     } else {
@@ -169,7 +161,7 @@ export class MapService {
     }
   }
 
-  showSelector = ():boolean =>{
+  public showSelector = ():boolean =>{
     if (this.dataLoaded && this.map.getView().getResolution()<=50){
       return true;
     } else {
