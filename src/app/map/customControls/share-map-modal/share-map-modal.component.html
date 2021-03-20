@@ -1,10 +1,10 @@
 <h3> Share your map</h3>
-<p>City: {{_selectedCity}}</p>
-<p>Index: {{_selectedIndexTitle}}</p>
-<input disabled type="text" #mapUrl value="http://geochoros.survey.ntua.gr/walkandthecitycenter/app-map?zoom={{currentZoomLevel}}&center={{currentCenter}}&city={{_selectedCity}}&statIndex={{_selectedIndex}}" >
+<p>City:&nbsp;<span class="yellow-color">{{_selectedCity}}</span></p>
+<p>Index:&nbsp;<span class="yellow-color">{{_selectedIndexTitle}}</span></p>
+<input disabled type="text" #mapUrl
+    value="http://geochoros.survey.ntua.gr/walkandthecitycenter/app-map?zoom={{currentZoomLevel}}&center={{currentCenter}}&city={{_selectedCity}}&statIndex={{_selectedIndex}}">
 <p>
-<button type="button" 
-(click)="copyInputMessage(mapUrl)"
-matTooltip="Copy map link to clipboard" 
-mat-raised-button color="primary"><mat-icon>copy_all</mat-icon>Copy</button>
+    <button class="copy-button" type="button" (click)="copyInputMessage(mapUrl)" matTooltip="Copy map link to clipboard" mat-raised-button        >
+        <mat-icon>copy_all</mat-icon>Copy
+    </button>
 </p>

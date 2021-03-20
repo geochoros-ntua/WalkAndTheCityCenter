@@ -10,10 +10,10 @@ import { ShareMapModalComponent } from '../share-map-modal/share-map-modal.compo
 })
 export class ShareMapComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, public mapService: MapService) { }
 
   ngOnInit(): void {
-  
+
   }
 
   openDialog(): void {
@@ -22,7 +22,7 @@ export class ShareMapComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed', result);
-      
+
     });
   }
 }
