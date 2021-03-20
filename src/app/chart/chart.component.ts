@@ -156,7 +156,7 @@ export class ChartComponent implements OnInit {
 
       this.data.datasets = datasets;
 
-      console.log(this.data)
+      // console.log(this.data)
 
 
 

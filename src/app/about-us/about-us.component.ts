@@ -15,7 +15,7 @@ export class AboutUsComponent implements OnInit {
       description: "Director, Geography Lab, NTUA",
       email: "yphotis@mail.ntua.gr",
       img: "assets/images/Picture1.png",
-      rid: ""
+      rid: "http://orcid.org/0000-0003-2382-5526"
     },
     {
       name: "Alex Bartzokas-Tsiompras",
@@ -35,7 +35,7 @@ export class AboutUsComponent implements OnInit {
       description: "GIS & Visualization, NTUA",
       email: "tsagkis@mail.ntua.gr",
       img: "assets/images/Picture1.png",
-      rid: ""
+      rid: "https://orcid.org/0000-0003-4650-6720"
     },
     {
       name: "George Panagiotopoulos",

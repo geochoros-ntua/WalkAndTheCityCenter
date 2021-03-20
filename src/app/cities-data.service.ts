@@ -69,7 +69,7 @@ export class CitiesDataService {
 
   headers = [
     {
-      name: "Alphabetical",
+      name: "None (Alphabetical order)",
       value: "alphabetical"
     },
     {

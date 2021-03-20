@@ -36,20 +36,17 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        <div class="front-teaser">
-            <mat-card class="city-card" *ngFor="let city of cities">
+        <div *ngIf="cities.length > 0" class="front-teaser" [@listAnimation]="suffleCards">
+            <mat-card class="city-card" *ngFor="let city of cities" [@rotatedState]='city.state'>
                 <mat-card-header>
                     <mat-card-title>{{city.name}}</mat-card-title>
-                    <mat-card-subtitle *ngIf="selectedVariable.value !== 'alphabetical'" >Rank:&nbsp;<span class="order-number">{{city.order_number}}</span>
+                    <mat-card-subtitle *ngIf="selectedVariable.value !== 'alphabetical'">Rank:&nbsp;<span
+                            class="order-number">{{city.order_number}}</span>
                     </mat-card-subtitle>
                 </mat-card-header>
-                <!-- city.flipped_image ? city.chart_image : city.image -->
-         
-                <img [title]="city.flipped_image ? city.name : 'Share of indicator rankings'" style="display: block;" [@rotatedState]='city.state' class="city-image" mat-card-image [src]="city.flipped_image ? city.chart_image : city.image"
+                <img [title]="city.flipped_image ? city.name : 'Share of indicator rankings'" style="display: block;"
+                    class="city-image" mat-card-image [src]="city.flipped_image ? city.chart_image : city.image"
                     (click)="flipImage(city)">
-                    <!-- <img [hidden]="!city.flipped_image" [@rotatedState]='city.state' class="city-image" mat-card-image [src]="city.chart_image"
-                    loading="lazy" (click)="flipImage(city)"> -->
-    
                 <mat-card-content>
                     <p *ngIf="selectedVariable.value !== 'alphabetical'">
                         <span style="font-weight: 700;">{{selectedVariable?.name}}:</span>&nbsp;<span
@@ -62,10 +59,12 @@
                             class="yellow-value">{{city.max_segments}}</span>
                     </p>
                     <p *ngIf="selectedVariable.value !== 'alphabetical'" style="font-size: 90%;">
-                        <span class="gray-value">Total Length of Segments (km):</span>&nbsp;<span class="yellow-value">{{city.segments}}</span><br>
-                        <span class="gray-value">Total Area (sq.km):</span>&nbsp;<span class="yellow-value">{{city.area}}</span><br>
-                        <span class="gray-value">Max. % of audited segments & Year of Google Image Capture:</span>&nbsp;<span
-                            class="yellow-value">{{city.max_segments}}</span>
+                        <span class="gray-value">Total Length of Segments (km):</span>&nbsp;<span
+                            class="yellow-value">{{city.segments}}</span><br>
+                        <span class="gray-value">Total Area (sq.km):</span>&nbsp;<span
+                            class="yellow-value">{{city.area}}</span><br>
+                        <span class="gray-value">Max. % of audited segments & Year of Google Image
+                            Capture:</span>&nbsp;<span class="yellow-value">{{city.max_segments}}</span>
                     </p>
                 </mat-card-content>
             </mat-card>
