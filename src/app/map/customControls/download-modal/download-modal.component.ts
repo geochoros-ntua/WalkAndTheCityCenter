@@ -1,4 +1,3 @@
-import { Inject } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -14,6 +13,8 @@ export class DownloadModalComponent implements OnInit {
   acceptDisclaimer: FormGroup;
   personalDetails: FormGroup;
   survey: FormGroup;
+  isAccepted: boolean = false;
+
   surveyDataObjects: SurveyDataObject[] = [{
     quest: 'Satisfaction with living in the city', cntrlName:'citySatisfaction',  answerVals: [1,2,3,4,5]
   }, {
@@ -38,8 +39,15 @@ export class DownloadModalComponent implements OnInit {
     private _formBuilder: FormBuilder, 
     public dialogRef: MatDialogRef<DownloadModalComponent>) { }
     
+ public accept(stepper: MatStepper ): void {
+      this.isAccepted = true;
+      // bit of ugly  
+      setTimeout(() => {          
+        stepper.next();
+       }, 1);
+  }
   
-  closeDialog(): void {
+  public closeDialog(): void {
     this.dialogRef.close();
   }
 
@@ -75,7 +83,7 @@ export class DownloadModalComponent implements OnInit {
    * @param stepper 
    * @param event 
    */
-  goForward(stepper: MatStepper ,event: any){
+  public goForward(stepper: MatStepper ,event: any){
     if (event.checked){
       stepper.next();
     }

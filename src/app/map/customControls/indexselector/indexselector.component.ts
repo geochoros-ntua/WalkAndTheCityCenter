@@ -42,7 +42,7 @@ export class IndexselectorComponent implements OnInit {
     this.mapService.getPopUpOverlay().setPosition(undefined);
     this.mapService.selectedIndex = val;
     this.mapStatsService.selectedIndex = val;
-    const vals: string[] = [];
+    const vals = new Array();
     this.mapLayersService.getWalkabilityLayer().getSource().getFeatures().forEach((feat)=>{
         vals.push(feat.get(val))
         })
