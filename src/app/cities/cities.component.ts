@@ -94,6 +94,20 @@ export class CitiesComponent implements OnInit {
     this.sortCities(this.selectedVariable, this.reverse, true, this.selectedCountry, this.capitals);
   }
 
+  clear() {
+    this.selectedVariable = this.citiesDataService.getHeaders()[0];
+    this.selectedRegion = this.citiesDataService.getRegions()[0];
+    this.reverse = false;
+    this.selectedCountry = "";
+    this.capitals = false;
+    this.citiesDataService.setSelectedRegion(this.selectedRegion);
+    this.citiesDataService.setSelectedVariable(this.selectedVariable);
+    this.citiesDataService.setSelectedOrder(this.reverse);
+    this.citiesDataService.setIsCapitals(this.capitals);
+
+    this.sortCities(this.selectedVariable, this.reverse, true, this.selectedCountry, this.capitals);
+  }
+
   setSelectedCountry(country) {
     if (this.selectedCountry === country) {
       this.selectedCountry = "";
@@ -116,13 +130,6 @@ export class CitiesComponent implements OnInit {
     this.citiesDataService.setSelectedOrder(this.reverse);
     this.citiesDataService.setIsCapitals(this.capitals);
 
-
-
-
-
-
-
-
     if (this.selectedRegion.value !== 'all') {
       let checkCountry = false;
       for (let index = 0; index < tempCities.length; index++) {
@@ -130,9 +137,6 @@ export class CitiesComponent implements OnInit {
         if (element.region === this.selectedRegion.name) {
           this.cities.push(element)
         }
-
-
-
 
       }
 

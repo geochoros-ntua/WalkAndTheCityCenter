@@ -1,0 +1,16 @@
+<h3> Share your chart</h3>
+<p style="margin-bottom: 0;">Cities:</p>
+<mat-list>
+    <mat-list-item class="yellow-color" *ngFor="let city of selectedCities">{{city.name}}</mat-list-item>
+</mat-list>
+<p style="margin-bottom: 0;">Indices:</p>
+<mat-list>
+    <mat-list-item class="yellow-color" *ngFor="let variable of selectedVariables">{{variable.name}}</mat-list-item>
+</mat-list>
+<input style="display: block;" disabled type="text" #chartUrl
+    value="{{mainPath}}/chart?cities={{_selectedCities}}&variables={{_selectedVariables}}">
+
+<button class="copy-button" type="button" (click)="copyInputMessage(chartUrl)" matTooltip="Copy link to clipboard"
+    mat-raised-button>
+    <mat-icon>copy_all</mat-icon>Copy
+</button>

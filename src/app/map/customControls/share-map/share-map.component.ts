@@ -17,12 +17,6 @@ export class ShareMapComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(ShareMapModalComponent, {
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
-
-    });
+    this.dialog.open(ShareMapModalComponent);
   }
 }

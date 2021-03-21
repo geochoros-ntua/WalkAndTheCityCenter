@@ -45,8 +45,12 @@
                 (change)="sortCities(selectedVariable, reverse, true, selectedCountry, capitals)">
                 Capitals
             </mat-slide-toggle>
-            <a class="cities-download" mat-primary-button href="https://data.mendeley.com/datasets/pvtwcjs365/1"
-                target="_blank">
+            <button title="CLear all selections" class="cities-download" mat-icon-button color="accent"
+                (click)="clear()">
+                <mat-icon>clear_all</mat-icon>
+            </button>
+            <a title="Download .xlsx" class="cities-download" mat-primary-button
+                href="https://data.mendeley.com/datasets/pvtwcjs365/1" target="_blank">
                 <mat-icon>download</mat-icon>
             </a>
         </div>
@@ -77,6 +81,7 @@
                         <span style="font-size: 110%;">Country:</span>&nbsp;<span
                             [ngClass]="(city.country === selectedCountry)? 'yellow-value' : 'some-class'"
                             class="country-text-{{city.random_number}}" style="cursor: pointer; font-size: 110%;"
+                            [title]="(city.country !== selectedCountry)? 'Click to see cities of this country' : 'Click to see cities of all countries'"
                             (click)="setSelectedCountry(city.country); sortCities(selectedVariable, reverse, true, selectedCountry, capitals);">{{city.country}}</span><br>
                         Total Length of Segments (km):&nbsp;<span class="yellow-value">{{city.segments}}</span><br>
                         Total Area (sq.km):&nbsp;<span class="yellow-value">{{city.area}}</span><br>
@@ -86,6 +91,7 @@
                     <p *ngIf="selectedVariable.value !== 'alphabetical'" style="font-size: 90%;">
                         <span class="gray-value" style="font-size: 110%;">Country:</span>&nbsp;<span
                             style="cursor: pointer; font-size: 110%;" class="country-text-{{city.random_number}}"
+                            [title]="(city.country !== selectedCountry)? 'Click to see cities of this country' : 'Click to see cities of all countries'"
                             [ngClass]="(city.country === selectedCountry)? 'yellow-value' : 'some-class'"
                             (click)="setSelectedCountry(city.country); sortCities(selectedVariable, reverse, true, selectedCountry, capitals);">{{city.country}}</span><br>
                         <span class="gray-value">Total Length of Segments (km):</span>&nbsp;<span
