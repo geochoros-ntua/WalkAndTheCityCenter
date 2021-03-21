@@ -17,18 +17,17 @@ export class LegendComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
   }
 
-  toggleLegend(){
-  const res = this.mapService.getCurrentMap().getView().getResolution();
-        if (res <= 50 && document.getElementById('legend').className === 'legendDivHide') {
-          document.getElementById('btnlgnd').style.display = "none"
-          document.getElementById('legend').className = 'legendDivShow';
-        } else {
-          document.getElementById('btnlgnd').style.display = "block"
-          document.getElementById('legend').className = 'legendDivHide';
-        }
+  toggleLegend(): void{
+    const res = this.mapService.getCurrentMap().getView().getResolution();
+    if (res <= 50 && document.getElementById('legend').className === 'legendDivHide') {
+      document.getElementById('btnlgnd').style.display = "none"
+      document.getElementById('legend').className = 'legendDivShow';
+    } else {
+      document.getElementById('btnlgnd').style.display = "block"
+      document.getElementById('legend').className = 'legendDivHide';
+    }
   }
 
 }

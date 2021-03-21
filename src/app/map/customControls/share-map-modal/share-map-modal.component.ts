@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MapService } from '../../services/map.service';
-import { Clipboard } from "@angular/cdk/clipboard";
+import { Clipboard } from '@angular/cdk/clipboard';
 import * as olProj from 'ol/proj';
 
 
@@ -26,7 +26,7 @@ export class ShareMapModalComponent implements OnInit {
     this.currentZoomLevel = this.mapService.getCurrentMap().getView().getZoom();
   }
 
-  public copyInputMessage(message){
+  public copyInputMessage(message: HTMLInputElement){
     this.clipboard.copy(message.value);
   }
 

@@ -11,9 +11,8 @@ import { MapStatsService } from '../../services/mapstats.service';
 })
 export class IndexselectorComponent implements OnInit {
   @Input() dataLoaded: boolean;
-  @Input() selectedIndex:string = this.mapService.selectedIndex;
-  @Output() selectedIndex$:EventEmitter<string> = new EventEmitter<string>();
-  // selectedIndex:string = this.mapService.selectedIndex;
+  @Input() selectedIndex: string = this.mapService.selectedIndex;
+  @Output() selectedIndex$: EventEmitter<string> = new EventEmitter<string>();
   
 
   private mappings:any = mappingsData.lookups;
@@ -26,15 +25,11 @@ export class IndexselectorComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    
     this.selectedIndex$.subscribe(
-      (sel) => {
-          console.log('sel',sel)
-          // this.selectedIndex = sel
-          this.mapService.selectedIndex = sel;
+      (val: string) => {
+          this.mapService.selectedIndex = val;
         }
       );
-
   }
 
   setDisplayIndex = (val:string): void =>{   
@@ -42,10 +37,8 @@ export class IndexselectorComponent implements OnInit {
     this.mapService.getPopUpOverlay().setPosition(undefined);
     this.mapService.selectedIndex = val;
     this.mapStatsService.selectedIndex = val;
-    const vals = new Array();
-    this.mapLayersService.getWalkabilityLayer().getSource().getFeatures().forEach((feat)=>{
-        vals.push(feat.get(val))
-        })
+    const vals = this.mapLayersService.getWalkabilityLayer().getSource().getFeatures()
+    .map(feat => feat.get(val));
     this.mapStatsService.getAndSetClassesFromData(vals);
     if (vals.length === 0){
       this.dataLoaded = true; 
@@ -53,7 +46,7 @@ export class IndexselectorComponent implements OnInit {
     let this_ = this;
     this.mapLayersService.getWalkabilityLayer().getSource().refresh();
     this.mapLayersService.getWalkabilityLayer().getSource().once('change', () => {
-      if (this_.mapLayersService.getWalkabilityLayer().getSource().getState() == 'ready') {
+      if (this_.mapLayersService.getWalkabilityLayer().getSource().getState() === 'ready') {
         this.dataLoaded = true; 
       }
     });
