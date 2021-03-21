@@ -27,7 +27,6 @@ export class ShareMapModalComponent implements OnInit {
   }
 
   public copyInputMessage(message: HTMLInputElement){
-    console.log('message', message)
     this.clipboard.copy(message.value);
   }
 
