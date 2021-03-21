@@ -15,7 +15,7 @@
         <div [formGroup]="chartCtrlsGroup" class="chart-controls">
             <mat-form-field style="margin-right: 16px; width: 30%; max-width: 500px;" appearance="fill">
                 <mat-label>Cities (up to six)</mat-label>
-                <mat-select formControlName="citiesCtrl" [(value)]="selectedCities"
+                <mat-select formControlName="citiesCtrl" [(ngModel)]="selectedCities" [compareWith]="comparer"
                     (selectionChange)="selectedCitiesAndVariables(selectedCities, selectedVariables)" multiple>
                     <mat-option
                         [disabled]="chartCtrlsGroup.get('citiesCtrl').value?.length > 5 && !chartCtrlsGroup.get('citiesCtrl').value?.includes(city)"
@@ -25,7 +25,7 @@
             </mat-form-field>
             <mat-form-field style="margin-right: 16px; width: 50%; max-width: 500px;" appearance="fill">
                 <mat-label>Indices (three or more and up to six)</mat-label>
-                <mat-select formControlName="variablesCtrl" [(value)]="selectedVariables"
+                <mat-select formControlName="variablesCtrl" [(ngModel)]="selectedVariables" [compareWith]="comparer"
                     (selectionChange)="selectedCitiesAndVariables(selectedCities, selectedVariables)" multiple>
                     <mat-option
                         [disabled]="chartCtrlsGroup.get('variablesCtrl').value?.length > 5 && !chartCtrlsGroup.get('variablesCtrl').value?.includes(header)"

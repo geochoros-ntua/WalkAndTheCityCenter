@@ -27,11 +27,19 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+            <mat-form-field class="cities-download" appearance="fill">
+                <mat-label>Region</mat-label>
+                <mat-select [(value)]="selectedRegion" (selectionChange)="sortCities(selectedVariable, reverse, true)">
+                    <mat-option *ngFor="let region of regions" [value]="region">
+                        {{region.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
             <mat-slide-toggle class="cities-download" [disabled]="selectedVariable === null" [checked]="false"
                 [(ngModel)]="reverse" (change)="sortCities(selectedVariable, reverse, true)">
                 Reverse order
             </mat-slide-toggle>
-            <a class="cities-download" mat-icon-button href="https://data.mendeley.com/datasets/pvtwcjs365/1"
+            <a class="cities-download" mat-primary-button href="https://data.mendeley.com/datasets/pvtwcjs365/1"
                 target="_blank">
                 <mat-icon>download</mat-icon>
             </a>
@@ -39,14 +47,19 @@
         <div *ngIf="cities.length > 0" class="front-teaser" [@listAnimation]="suffleCards">
             <mat-card class="city-card" *ngFor="let city of cities" [@rotatedState]='city.state'>
                 <mat-card-header>
-                    <mat-card-title>{{city.name}}</mat-card-title>
+                    <mat-card-title>{{city.name}}<span></span></mat-card-title>
+                    <div style="flex: 1;"></div>
+                    <a mat-icon-button
+                                href="{{city.map_link}}{{selectedVariable.map_value}}">
+                                <mat-icon mat-card-avatar>map</mat-icon>
+                            </a>
                     <mat-card-subtitle *ngIf="selectedVariable.value !== 'alphabetical'">Rank:&nbsp;<span
                             class="order-number">{{city.order_number}}</span>
                     </mat-card-subtitle>
                 </mat-card-header>
-                <img [title]="city.flipped_image ? city.name : 'Share of indicator rankings'" style="display: block;"
-                    class="city-image" mat-card-image [src]="city.flipped_image ? city.chart_image : city.image"
-                    (click)="flipImage(city)">
+                <img [title]="city.flipped_image ? 'Click me to see an image of ' + city.name : 'Click me to see City Rankings Summary Chart'"
+                    style="display: block;" class="city-image" mat-card-image
+                    [src]="city.flipped_image ? city.chart_image : city.image" (click)="flipImage(city)">
                 <mat-card-content>
                     <p *ngIf="selectedVariable.value !== 'alphabetical'">
                         <span style="font-weight: 700;">{{selectedVariable?.name}}:</span>&nbsp;<span

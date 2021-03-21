@@ -92,11 +92,26 @@ export class ChartComponent implements OnInit {
   ngOnInit(): void {
     this.cities = this.citiesDataService.getCities();
     this.headers = this.citiesDataService.getVariables();
+
+
+
     Chart.platform.disableCSSInjection = true;
     this.cities.sort((a: any, b: any) => {
       return a.name.localeCompare(b.name);
     });
     this.hasGraph = false;
+
+    this.selectedCities = this.citiesDataService.getSelectedCities();
+    this.selectedVariables = this.citiesDataService.getSelectedVariables();
+
+    if (this.selectedCities.length > 0 && this.selectedVariables.length > 0) {
+      this.selectedCitiesAndVariables(this.selectedCities, this.selectedVariables);
+    }
+
+  }
+
+  comparer(o1: any, o2: any): boolean {
+    return o1 && o2 ? o1.name === o2.name : o2 === o2;
   }
 
   selectedCitiesAndVariables(cities, variables) {
@@ -105,6 +120,8 @@ export class ChartComponent implements OnInit {
       labels: [],
       datasets: []
     };
+
+
 
     let chartColors = [
       'rgb(255, 99, 132)', // red
@@ -122,6 +139,11 @@ export class ChartComponent implements OnInit {
       this.hasGraph = true;
 
       for (let indexCity = 0; indexCity < cities.length; indexCity++) {
+
+        this.citiesDataService.setSelectedCities(this.selectedCities);
+        this.citiesDataService.setSelectedVariables(this.selectedVariables);
+
+
         const city = cities[indexCity];
         let dataset = {
           label: null,

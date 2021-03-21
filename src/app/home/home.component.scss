@@ -24,7 +24,7 @@
   height: 100%;
   position: absolute;
   background-color: #5e747e;
-  opacity: 0.8;
+  opacity: 0.4;
   mix-blend-mode: multiply;
 }
 
@@ -34,8 +34,8 @@
 }
 
 .front-logo-container {
-  border-right: solid white 4px;
   animation: left-right 5s infinite ease-in-out;
+  margin-right: 40px;
 }
 
 .front-image-logo {
@@ -46,6 +46,10 @@
   padding-left: 110px;
   padding-right: 16px;
   align-self: center;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  border-left: solid #fdcc0d 2px;
+  // border-right: solid mat-color($watc-app-accent) 4px;
   animation: grow_b 5s infinite ease-in-out;
 }
 
@@ -242,6 +246,7 @@ footer a {
   margin-right: auto;
   border: 2px solid white;
   transition: 1s ease-in-out;
+  color: mat-color($watc-app-accent);
 }
 
 .scroll-down:hover {
@@ -294,8 +299,9 @@ footer a {
   }
 
   .front-logo-container {
-    border-right: solid white 0px;
-    border-bottom: solid white 4px;
+    
+    // border-bottom: solid white 4px;
+    
     animation: none;
   }
 
@@ -308,6 +314,8 @@ footer a {
   }
 
   .front-slogan-container {
+    border-left: solid white 0px;
+    border-top: solid #fdcc0d 2px;
     padding-left: 40px;
     padding-top: 40px;
     animation: none;
