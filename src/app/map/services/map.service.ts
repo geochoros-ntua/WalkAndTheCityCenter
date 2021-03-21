@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-
 import Map from 'ol/Map';
 import View from 'ol/View';
-import * as olProj from 'ol/proj';
 import {defaults as defaultControls} from 'ol/control';
 import Overlay from 'ol/Overlay';
 import Layer from 'ol/layer';
@@ -16,7 +14,6 @@ import { BehaviorSubject } from 'rxjs';
 import { FeatureClickedWithPos} from '../api/map.interfaces'
 import { MapStatsService } from './mapstats.service';
 import * as olCoordinate from 'ol/coordinate';
-import * as olExtent from 'ol/extent';
 
 @Injectable({
   providedIn: 'root'
@@ -71,7 +68,6 @@ export class MapService {
             feat:feature,
             coord:event.coordinate});
         } else if (layer.get("title")==="CITY_BNDS" && resolution >= 50) {
-          console.log('feature',feature)
           this.selectCity(feature); 
         } else {
           if (layer.get("title")==="CITY_BNDS" && differentCityClicked){
@@ -150,23 +146,17 @@ export class MapService {
     this.mapLayerService.getWalkabilityLayer().setMaxResolution(50);
  }
 
-  public getTitleFromMappingCode = (code:string):string => {
+  public getTitleFromMappingCode = (code: string): string => {
     const title = this.mappings.filter( elem => {
       return elem.Code === code;
     });
     if (title.length > 0){
     return title[0].indiname;
-    } else {
-
     }
   }
 
   public showSelector = ():boolean =>{
-    if (this.dataLoaded && this.map.getView().getResolution()<=50){
-      return true;
-    } else {
-      return false;
-    }
+    return  (this.dataLoaded && this.map.getView().getResolution()<=50) ? true : false;
   }
 
 
