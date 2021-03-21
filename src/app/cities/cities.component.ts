@@ -20,20 +20,20 @@ import { Component, OnInit } from '@angular/core';
     trigger('listAnimation', [
       transition('* => *', [ // each time the binding value changes
         query(':leave', [
-          style({ transform: 'rotateY(0) translateX(0)', opacity: 1  }),
+          style({ transform: 'rotateY(0) translateX(0)', opacity: 1 }),
           stagger(10, [
             animate('.1s ease-in-out', style({ transform: 'rotateY(180deg) translateX(300px)', opacity: 0 }))
           ])
-        ], 
-        { optional: true, limit: 5 }
+        ],
+          { optional: true, limit: 5 }
         ),
         query('.city-card:enter', [
           style({ transform: 'rotateY(180deg) translateX(300px)', opacity: 0 }),
           stagger(100, [
             animate('.8s ease-in-out', style({ transform: 'rotateY(0) translateX(0)', opacity: 1 }))
           ])
-        ], 
-        { optional: true, limit: 10  }
+        ],
+          { optional: true, limit: 10 }
         )
       ])
     ]),
@@ -53,9 +53,11 @@ export class CitiesComponent implements OnInit {
 
   cities = [];
   selectedVariable;
+  selectedRegion;
   suffix = "";
   reverse: boolean = false;
   headers = [];
+  regions = [];
 
   suffleCards = 0;
 
@@ -75,36 +77,56 @@ export class CitiesComponent implements OnInit {
   ngOnInit(): void {
     this.cities = this.citiesDataService.getCities();
     this.headers = this.citiesDataService.getHeaders();
-    this.selectedVariable = this.citiesDataService.getHeaders()[0];
-
+    this.regions = this.citiesDataService.getRegions();
+    // this.selectedVariable = this.citiesDataService.getHeaders()[0];
+    // this.selectedRegion = this.regions[0];
+    this.selectedVariable = this.citiesDataService.getSelectedVariable();
+    this.selectedRegion = this.citiesDataService.getSelectedRegion();
+    this.reverse = this.citiesDataService.getSelectedOrder();
     this.suffleCards = this.cities.length;
   }
 
 
 
   sortCities(variable: any, reverse: boolean, toggle: boolean) {
+
+
     // this.suffleCards = 0;
     this.suffleCards = Math.floor(Math.random() * Math.floor(60));
     // console.log(this.suffleCards)
-    let tempCities = this.cities;
+    let tempCities = this.citiesDataService.getCities();
 
     this.cities = [];
+    this.citiesDataService.setSelectedRegion(this.selectedRegion);
+    this.citiesDataService.setSelectedVariable(this.selectedVariable);
+    this.citiesDataService.setSelectedOrder(this.reverse);
+    if (this.selectedRegion.value !== 'all') {
+      for (let index = 0; index < tempCities.length; index++) {
+        const element = tempCities[index];
+        if (element.region === this.selectedRegion.name) {
+          this.cities.push(element)
+        }
 
-
+      }
+    }
+    else {
+      this.cities = tempCities;
+    }
 
     if (variable) {
+      
       if (!toggle) {
         variable = variable.value;
       }
 
       if (!reverse) {
         if (variable.value === 'alphabetical') {
-         tempCities.sort((a: any, b: any) => {
+          this.cities.sort((a: any, b: any) => {
             return a.name.localeCompare(b.name);
           });
         }
         else {
-          tempCities.sort((a: any, b: any) => {
+          this.cities.sort((a: any, b: any) => {
             return b[variable.value] - a[variable.value];
           });
         }
@@ -112,27 +134,27 @@ export class CitiesComponent implements OnInit {
       }
       else {
         if (variable.value === 'alphabetical') {
-          tempCities.sort((a: any, b: any) => {
+          this.cities.sort((a: any, b: any) => {
             return b.name.localeCompare(a.name);
           });
         }
         else {
-          tempCities.sort((a: any, b: any) => {
+          this.cities.sort((a: any, b: any) => {
             return a[variable.value] - b[variable.value];
           });
         }
 
       }
 
-      for (let index = 0; index < tempCities.length; index++) {
+      for (let index = 0; index < this.cities.length; index++) {
 
         if (!reverse) {
-          tempCities[index].order_number = index + 1;
+          this.cities[index].order_number = index + 1;
         }
         else {
-          tempCities[index].order_number = tempCities.length - index;
+          this.cities[index].order_number = this.cities.length - index;
         }
-        tempCities[index].selected_variable = tempCities[index][variable.value];
+        this.cities[index].selected_variable = this.cities[index][variable.value];
       }
       if (this.selectedVariable.value.startsWith("crossing")) {
         this.suffix = "of crossing segments total length";
@@ -146,14 +168,11 @@ export class CitiesComponent implements OnInit {
 
     }
 
-    for (let index = 0; index < tempCities.length; index++) {
-      const element = tempCities[index];
 
-      this.cities.push(element)
-      // this.suffleCards++
-      
-    }
-    // console.log(this.suffleCards)
+
+
+
+
   }
 
   flipImage(city) {
