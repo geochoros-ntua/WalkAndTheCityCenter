@@ -16,7 +16,7 @@ export const styleFnCities = (feature:Feature, resolution:number): Style => {
           color: [0, 0, 0, 0]
         }),
         stroke: new Stroke({
-          color: [255, 255, 0, 1],
+          color: [128,128,128, 1],
           width: 4
         })
       })
@@ -24,9 +24,9 @@ export const styleFnCities = (feature:Feature, resolution:number): Style => {
       retStyle = new Style({
         image: new Circle({
           radius: 7,
-          fill: new Fill({color: 'green'}),
+          fill: new Fill({color: [253, 204, 13, 1]}),
           stroke: new Stroke({
-            color: [0,0,255], 
+            color: [128,128,128, 1], 
             width: 2
           })
         }),
@@ -49,10 +49,10 @@ export const highlightStyle = (feature:Feature, resolution:number): Style => {
   if (resolution<200){
     retStyle = new Style({
       fill: new Fill({
-        color: [255, 0, 0, 0]
+        color: [0, 0, 0, 0]
       }),
       stroke: new Stroke({
-        color: [0, 255, 0, 1],
+        color: [128,128,128, 1],
         width: 6
       })
     })
@@ -60,17 +60,17 @@ export const highlightStyle = (feature:Feature, resolution:number): Style => {
     retStyle = new Style({
       image: new Circle({
         radius: 7,
-        fill: new Fill({color: 'black'}),
+        fill: new Fill({color: [253, 204, 13, 1]}),
         stroke: new Stroke({
-          color: [0,0,255], 
+          color: [128,128,128, 1], 
           width: 4
         })
       }),
       text: new Text({
-        font: '14px Calibri,sans-serif',
-        fill: new Fill({ color: '#000' }),
+        font: '16px Rajdhani, sans-serif;',
+        fill: new Fill({ color: '#fff' }),
         stroke: new Stroke({
-          color: '#fff', width: 2
+          color: '#000', width: 2
         }),
         text: feature.get('City')
       }),
