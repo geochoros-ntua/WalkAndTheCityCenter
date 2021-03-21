@@ -1,8 +1,8 @@
 <h1 mat-dialog-title>Walk & the City Center</h1>
 
-<mat-horizontal-stepper #stepper [linear]="true">
+<mat-horizontal-stepper #stepper linear>
 
-    <mat-step [stepControl]="acceptDisclaimer" label="Data Disclaimer"  optional="false">
+    <mat-step [completed]="isAccepted"   label="Data Disclaimer"  optional="false">
         <div class="download-modal-body">
         <form [formGroup]="acceptDisclaimer">
         <h3>Data Download Disclaimer</h3>
@@ -30,7 +30,7 @@
             
             <div mat-dialog-actions align="end">
                 <button type="button" mat-raised-button color="primary" (click)="closeDialog()" >Decline</button>
-                <button type="button" mat-raised-button color="primary" matStepperNext >Accept</button>
+                <button type="button" mat-raised-button color="primary" (click)="accept(stepper)" matStepperNext >Accept</button>
             </div>
         </footer>
     
