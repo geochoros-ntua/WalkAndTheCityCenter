@@ -2,6 +2,7 @@ import { CitiesDataService } from './../cities-data.service';
 import { trigger, state, style, transition, animate, stagger, query } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 
@@ -61,7 +62,7 @@ export class CitiesComponent implements OnInit {
 
   suffleCards = 0;
 
-  constructor(private citiesDataService: CitiesDataService) {
+  constructor(private citiesDataService: CitiesDataService, private router: Router) {
 
     this.citiesDataService.citiesData$.subscribe(data => {
       if (data) {
@@ -193,5 +194,9 @@ export class CitiesComponent implements OnInit {
 
 
   }
+
+  navigateToMap(zoom, center, city, index){
+    this.router.navigate(['/app-map'] , { queryParams: {zoom: zoom, center: center, city: city, statIndex: index}});
+    }
 
 }

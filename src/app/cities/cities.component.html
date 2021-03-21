@@ -49,10 +49,11 @@
                 <mat-card-header>
                     <mat-card-title>{{city.name}}<span></span></mat-card-title>
                     <div style="flex: 1;"></div>
-                    <a mat-icon-button
-                                href="{{city.map_link}}{{selectedVariable.map_value}}">
-                                <mat-icon mat-card-avatar>map</mat-icon>
-                            </a>
+                    <!-- [routerLink]="['/app-map', '?zoom=13.384169045273175&center=4.4005070137241376,51.220093711298745&city=Antwerp&statIndex=Score']"> -->
+                    <button mat-icon-button (click)="navigateToMap(city.zoom, city.center, city.name, selectedVariable.map_value)">
+                   
+                                <mat-icon mat-card-avatar>public</mat-icon>
+                            </button>
                     <mat-card-subtitle *ngIf="selectedVariable.value !== 'alphabetical'">Rank:&nbsp;<span
                             class="order-number">{{city.order_number}}</span>
                     </mat-card-subtitle>
