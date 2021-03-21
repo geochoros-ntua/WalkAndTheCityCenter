@@ -21,7 +21,8 @@
         <div class="cities-controls">
             <mat-form-field style="width: 500px; max-width: 75%;" appearance="fill">
                 <mat-label>Variable</mat-label>
-                <mat-select [(value)]="selectedVariable" (selectionChange)="sortCities($event, reverse, false)">
+                <mat-select [(value)]="selectedVariable"
+                    (selectionChange)="sortCities($event, reverse, false, selectedCountry, capitals)">
                     <mat-option *ngFor="let header of headers" [value]="header">
                         {{header.name}}
                     </mat-option>
@@ -29,18 +30,27 @@
             </mat-form-field>
             <mat-form-field class="cities-download" appearance="fill">
                 <mat-label>Region</mat-label>
-                <mat-select [(value)]="selectedRegion" (selectionChange)="sortCities(selectedVariable, reverse, true)">
+                <mat-select [(value)]="selectedRegion"
+                    (selectionChange)="sortCities(selectedVariable, reverse, true, selectedCountry, capitals)">
                     <mat-option *ngFor="let region of regions" [value]="region">
                         {{region.name}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-slide-toggle class="cities-download" [disabled]="selectedVariable === null" [checked]="false"
-                [(ngModel)]="reverse" (change)="sortCities(selectedVariable, reverse, true)">
+                [(ngModel)]="reverse" (change)="sortCities(selectedVariable, reverse, true, selectedCountry, capitals)">
                 Reverse order
             </mat-slide-toggle>
-            <a class="cities-download" mat-primary-button href="https://data.mendeley.com/datasets/pvtwcjs365/1"
-                target="_blank">
+            <mat-slide-toggle class="cities-download" [checked]="false" [(ngModel)]="capitals"
+                (change)="sortCities(selectedVariable, reverse, true, selectedCountry, capitals)">
+                Capitals
+            </mat-slide-toggle>
+            <button title="CLear all selections" class="cities-download" mat-icon-button color="accent"
+                (click)="clear()">
+                <mat-icon>clear_all</mat-icon>
+            </button>
+            <a title="Download .xlsx" class="cities-download" mat-primary-button
+                href="https://data.mendeley.com/datasets/pvtwcjs365/1" target="_blank">
                 <mat-icon>download</mat-icon>
             </a>
         </div>
@@ -50,10 +60,11 @@
                     <mat-card-title>{{city.name}}<span></span></mat-card-title>
                     <div style="flex: 1;"></div>
                     <!-- [routerLink]="['/app-map', '?zoom=13.384169045273175&center=4.4005070137241376,51.220093711298745&city=Antwerp&statIndex=Score']"> -->
-                    <button mat-icon-button (click)="navigateToMap(city.zoom, city.center, city.name, selectedVariable.map_value)">
-                   
-                                <mat-icon mat-card-avatar>public</mat-icon>
-                            </button>
+                    <button mat-icon-button
+                        (click)="navigateToMap(city.zoom, city.center, city.name, selectedVariable.map_value)">
+
+                        <mat-icon class="yellow-value" mat-card-avatar>public</mat-icon>
+                    </button>
                     <mat-card-subtitle *ngIf="selectedVariable.value !== 'alphabetical'">Rank:&nbsp;<span
                             class="order-number">{{city.order_number}}</span>
                     </mat-card-subtitle>
@@ -67,12 +78,22 @@
                             class="yellow-value">{{city.selected_variable}}%</span>&nbsp;{{suffix}}
                     </p>
                     <p *ngIf="selectedVariable.value === 'alphabetical'" style="font-size: 90%;">
+                        <span style="font-size: 110%;">Country:</span>&nbsp;<span
+                            [ngClass]="(city.country === selectedCountry)? 'yellow-value' : 'some-class'"
+                            class="country-text-{{city.random_number}}" style="cursor: pointer; font-size: 110%;"
+                            [title]="(city.country !== selectedCountry)? 'Click to see cities of this country' : 'Click to see cities of all countries'"
+                            (click)="setSelectedCountry(city.country); sortCities(selectedVariable, reverse, true, selectedCountry, capitals);">{{city.country}}</span><br>
                         Total Length of Segments (km):&nbsp;<span class="yellow-value">{{city.segments}}</span><br>
                         Total Area (sq.km):&nbsp;<span class="yellow-value">{{city.area}}</span><br>
                         Max. % of audited segments & Year of Google Image Capture:&nbsp;<span
                             class="yellow-value">{{city.max_segments}}</span>
                     </p>
                     <p *ngIf="selectedVariable.value !== 'alphabetical'" style="font-size: 90%;">
+                        <span class="gray-value" style="font-size: 110%;">Country:</span>&nbsp;<span
+                            style="cursor: pointer; font-size: 110%;" class="country-text-{{city.random_number}}"
+                            [title]="(city.country !== selectedCountry)? 'Click to see cities of this country' : 'Click to see cities of all countries'"
+                            [ngClass]="(city.country === selectedCountry)? 'yellow-value' : 'some-class'"
+                            (click)="setSelectedCountry(city.country); sortCities(selectedVariable, reverse, true, selectedCountry, capitals);">{{city.country}}</span><br>
                         <span class="gray-value">Total Length of Segments (km):</span>&nbsp;<span
                             class="yellow-value">{{city.segments}}</span><br>
                         <span class="gray-value">Total Area (sq.km):</span>&nbsp;<span

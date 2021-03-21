@@ -1,7 +1,17 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { CitiesDataService } from '../cities-data.service';
 import Chart from 'chart.js';
+import { MatDialog } from '@angular/material/dialog';
+import { ShareChartModalComponent } from './share-chart-modal/share-chart-modal.component';
+import { clear } from 'console';
+import { zip } from 'rxjs';
+
+export interface ChartShareParams {
+  cities: string,
+  variables: string
+}
 
 @Component({
   selector: 'app-chart',
@@ -77,7 +87,7 @@ export class ChartComponent implements OnInit {
 
 
 
-  constructor(private citiesDataService: CitiesDataService) {
+  constructor(private citiesDataService: CitiesDataService, public dialog: MatDialog, private router: ActivatedRoute) {
 
     this.citiesDataService.citiesData$.subscribe(data => {
       if (data) {
@@ -90,6 +100,9 @@ export class ChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+
+
     this.cities = this.citiesDataService.getCities();
     this.headers = this.citiesDataService.getVariables();
 
@@ -101,16 +114,76 @@ export class ChartComponent implements OnInit {
     });
     this.hasGraph = false;
 
-    this.selectedCities = this.citiesDataService.getSelectedCities();
-    this.selectedVariables = this.citiesDataService.getSelectedVariables();
+    zip(
+      this.router.queryParams, this.citiesDataService.citiesData$).subscribe(([params, citiesData]) => {
 
-    if (this.selectedCities.length > 0 && this.selectedVariables.length > 0) {
-      this.selectedCitiesAndVariables(this.selectedCities, this.selectedVariables);
-    }
+        if (params.cities && params.variables) {
+          let tempCities = JSON.parse(params.cities);
+          let tempVariables = JSON.parse(params.variables);
+
+          this.selectedCities = [];
+          this.selectedVariables = [];
+          if (citiesData) {
+            this.cities = citiesData;
+            this.cities.sort((a: any, b: any) => {
+              return a.name.localeCompare(b.name);
+            });
+          }
+
+          for (let index = 0; index < tempCities.length; index++) {
+            const element = tempCities[index];
+
+            for (let indexb = 0; indexb < this.cities.length; indexb++) {
+              const elementb = this.cities[indexb];
+              if (elementb.name === element) {
+                this.selectedCities.push(elementb);
+              }
+            }
+          }
+
+          for (let index = 0; index < tempVariables.length; index++) {
+            const element = tempVariables[index];
+
+            for (let indexb = 0; indexb < this.headers.length; indexb++) {
+              const elementb = this.headers[indexb];
+              if (elementb.value === element) {
+                this.selectedVariables.push(elementb);
+              }
+            }
+          }
+
+          this.hasGraph = false;
+
+        }
+        else {
+          this.selectedCities = this.citiesDataService.getSelectedCities();
+          this.selectedVariables = this.citiesDataService.getSelectedVariables();
+        }
+
+        if (this.selectedCities.length > 0 && this.selectedVariables.length > 0) {
+          this.selectedCitiesAndVariables(this.selectedCities, this.selectedVariables);
+        }
+
+      });
+
+
+
+
 
   }
 
+  clear() {
+    this.selectedCities = [];
+    this.selectedVariables = [];
+
+    this.citiesDataService.setSelectedCities(this.selectedCities);
+    this.citiesDataService.setSelectedVariables(this.selectedVariables);
+
+    this.hasGraph = false;
+  }
+
   comparer(o1: any, o2: any): boolean {
+    console.log(o1)
     return o1 && o2 ? o1.name === o2.name : o2 === o2;
   }
 
@@ -190,7 +263,16 @@ export class ChartComponent implements OnInit {
     else {
       this.hasGraph = false;
     }
+  }
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ShareChartModalComponent, {
+    });
+
+    // dialogRef.afterClosed().subscribe(result => {
+    // console.log('The dialog was closed', result);
+
+    // });
   }
 
 }

@@ -33,9 +33,16 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+            <button title="CLear all selections" style="margin-right: 16px;" mat-icon-button color="accent" (click)="clear()">
+                <mat-icon>clear_all</mat-icon>
+            </button>
+            <button [disabled]="!(chartCtrlsGroup.get('variablesCtrl').value?.length > 2 && chartCtrlsGroup.get('citiesCtrl').value?.length > 0)" title="CLear all selections" style="margin-right: 16px;" mat-icon-button color="accent" (click)="openDialog()">
+                <mat-icon>share</mat-icon>
+            </button>
         </div>
         <mat-card [hidden]="!hasGraph" class="no-click">
             <canvas class="no-click" id="spiderChart"></canvas>
+            <p style="text-align: end;">Unit: % of city center's street- or crossing-segments</p>
         </mat-card>
     </div>
 </section>

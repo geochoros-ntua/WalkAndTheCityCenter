@@ -55,10 +55,12 @@ export class CitiesComponent implements OnInit {
   cities = [];
   selectedVariable;
   selectedRegion;
+  selectedCountry: string = "";
   suffix = "";
   reverse: boolean = false;
   headers = [];
   regions = [];
+  capitals: boolean = false;
 
   suffleCards = 0;
 
@@ -84,24 +86,52 @@ export class CitiesComponent implements OnInit {
     this.selectedVariable = this.citiesDataService.getSelectedVariable();
     this.selectedRegion = this.citiesDataService.getSelectedRegion();
     this.reverse = this.citiesDataService.getSelectedOrder();
+    this.selectedCountry = this.citiesDataService.getSelectedCountry();
+    this.capitals = this.citiesDataService.getIsCapitals();
+
     this.suffleCards = this.cities.length;
+
+    this.sortCities(this.selectedVariable, this.reverse, true, this.selectedCountry, this.capitals);
   }
 
+  clear() {
+    this.selectedVariable = this.citiesDataService.getHeaders()[0];
+    this.selectedRegion = this.citiesDataService.getRegions()[0];
+    this.reverse = false;
+    this.selectedCountry = "";
+    this.capitals = false;
+    this.citiesDataService.setSelectedRegion(this.selectedRegion);
+    this.citiesDataService.setSelectedVariable(this.selectedVariable);
+    this.citiesDataService.setSelectedOrder(this.reverse);
+    this.citiesDataService.setIsCapitals(this.capitals);
 
+    this.sortCities(this.selectedVariable, this.reverse, true, this.selectedCountry, this.capitals);
+  }
 
-  sortCities(variable: any, reverse: boolean, toggle: boolean) {
+  setSelectedCountry(country) {
+    if (this.selectedCountry === country) {
+      this.selectedCountry = "";
+    }
+    else {
+      this.selectedCountry = country;
+    }
 
+    this.citiesDataService.setSelectedCountry(this.selectedCountry);
+  }
 
-    // this.suffleCards = 0;
+  sortCities(variable: any, reverse: boolean, toggle: boolean, country: string, capitals: boolean) {
+
     this.suffleCards = Math.floor(Math.random() * Math.floor(60));
-    // console.log(this.suffleCards)
     let tempCities = this.citiesDataService.getCities();
 
     this.cities = [];
     this.citiesDataService.setSelectedRegion(this.selectedRegion);
     this.citiesDataService.setSelectedVariable(this.selectedVariable);
     this.citiesDataService.setSelectedOrder(this.reverse);
+    this.citiesDataService.setIsCapitals(this.capitals);
+
     if (this.selectedRegion.value !== 'all') {
+      let checkCountry = false;
       for (let index = 0; index < tempCities.length; index++) {
         const element = tempCities[index];
         if (element.region === this.selectedRegion.name) {
@@ -109,13 +139,55 @@ export class CitiesComponent implements OnInit {
         }
 
       }
+
+      for (let index = 0; index < this.cities.length; index++) {
+        const element = this.cities[index];
+        if (element.country === this.selectedCountry) {
+          checkCountry = true;
+        }
+      }
+
+      if (!checkCountry) {
+        this.setSelectedCountry("")
+      }
+
+
+
     }
     else {
       this.cities = tempCities;
+
+    }
+
+
+    if (this.selectedCountry !== "" && this.selectedCountry !== null) {
+      tempCities = this.cities;
+      this.cities = [];
+      for (let index = 0; index < tempCities.length; index++) {
+        const element = tempCities[index];
+        if (tempCities[index].country === this.selectedCountry) {
+          this.cities.push(element);
+
+        }
+      }
+
+    }
+
+    if (this.capitals) {
+      tempCities = this.cities;
+      this.cities = [];
+      for (let index = 0; index < tempCities.length; index++) {
+        const element = tempCities[index];
+        if (tempCities[index].is_capital === true) {
+          this.cities.push(element);
+
+        }
+      }
+
     }
 
     if (variable) {
-      
+
       if (!toggle) {
         variable = variable.value;
       }
@@ -195,8 +267,8 @@ export class CitiesComponent implements OnInit {
 
   }
 
-  navigateToMap(zoom, center, city, index){
-    this.router.navigate(['/app-map'] , { queryParams: {zoom: zoom, center: center, city: city, statIndex: index}});
-    }
+  navigateToMap(zoom, center, city, index) {
+    this.router.navigate(['/app-map'], { queryParams: { zoom: zoom, center: center, city: city, statIndex: index } });
+  }
 
 }

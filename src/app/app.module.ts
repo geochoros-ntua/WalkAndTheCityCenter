@@ -48,7 +48,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ChartComponent } from './chart/chart.component';
 import { ShareMapComponent } from './map/customControls/share-map/share-map.component';
 import { ShareMapModalComponent } from './map/customControls/share-map-modal/share-map-modal.component';
-import { ClipboardModule } from '@angular/cdk/clipboard'; 
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { ShareChartModalComponent } from './chart/share-chart-modal/share-chart-modal.component';
 
 @NgModule({
   imports: [
@@ -61,7 +62,8 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
   declarations: [
     AppComponent, MapComponent, AboutUsComponent,
     HomeComponent, TileselectorComponent, IndexselectorComponent,
-    PopupComponent, OpacitySliderComponent, HelpComponent, DownloaderComponent, WorldzoomComponent, ZoominoutComponent, LegendComponent, DownloadModalComponent, CitiesComponent, ChartComponent, ShareMapComponent, ShareMapModalComponent],
+    PopupComponent, OpacitySliderComponent, HelpComponent, DownloaderComponent, WorldzoomComponent, ZoominoutComponent, LegendComponent,
+    DownloadModalComponent, CitiesComponent, ChartComponent, ShareMapComponent, ShareMapModalComponent, ShareChartModalComponent],
   bootstrap: [AppComponent],
   providers: [{
     provide: [RouteReuseStrategy, MatDialogRef],

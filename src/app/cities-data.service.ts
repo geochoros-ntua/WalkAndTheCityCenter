@@ -4,6 +4,8 @@ import { Subject } from 'rxjs';
 
 export class City {
   name: string;
+  country: string;
+  is_capital: boolean;
   region: string;
   zoom: string;
   center: string;
@@ -57,6 +59,7 @@ export class City {
   crossing_curb_yes_two: number;
   crossing_walk_no: number;
   crossing_walk_yes: number;
+  random_number : number;
 }
 
 @Injectable({
@@ -64,8 +67,8 @@ export class City {
 })
 export class CitiesDataService {
 
-  csvUrl = 'assets/data/cities.csv';
-  cities = [];
+  private csvUrl = 'assets/data/cities.csv';
+  private cities = [];
 
   private citiesData = new Subject<any>();
   citiesData$ = this.citiesData.asObservable();
@@ -364,7 +367,7 @@ export class CitiesDataService {
       value: "bike_paint"
     },
     {
-      name: "Bike Land: Protected from traffic",
+      name: "Bike Lane: Protected from traffic",
       value: "bike_protected"
     },
     {
@@ -480,8 +483,11 @@ export class CitiesDataService {
   selectedVariable = this.headers[0];
   selectedRegion = this.regions[0];
   selectedOrder;
+  selectedCountry: string = "";
+  isCapitals;
   selectedCities = [];
   selectedVariables = [];
+
 
   constructor(private http: HttpClient) {
 
@@ -542,6 +548,22 @@ export class CitiesDataService {
 
   setSelectedOrder(selectedOrder) {
     this.selectedOrder = selectedOrder;
+  }
+
+  getSelectedCountry() {
+    return this.selectedCountry;
+  }
+
+  setSelectedCountry(selectedCountry) {
+    this.selectedCountry = selectedCountry;
+  }
+
+  getIsCapitals() {
+    return this.isCapitals;
+  }
+
+  setIsCapitals(isCapitals) {
+    this.isCapitals = isCapitals;
   }
 
   getSelectedVariables() {
@@ -622,6 +644,10 @@ export class CitiesDataService {
         cityItem.crossing_curb_yes_two = Number(curruntRecord[46].trim());
         cityItem.crossing_walk_no = Number(curruntRecord[47].trim());
         cityItem.crossing_walk_yes = Number(curruntRecord[48].trim());
+        cityItem.is_capital = Boolean(curruntRecord[49].trim() === "true");
+        cityItem.country = curruntRecord[50].trim();
+        cityItem.random_number = Math.floor(Math.random() * Math.floor(5));
+
 
         tempCities.push(cityItem);
 

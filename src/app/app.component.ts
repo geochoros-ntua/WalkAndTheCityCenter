@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
 
 declare let gtag: Function;
@@ -13,7 +15,7 @@ export class AppComponent {
   name = 'Walk & the City Center';
 
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer,) {
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -29,6 +31,12 @@ export class AppComponent {
         );
       }
     });
+
+    this.matIconRegistry.addSvgIcon(
+      "my_chart",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/radar-chart.svg")
+    );
+
   }
 
 
