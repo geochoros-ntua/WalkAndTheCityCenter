@@ -34,7 +34,7 @@ export class AppComponent {
 
     this.matIconRegistry.addSvgIcon(
       "my_chart",
-      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/radar-chart.svg")
+      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/icons/radarchart.svg")
     );
 
   }

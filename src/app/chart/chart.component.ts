@@ -183,7 +183,6 @@ export class ChartComponent implements OnInit {
   }
 
   comparer(o1: any, o2: any): boolean {
-    console.log(o1)
     return o1 && o2 ? o1.name === o2.name : o2 === o2;
   }
 
