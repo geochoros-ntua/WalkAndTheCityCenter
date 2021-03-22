@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { SurveyDataObject } from '../../api/map.interfaces';
 
@@ -13,7 +13,7 @@ export class DownloadModalComponent implements OnInit {
   acceptDisclaimer: FormGroup;
   personalDetails: FormGroup;
   survey: FormGroup;
-  isAccepted: boolean = false;
+  isAccepted: boolean;
 
   surveyDataObjects: SurveyDataObject[] = [{
     quest: 'Satisfaction with living in the city', cntrlName:'citySatisfaction',  answerVals: [1,2,3,4,5]
@@ -39,17 +39,6 @@ export class DownloadModalComponent implements OnInit {
     private _formBuilder: FormBuilder, 
     public dialogRef: MatDialogRef<DownloadModalComponent>) { }
     
- public accept(stepper: MatStepper ): void {
-      this.isAccepted = true;
-      // bit of ugly  
-      setTimeout(() => {          
-        stepper.next();
-       }, 1);
-  }
-  
-  public closeDialog(): void {
-    this.dialogRef.close();
-  }
 
   ngOnInit(): void {
     this.acceptDisclaimer = this._formBuilder.group({
@@ -78,15 +67,15 @@ export class DownloadModalComponent implements OnInit {
     });
   }
 
-  /**
-   * Not used. Just in case .... use it for checkbox forwarding
-   * @param stepper 
-   * @param event 
-   */
-  public goForward(stepper: MatStepper ,event: any){
-    if (event.checked){
+  public accept(stepper: MatStepper ): void {
+    this.isAccepted = true;
+    // bit of ugly  
+    setTimeout(() => {          
       stepper.next();
-    }
+      }, 1);
   }
 
+  public closeDialog(): void {
+    this.dialogRef.close();
+  }
 }

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import Feature from 'ol/Feature';
+import { Vector } from 'ol/source';
 import GeoJSON from 'ol/format/GeoJSON';
 import { MapService } from '../../services/map.service';
 import { MapLayersService } from '../../services/maplayers.service';
@@ -13,22 +14,22 @@ import { DownloadModalComponent } from '../download-modal/download-modal.compone
 })
 export class DownloaderComponent implements OnInit {
 
-@Input() selectedIndex:string;
+@Input() selectedIndex: string;
 
   constructor(
-    public mapService:MapService, 
-    private mapLayersService:MapLayersService,
+    public mapService: MapService, 
+    private mapLayersService: MapLayersService,
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
 
   downloadData():void{
-    const walkLyr = this.mapLayersService.getWalkabilityLayer();
+    const walkLyr: Vector = this.mapLayersService.getWalkabilityLayer();
       if (walkLyr) {
-          const feats = walkLyr.getSource().getFeatures();
+          const feats: Feature[] = walkLyr.getSource().getFeatures();
           if (feats.length>0){
-            let parsedFeats = [];
+            let parsedFeats: Feature[] = [];
             feats.forEach(feat => {
                 const inFeat = new Feature();
                 inFeat.setGeometry(feat.getGeometry());
@@ -46,8 +47,8 @@ export class DownloaderComponent implements OnInit {
   }
 
   executeDownload(data:string):void{
-    const sJson = JSON.stringify(data);
-    let element = document.createElement('a');
+    const sJson: string = JSON.stringify(data);
+    const element = document.createElement('a');
     element.setAttribute('href', "data:text/json;charset=UTF-8," + encodeURIComponent(JSON.parse(sJson)));
     element.setAttribute('download', "walkhub-data.geojson");
     element.style.display = 'none';
@@ -62,7 +63,6 @@ export class DownloaderComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed', result);
-      
     });
   }
 }

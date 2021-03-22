@@ -11,7 +11,7 @@ import { MapService } from '../../services/map.service';
 export class PopupComponent implements OnInit {
   public featureClicked: Feature = null;
   private overlayPopup: Overlay;
-  private displayedColumns: string[] = ['name', 'value'];
+  public displayedColumns: string[]; 
 
   constructor(private mapService:MapService) { 
     this.mapService.featureClicked$.subscribe((obj) => {
@@ -24,6 +24,7 @@ export class PopupComponent implements OnInit {
   
 
   ngOnInit(): void {
+    this.displayedColumns = ['name', 'value'];
     this.overlayPopup = new Overlay({
       id: 'popupoverlay',
       element: document.getElementById('popup'),
