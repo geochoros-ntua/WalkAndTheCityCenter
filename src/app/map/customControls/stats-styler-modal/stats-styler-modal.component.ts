@@ -9,8 +9,6 @@ import { MapStatsService } from '../../services/mapstats.service';
 })
 export class StatsStylerModalComponent implements OnInit {
 
-  public statMethods : string[];
-  public statMethodsLabels : string[];
   public selectedMethod: string;
   public selectedNumClasses: number;
 
@@ -40,6 +38,7 @@ export class StatsStylerModalComponent implements OnInit {
     const vals = this.mapLayersService.getWalkabilityLayer().getSource().getFeatures()
     .map(feat => feat.get(this.mapStatsService.selectedIndex));
     this.mapStatsService.getAndSetClassesFromData(vals);
+    // hacky way to refresh layer
     this.mapLayersService.getWalkabilityLayer().setStyle(
       this.mapLayersService.getWalkabilityLayer().getStyle()
     );

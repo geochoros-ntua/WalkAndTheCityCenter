@@ -25,7 +25,7 @@ export class MapComponent implements OnInit {
     private mapStatsService: MapStatsService,
     private mapLayersService:MapLayersService) {}
     map: Map;
-    walkOpacity:number;
+    walkOpacity: number;
 
   ngOnInit(){
     
