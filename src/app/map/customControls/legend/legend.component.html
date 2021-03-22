@@ -6,11 +6,13 @@
                 <td colspan="3">Unit: km per km2</td>
             </tr>
             <tr class="geostats-legend-title">
-                <td colspan="3">Classification: Quantile (n=10)</td>
+                <td colspan="3">Classification: 
+                    {{mapStatsService.getLabelFormVal(mapStatsService.statMethod)}} (n={{mapStatsService.numOfClasses}})
+                </td>
             </tr>                
-            <tr *ngFor="let range of mapStatsService.classSeries.getRanges();index as i">
+            <tr *ngFor="let range of mapStatsService.classRanges;index as i">
                 <td class="geostats-legend-color" [style.background-color]="mapStatsService.classSeries.colors[i]"></td>
-                <td class="geostats-legend-ranges" >{{ range }}</td>
+                <td class="geostats-legend-ranges" >{{ range.min +' - ' + range.max }}</td>
                 <td class="geostats-legend-counter">({{ mapStatsService.classSeries.counter[i] }})</td>
             </tr>
         </table>

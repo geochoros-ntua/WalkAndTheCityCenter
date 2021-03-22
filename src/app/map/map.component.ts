@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import Map from 'ol/Map';
 import proj4 from 'proj4';
@@ -25,7 +25,7 @@ export class MapComponent implements OnInit {
     private mapStatsService: MapStatsService,
     private mapLayersService:MapLayersService) {}
     map: Map;
-    walkOpacity:number;
+    walkOpacity: number;
 
   ngOnInit(){
     

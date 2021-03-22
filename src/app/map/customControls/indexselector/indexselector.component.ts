@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MapService } from '../../services/map.service';
 import mappingsData from '../../../../assets/geodata/lookup.json';
 import { MapLayersService } from '../../services/maplayers.service';
@@ -7,7 +7,7 @@ import { MapStatsService } from '../../services/mapstats.service';
 @Component({
   selector: 'app-indexselector',
   templateUrl: './indexselector.component.html',
-  styleUrls: ['./indexselector.component.scss']
+  styleUrls: ['./indexselector.component.scss'],
 })
 export class IndexselectorComponent implements OnInit {
   @Input() dataLoaded: boolean;
@@ -34,7 +34,7 @@ export class IndexselectorComponent implements OnInit {
 
   setDisplayIndex = (val:string): void =>{   
     this.dataLoaded = false;  
-    this.mapService.getPopUpOverlay().setPosition(undefined);
+    this.mapService.getPopUpOverlay()?.setPosition(undefined);
     this.mapService.selectedIndex = val;
     this.mapStatsService.selectedIndex = val;
     const vals = this.mapLayersService.getWalkabilityLayer().getSource().getFeatures()

@@ -23,7 +23,7 @@ export const styleFnCities = (feature:Feature, resolution:number): Style => {
     } else {
       retStyle = new Style({
         image: new Circle({
-          radius: 7,
+          radius: 5,
           fill: new Fill({color: [253, 204, 13, 1]}),
           stroke: new Stroke({
             color: [128,128,128, 1], 

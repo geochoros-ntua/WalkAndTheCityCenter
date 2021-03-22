@@ -19,3 +19,8 @@ export interface MapShareParams {
     statIndex: string;
     city: string;
 }
+
+export interface ClassRange {
+    min: number;
+    max: number;
+}

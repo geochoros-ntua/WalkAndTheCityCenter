@@ -50,6 +50,8 @@ import { ShareMapComponent } from './map/customControls/share-map/share-map.comp
 import { ShareMapModalComponent } from './map/customControls/share-map-modal/share-map-modal.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { ShareChartModalComponent } from './chart/share-chart-modal/share-chart-modal.component';
+import { StatsStylerComponent } from './map/customControls/stats-styler/stats-styler.component';
+import { StatsStylerModalComponent } from './map/customControls/stats-styler-modal/stats-styler-modal.component';
 
 @NgModule({
   imports: [
@@ -63,7 +65,7 @@ import { ShareChartModalComponent } from './chart/share-chart-modal/share-chart-
     AppComponent, MapComponent, AboutUsComponent,
     HomeComponent, TileselectorComponent, IndexselectorComponent,
     PopupComponent, OpacitySliderComponent, HelpComponent, DownloaderComponent, WorldzoomComponent, ZoominoutComponent, LegendComponent,
-    DownloadModalComponent, CitiesComponent, ChartComponent, ShareMapComponent, ShareMapModalComponent, ShareChartModalComponent],
+    DownloadModalComponent, CitiesComponent, ChartComponent, ShareMapComponent, ShareMapModalComponent, ShareChartModalComponent, StatsStylerComponent, StatsStylerModalComponent],
   bootstrap: [AppComponent],
   providers: [{
     provide: [RouteReuseStrategy, MatDialogRef],
