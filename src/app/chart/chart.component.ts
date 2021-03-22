@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { CitiesDataService } from '../cities-data.service';
 import Chart from 'chart.js';
@@ -19,6 +19,8 @@ export interface ChartShareParams {
   styleUrls: ['./chart.component.scss']
 })
 export class ChartComponent implements OnInit {
+
+  @ViewChild('downloadLink') downloadLink: ElementRef;
 
   cities = [];
   headers = [];
@@ -183,7 +185,6 @@ export class ChartComponent implements OnInit {
   }
 
   comparer(o1: any, o2: any): boolean {
-    console.log(o1)
     return o1 && o2 ? o1.name === o2.name : o2 === o2;
   }
 
@@ -268,11 +269,16 @@ export class ChartComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(ShareChartModalComponent, {
     });
-
-    // dialogRef.afterClosed().subscribe(result => {
-    // console.log('The dialog was closed', result);
-
-    // });
   }
+
+  downloadChart() {
+    let canvas = <HTMLCanvasElement>document.getElementById("spiderChart");
+
+    this.downloadLink.nativeElement.href = canvas.toDataURL('image/png');
+    this.downloadLink.nativeElement.download = 'watcc_spider_chart.png';
+    this.downloadLink.nativeElement.click();
+  }
+
+
 
 }
