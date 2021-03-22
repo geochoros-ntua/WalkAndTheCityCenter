@@ -23,12 +23,14 @@ export class MapStatsService {
     constructor() {
       this.numOfClasses = 10;
       this.statMethod = 'method_Q';
-      this.statMethods = ['method_EI', 'method_Q', 'method_SD', 'method_AP'];
+      this.statMethods = ['method_EI', 'method_Q', 'method_JENKS', 'method_SD', 'method_AP',  'method_GP'];
       this.statMethodsLabels = [
         'Equal Interval',
         'Quantile',
+        'Jenks',
         'Standard Deviation',
-        'Arithmetic Progression'
+        'Arithmetic Progression',
+        'Geometric Progression'
       ];
     }
 
@@ -39,14 +41,14 @@ export class MapStatsService {
     public getAndSetClassesFromData(data):void{
         if (data.length>0){
             data = data.map( val => parseFloat(val.toFixed(4)));
-            let serie = new geostats(data);
+            const serie = new geostats(data);
             switch (this.statMethod) {
               case 'method_EI':
-                serie.getClassQuantile(this.numOfClasses);
+                serie.getClassEqInterval(this.numOfClasses);
                 this.setUpSeriesAndColors(serie);
                 break;
               case 'method_Q':
-                serie.getClassEqInterval(this.numOfClasses);
+                serie.getClassQuantile(this.numOfClasses);
                 this.setUpSeriesAndColors(serie);
                 break;
               case 'method_SD':
@@ -57,15 +59,23 @@ export class MapStatsService {
                 serie.getClassArithmeticProgression(this.numOfClasses);
                 this.setUpSeriesAndColors(serie);
                 break;
+              case 'mehtod_JENKS':
+                serie.getClassJenks(this.numOfClasses);
+                this.setUpSeriesAndColors(serie);
+                break;
+              case 'method_GP':
+                serie.getClassGeometricProgression(this.numOfClasses);
+                this.setUpSeriesAndColors(serie);
+                break;
               default:
-                console.log('no way!!!!')  
+                console.log('no bloody way!!!!')  
             }
            
         }
     }
 
     private setUpSeriesAndColors(serie){
-      let colors = chroma.scale([[253, 231, 37, 1],[30, 158, 137, 1], [68, 1, 84, 1]]).colors(this.numOfClasses);
+      const colors = chroma.scale([[253, 231, 37, 1],[30, 158, 137, 1], [68, 1, 84, 1]]).colors(this.numOfClasses);
       serie.setColors(colors);
       serie.doCount();
       this.classSeries = serie;
@@ -74,7 +84,6 @@ export class MapStatsService {
 
 
     public styleFnWalkGrids = (feature:Feature, resolution:number): Style => {
-     
         const currVal = parseFloat(feature.get(this.selectedIndex));
         const bounds = this.classSeries.bounds;
         this.classRanges = []
