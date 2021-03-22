@@ -60,7 +60,7 @@ export class MapService {
     const this_= this;
     this.map.on('click', (event) => {
       const resolution= this_.map.getView().getResolution();
-      this_.getPopUpOverlay().setPosition(undefined);
+      this_.getPopUpOverlay()?.setPosition(undefined);
       this_.map.forEachFeatureAtPixel(event.pixel, (feature,layer) => {
         const differentCityClicked = this_.selectedCity?.get('City') !== feature.get('City');
         if (layer.get("title")==="WALK" && resolution < 50){

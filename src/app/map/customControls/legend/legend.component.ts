@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MapService } from '../../services/map.service';
 import { MapStatsService } from '../../services/mapstats.service';
 
@@ -29,5 +29,5 @@ export class LegendComponent implements OnInit {
       document.getElementById('legend').className = 'legendDivHide';
     }
   }
-
+  
 }
