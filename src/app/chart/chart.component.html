@@ -42,7 +42,8 @@
                 title="Share chart" style="margin-right: 16px;" mat-icon-button color="accent" (click)="openDialog()">
                 <mat-icon>share</mat-icon>
             </button>
-            <button [disabled]="!(chartCtrlsGroup.get('variablesCtrl').value?.length > 2 && chartCtrlsGroup.get('citiesCtrl').value?.length > 0)"
+            <button
+                [disabled]="!(chartCtrlsGroup.get('variablesCtrl').value?.length > 2 && chartCtrlsGroup.get('citiesCtrl').value?.length > 0)"
                 title="Download chart" style="margin-right: 16px;" mat-icon-button color="accent"
                 (click)="downloadChart()">
                 <mat-icon>download</mat-icon>
@@ -50,8 +51,8 @@
             <a #downloadLink></a>
         </div>
         <mat-card [hidden]="!hasGraph" class="no-click">
-            <canvas class="no-click" id="spiderChart"></canvas>
-            <p style="text-align: end;">Unit: % of city center's street- or crossing-segments</p>
+            <canvas style="background-color: #09090c;" class="no-click" id="spiderChart"> </canvas>
+            <!-- <p style="text-align: end;">Unit: % of city center's street- or crossing-segments</p> -->
         </mat-card>
     </div>
 </section>
