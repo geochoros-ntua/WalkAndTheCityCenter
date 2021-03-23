@@ -13,7 +13,7 @@ import { ClassRange } from '../api/map.interfaces';
 export class MapStatsService {
     public selectedIndex: string = 'Score';
     public classSeries: any;
-    public classColors: any[];
+    public classColors: string[];
     public numOfClasses: number;
     public statMethod: string;
     public statMethods : string[];
@@ -23,7 +23,9 @@ export class MapStatsService {
     constructor() {
       this.numOfClasses = 10;
       this.statMethod = 'method_Q';
-      this.statMethods = ['method_EI', 'method_Q', 'method_JENKS', 'method_SD', 'method_AP',  'method_GP'];
+      this.statMethods = [
+        'method_EI', 'method_Q', 'method_JENKS', 'method_SD', 'method_AP',  'method_GP'
+      ];
       this.statMethodsLabels = [
         'Equal Interval',
         'Quantile',
@@ -59,7 +61,7 @@ export class MapStatsService {
                 serie.getClassArithmeticProgression(this.numOfClasses);
                 this.setUpSeriesAndColors(serie);
                 break;
-              case 'mehtod_JENKS':
+              case 'method_JENKS':
                 serie.getClassJenks(this.numOfClasses);
                 this.setUpSeriesAndColors(serie);
                 break;
@@ -93,8 +95,8 @@ export class MapStatsService {
             max: parseFloat(bounds[i+1].toFixed(4))
           });  
         }  
-        var classIndex = this.verifyClassFromVal(this.classRanges, currVal);
-        var polyStyleConfig = {
+        const classIndex = this.verifyClassFromVal(this.classRanges, currVal);
+        const polyStyleConfig: Style = {
           stroke: new Stroke({
             color: [255, 255, 0, 0],
             width: 0
