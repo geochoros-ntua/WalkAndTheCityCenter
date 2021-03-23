@@ -49,6 +49,10 @@
     font-size:12px;
   }
 
-  .mat-row:nth-child(odd){
+  .mat-row:nth-child(even){
     background-color:rgb(80, 78, 78)
+  }
+
+  .yellow-cell{
+    outline: thin solid #ffee00; 
   }
