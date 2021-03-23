@@ -43,7 +43,7 @@ export class ChartComponent implements OnInit {
   });
 
   options = {
-
+    backgroundColor: "#F5DEB3",
     legend: {
       position: 'top',
       labels: {
@@ -54,10 +54,12 @@ export class ChartComponent implements OnInit {
       // onClick: (e) => e.stopPropagation()
     },
     title: {
-      display: false,
-      text: '',
+      display: true,
+      position: 'bottom',
+      text: 'Unit: % of city center\'s street- or crossing- segments',
       fontColor: 'white',
-      fontSize: 16,
+      fontSize: 12,
+      fontStyle: 'normal',
       fontFamily: 'Rajdhani, sans-serif'
     },
     scale: {
@@ -258,6 +260,7 @@ export class ChartComponent implements OnInit {
       myRadarChart = new Chart(document.getElementById('spiderChart'), {
         type: 'radar',
         data: this.data,
+        backgroundColor: "#000000",
         options: this.options
       });
     }
@@ -274,8 +277,8 @@ export class ChartComponent implements OnInit {
   downloadChart() {
     let canvas = <HTMLCanvasElement>document.getElementById("spiderChart");
 
-    this.downloadLink.nativeElement.href = canvas.toDataURL('image/png');
-    this.downloadLink.nativeElement.download = 'watcc_spider_chart.png';
+    this.downloadLink.nativeElement.href = canvas.toDataURL('image/jpeg');
+    this.downloadLink.nativeElement.download = 'watcc_spider_chart.jpg';
     this.downloadLink.nativeElement.click();
   }
 
