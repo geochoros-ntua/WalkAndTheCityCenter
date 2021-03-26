@@ -23,12 +23,9 @@ export class MapStatsService {
     public classRanges: ClassRange[];
     
     private colorRamp: number[][];
-    private numOfHighlights: number;
-    private highestValBorder: number;
 
     constructor() {
       this.numOfClasses = 10;
-      this.numOfHighlights = 20;
       this.statMethod = 'method_Q';
       this.statMethods = [
         'method_EI', 'method_Q', 'method_JENKS', 'method_SD', 'method_AP',  'method_GP'
@@ -48,10 +45,7 @@ export class MapStatsService {
       return this.statMethodsLabels[this.statMethods.findIndex( m => m === val)];
     }
 
-    public getAndSetClassesFromData(data: number[]):void{
-      console.log('getAndSetClassesFromData', data.sort((a,b)=>b-a).slice(0,20))
-      this.highestValBorder = data.sort((a,b)=>b-a).slice(0,this.numOfHighlights)[this.numOfHighlights-1]
-      console.log('highestValBorder', this.highestValBorder) 
+    public getAndSetClassesFromData(data: number[]): void{
       if (data.length>0){
             data = data.map( val => parseFloat(val.toFixed(4)));
             const serie = new geostats(data);
@@ -87,17 +81,6 @@ export class MapStatsService {
         }
     }
 
-    private setUpSeriesAndColors(serie){
-      const colors = chroma.scale(
-        this.invertColors ? this.colorRamp.slice().reverse() : this.colorRamp
-        ).colors(this.numOfClasses);
-      serie.setColors(colors);
-      serie.doCount();
-      this.classSeries = serie;
-      this.classColors = colors;
-    }
-
-
     public styleFnWalkGrids = (feature:Feature, resolution:number): Style => {
         const currVal = parseFloat(feature.get(this.selectedIndex));
         const bounds = this.classSeries.bounds;
@@ -109,11 +92,13 @@ export class MapStatsService {
           });  
         }  
         const classIndex = this.verifyClassFromVal(this.classRanges, currVal);
-        const borderColor = !this.showHighLights || currVal < this.highestValBorder ? [255, 255, 0, 0] : [255, 0, 0, 1]
+        const highlight: boolean = !this.showHighLights || classIndex < this.classRanges.length-1;
+        const borderColor = highlight ? [255, 255, 0, 0] : [255, 0, 0, 1];
+        const borderWidth = highlight ? 2 : 0;
         const polyStyleConfig: Style = {
           stroke: new Stroke({
             color: borderColor,
-            width: 2
+            width: borderWidth
           }),
           fill: new Fill({
             color: this.classColors[classIndex]
@@ -122,15 +107,25 @@ export class MapStatsService {
       return new Style(polyStyleConfig);
       }
       
-      public verifyClassFromVal = (rangevals, val) => {
+      private verifyClassFromVal = (rangevals: ClassRange[], val: number): number => {
         let retIndex = -1;
-        let valRound = parseFloat(val.toFixed(4))
+        const valRound = parseFloat(val.toFixed(4))
         for (let i = 0; i < rangevals.length; i++) {
           if (valRound >= rangevals[i].min && valRound <= rangevals[i].max) {
             retIndex = i;
           } 
         }
         return retIndex;
+      }
+
+      private setUpSeriesAndColors(serie): void{
+        const colors = chroma.scale(
+          this.invertColors ? this.colorRamp.slice().reverse() : this.colorRamp
+          ).colors(this.numOfClasses);
+        serie.setColors(colors);
+        serie.doCount();
+        this.classSeries = serie;
+        this.classColors = colors;
       }
    
 }
