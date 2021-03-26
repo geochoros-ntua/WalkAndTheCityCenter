@@ -24,6 +24,16 @@
             (change)="setClassesNum($event.target.value)">
         </mat-form-field>
       </div>
+      <div class="row">
+        <mat-slide-toggle 
+          [checked]="invert" (change)="setInvert($event.checked)">Invert Colors
+        </mat-slide-toggle>
+      </div>
+      <div class="row">
+        <mat-slide-toggle 
+          [checked]="highlightBest" (change)="setHighLightBest($event.checked)">Highlight top areas
+        </mat-slide-toggle>
+      </div>
     </div>
     <div class="modal-footer">
       <button class="apply-button" type="button" (click)="applyStyle()" matTooltip="Apply style to map" mat-raised-button        >

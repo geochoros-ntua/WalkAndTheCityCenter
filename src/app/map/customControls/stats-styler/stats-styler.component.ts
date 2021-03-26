@@ -16,6 +16,10 @@ export class StatsStylerComponent implements OnInit {
   }
 
   openStyleDialog(): void {
-    this.dialog.open(StatsStylerModalComponent);
+    this.dialog.open(StatsStylerModalComponent,{
+      position: {
+        top: '5.0em',
+        right: '14.5em',
+      }});
   }
 }
