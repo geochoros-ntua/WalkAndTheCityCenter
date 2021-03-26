@@ -1,7 +1,8 @@
+<ng-container>
 <div *ngIf="mapService.showSelector()" class="ol-legendCntrl">
     <a href="#" [routerLink]="" (click)="toggleLegend()" class="ol-legendCntrl-closer"></a>
     <div id="legend" class="legendDivHide">
-        <table>
+        <table class='legendTbl'>
             <tr class="geostats-legend-title">
                 <td colspan="3">Unit: km per km2</td>
             </tr>
@@ -25,3 +26,4 @@
             <mat-icon>art_track</mat-icon>
         </button>
 </div>
+</ng-container>

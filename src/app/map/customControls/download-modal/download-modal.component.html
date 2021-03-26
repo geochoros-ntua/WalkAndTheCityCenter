@@ -26,13 +26,12 @@
             </form>
     
         </div>
-        <footer class="sticky-modal-footer">
-            
+        <div class="modal-footer">
             <div mat-dialog-actions align="end">
                 <button type="button" mat-raised-button color="primary" (click)="closeDialog()" >Decline</button>
                 <button type="button" mat-raised-button color="primary" (click)="accept(stepper)" matStepperNext >Accept</button>
             </div>
-        </footer>
+        </div>
     
     </mat-step>
   
@@ -85,12 +84,12 @@
         </form>
             </div>
         
-            <footer class="sticky-modal-footer">
+            <div class="modal-footer">
                 <div mat-dialog-actions align="end">
                     <button type="button" mat-raised-button color="primary" mat-button matStepperPrevious>Back</button>
                     <button type="button" mat-raised-button color="primary" [disabled]="!personalDetails.valid" mat-button matStepperNext>Next</button>
                 </div>
-            </footer>
+            </div>
     </mat-step>
 
   
@@ -126,12 +125,12 @@
         </p>
         </form>
     </div>
-    <footer class="sticky-modal-footer">
+    <div class="modal-footer">
         <div mat-dialog-actions align="end">
             <button type="button" mat-raised-button color="primary" mat-button matStepperPrevious>Back</button>
             <button type="button" mat-raised-button color="primary" [disabled]="!survey.valid" mat-button matStepperNext>Next</button>
         </div>
-    </footer>
+    </div>
     </mat-step>
   
     <mat-step label="Download">
@@ -146,12 +145,12 @@
       <h5>The Walk & the City Center Team</h5>
 
     </div>
-    <footer class="sticky-modal-footer">
+    <div class="modal-footer">
         <div mat-dialog-actions align="end">
             <button type="button" mat-raised-button color="primary" mat-button matStepperPrevious>Back</button>
             <a mat-raised-button color="warn" href="https://github.com/geochoros-ntua/WalkAndTheCityCenter/raw/main/src/assets/geodata/walk_datahub_all_cities.zip">Download</a>
         </div>
-    </footer>
+    </div>
     </mat-step>
   
   </mat-horizontal-stepper>
