@@ -12,7 +12,7 @@ export class StatsStylerModalComponent implements OnInit {
   public selectedMethod: string;
   public selectedNumClasses: number;
   public invert: boolean;
-  public highlightBest: boolean;
+  public numOfBest: number;
 
   constructor(
     private mapLayersService: MapLayersService, 
@@ -24,7 +24,7 @@ export class StatsStylerModalComponent implements OnInit {
     this.selectedMethod = this.mapStatsService.statMethod;
     this.selectedNumClasses = this.mapStatsService.numOfClasses;
     this.invert = this.mapStatsService.invertColors;
-    this.highlightBest = this.mapStatsService.showHighLights;
+    this.numOfBest = this.mapStatsService.numOfHighLights;
     
   }
 
@@ -40,15 +40,15 @@ export class StatsStylerModalComponent implements OnInit {
     this.invert = val;
   }
 
-  public setHighLightBest(val: boolean): void{
-    this.highlightBest = val;
+  public setNumOfBest(val: number): void {
+    this.numOfBest = val;
   }
 
   public applyStyle(): void{
     this.mapStatsService.statMethod = this.selectedMethod;
     this.mapStatsService.numOfClasses = this.selectedNumClasses;
     this.mapStatsService.invertColors = this.invert;
-    this.mapStatsService.showHighLights = this.highlightBest;
+    this.mapStatsService.numOfHighLights = this.numOfBest;
     const vals = this.mapLayersService.getWalkabilityLayer().getSource().getFeatures()
     .map(feat => feat.get(this.mapStatsService.selectedIndex));
     this.mapStatsService.getAndSetClassesFromData(vals);
