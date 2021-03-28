@@ -17,6 +17,8 @@
             <mat-label style="color:white;">Number of Classes</mat-label>
             <input
             type="number"
+            min="0" 
+            max="100"
             [value]="mapStatsService.numOfClasses"
             matInput
             name="numclasses"
@@ -25,19 +27,31 @@
         </mat-form-field>
       </div>
       <div class="row">
+        <mat-form-field fillColor="accredent" appearance="fill">
+            <mat-label style="color:white;">Highlight top areas</mat-label>
+            <input
+            type="number"
+            min="0" 
+            max="100"
+            [value]="mapStatsService.numOfHighLights"
+            matInput
+            name="numbest"
+            placeholder="Number of highlighted"
+            (change)="setNumOfBest($event.target.value)">
+        </mat-form-field>
+      </div>
+      <div class="row">
         <mat-slide-toggle 
           [checked]="invert" (change)="setInvert($event.checked)">Invert Colors
         </mat-slide-toggle>
       </div>
-      <div class="row">
-        <mat-slide-toggle 
-          [checked]="highlightBest" (change)="setHighLightBest($event.checked)">Highlight top areas
-        </mat-slide-toggle>
-      </div>
+      
     </div>
     <div class="modal-footer">
-      <button class="apply-button" type="button" (click)="applyStyle()" matTooltip="Apply style to map" mat-raised-button        >
-        <mat-icon>format_paint</mat-icon>Apply 
-    </button>
+      <div mat-dialog-actions align="end">
+        <button class="apply-button" type="button" (click)="applyStyle()" matTooltip="Apply style to map" mat-raised-button        >
+          <mat-icon>format_paint</mat-icon>Apply 
+        </button>
+      </div>
     </div>
   </div>
