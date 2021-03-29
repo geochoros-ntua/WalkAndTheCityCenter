@@ -109,7 +109,6 @@ export class DownloadModalComponent implements OnInit {
   }
 
   public sendSurveyData(){
-    alert('send')
     const presonalDetails = this.personalDetails.getRawValue();
     const survey = this.survey.getRawValue();
     let mappedSurvey = {};
@@ -125,7 +124,7 @@ export class DownloadModalComponent implements OnInit {
     this.mapSurveyService.addEntry(entry)
       .subscribe(data => {
         // no need to to something.
-        console.log(data)
+        // console.log(data)
       })   
 
   }
