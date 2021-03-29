@@ -148,7 +148,7 @@
     <div class="modal-footer">
         <div mat-dialog-actions align="end">
             <button type="button" mat-raised-button color="primary" mat-button matStepperPrevious>Back</button>
-            <a mat-raised-button color="warn" href="https://github.com/geochoros-ntua/WalkAndTheCityCenter/raw/main/src/assets/geodata/walk_datahub_all_cities.zip">Download</a>
+            <a (click)="sendSurveyData()" mat-raised-button color="warn" href="https://github.com/geochoros-ntua/WalkAndTheCityCenter/raw/main/src/assets/geodata/walk_datahub_all_cities.zip">Download</a>
         </div>
     </div>
     </mat-step>

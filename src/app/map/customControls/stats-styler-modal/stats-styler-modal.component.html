@@ -3,7 +3,7 @@
     <div class="modal-content">
       <h4>Style Editor</h4>
       <div class="row">
-        <mat-form-field fillColor="accredent" appearance="fill">
+        <mat-form-field fillColor="accredent" appearance="legacy">
             <mat-label style="color:white;">Pick a Method</mat-label>
             <mat-select [value]="mapStatsService.statMethod" (selectionChange)="setStatsMethod($event.value)">
             <mat-option *ngFor="let method of mapStatsService.statMethods; index as i" [value]="method">
@@ -13,7 +13,7 @@
         </mat-form-field>
       </div>
       <div class="row">
-        <mat-form-field fillColor="accredent" appearance="fill">
+        <mat-form-field fillColor="accredent" appearance="legacy">
             <mat-label style="color:white;">Number of Classes</mat-label>
             <input
             type="number"
@@ -27,7 +27,7 @@
         </mat-form-field>
       </div>
       <div class="row">
-        <mat-form-field fillColor="accredent" appearance="fill">
+        <mat-form-field fillColor="accredent" appearance="legacy">
             <mat-label style="color:white;">Highlight top areas</mat-label>
             <input
             type="number"
