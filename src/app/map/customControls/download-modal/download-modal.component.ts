@@ -123,10 +123,8 @@ export class DownloadModalComponent implements OnInit {
     
     this.mapSurveyService.addEntry(entry)
       .subscribe(data => {
-        // no need to to something.
-        // console.log(data)
-      })   
-
+        this.mapSurveyService.downloadFile();
+      })
   }
 
 }

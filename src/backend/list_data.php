@@ -22,7 +22,7 @@ $setData = '';
 }  
   
 header("Content-type: application/octet-stream");  
-header("Content-Disposition: attachment; filename=walk_survey.xlsx");  
+header("Content-Disposition: attachment; filename=walk_survey.xls");  
 header("Pragma: no-cache");  
 header("Expires: 0");  
 
