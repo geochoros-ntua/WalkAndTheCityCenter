@@ -40,7 +40,7 @@ export class MapStatsService {
         'Geometric Progression'
       ];
       this.colorRamp = [[253, 231, 37, 1],[30, 158, 137, 1], [68, 1, 84, 1]];
-      this.numOfHighLights = 5;
+      this.numOfHighLights = 0;
     }
 
     public getLabelFormVal(val: string): string {
